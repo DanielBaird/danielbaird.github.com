@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Danielogical]]></title>
   <link href="http://DanielBaird.github.com/atom.xml" rel="self"/>
   <link href="http://DanielBaird.github.com/"/>
-  <updated>2012-08-21T20:35:49+10:00</updated>
+  <updated>2012-08-21T20:58:53+10:00</updated>
   <id>http://DanielBaird.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[Daniel Baird]]></name>
+    <email><![CDATA[daniel@danielbaird.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 

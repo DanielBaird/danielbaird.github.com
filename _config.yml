@@ -1,0 +1,14 @@
+# use category/title for permalinks
+permalink: /:categories/:title/
+
+url: http://danielbaird.com/ # or something
+base_url: / # or something
+
+# use disqus for comments, mainly copying jekyll-bootstrap
+
+disqus:
+    short_name: jekyllbootstrap
+
+# use google for site stats, copying jekyll-bootstrap
+google_analytics:
+    tracking_id: 'UA-XXX-XX'

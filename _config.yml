@@ -1,11 +1,16 @@
-# use category/title for permalinks
-permalink: /:categories/:title/
+
+site_title: DanielBaird.com
+site_slogan: Blogging Is Stupid
 
 url: http://danielbaird.com/ # or something
 base_url: / # or something
 
-# use disqus for comments, mainly copying jekyll-bootstrap
 
+
+# use category/title for permalinks
+permalink: /:categories/:title/
+
+# use disqus for comments, mainly copying jekyll-bootstrap
 disqus:
     short_name: jekyllbootstrap
 

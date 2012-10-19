@@ -1,15 +1,16 @@
 ---
-layout: empty
+layout: base
 ---
 <div class="header-container">
     <header class="wrapper clearfix">
-        <h1 class="title">h1.title</h1>
+        <h1 class="title">{{ site.site_title }}</h1>
+        <h2 class="slogan">{{ site.site_slogan }}</h2>
         <nav>
             <ul>
-                <li><a href="{{ site.base_url }}complaining/">Complaining</a></li>
-                <li><a href="{{ site.base_url }}coding/">Coding</a></li>
-                <li><a href="{{ site.base_url }}creating/">Creating</a></li>
-                <li><a href="{{ site.base_url }}caring/">Caring</a></li>
+                <li><a href="{{ site.base_url }}complain/">Complain</a></li>
+                <li><a href="{{ site.base_url }}code/">Code</a></li>
+                <li><a href="{{ site.base_url }}create/">Create</a></li>
+                <li><a href="{{ site.base_url }}care/">Care</a></li>
             </ul>
         </nav>
     </header>
@@ -23,6 +24,11 @@ layout: empty
 
 <div class="footer-container">
     <footer class="wrapper">
-        <h3>footer</h3>
+        <p>
+            Content not owned by someone else is owned by Daniel Baird.  Don't use without permission.
+            <a href="mailto:blogcontact@danielbaird.com">contact Daniel via email</a>.
+        </p><p>
+            footers look nice with dark backgrounds, don't they?
+        </p>
     </footer>
 </div>

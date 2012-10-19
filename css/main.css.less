@@ -1,3 +1,21 @@
+
+/*
+"red and smooth" adobe kuler theme, by "info"
+e7e8d1 light
+d3ceaa mid
+fbf7e4 cream coloured
+424242 grey
+8e001c red
+*/
+@red: #8e001c;
+@grey: #424242;
+
+@mid: #d3ceaa;
+@light: #e7e8d1;
+@creamy: #fbf7e4;
+
+@selection: #b3d4fc;
+
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
@@ -16,12 +34,12 @@ body {
 }
 
 ::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
+    background: @selection;
+    text-shadow: none;  
 }
 
 ::selection {
-    background: #b3d4fc;
+    background: @selection;
     text-shadow: none;
 }
 
@@ -62,6 +80,7 @@ textarea {
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font: 16px/26px Hoefler Text, Constantia, Palatino, Georgia, serif;
 }
 
 .wrapper {
@@ -70,31 +89,45 @@ body {
 }
 
 /* ===================
-    ALL: Orange Theme
+    ALL: Theme
    =================== */
 
+
 .header-container {
-    border-bottom: 20px solid #e44d26;
+    border-bottom: 20px solid @mid;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-top: 20px solid @mid;
 }
 
 .header-container,
-.footer-container,
 .main aside {
-    background: #f16529;
+    background: @light;
 }
 
-.title {
-    color: white;
+.footer-container {
+    background: @grey;
+}
+
+.title, .slogan {
+    color: @grey;
 }
 
 /* ==============
     MOBILE: Menu
    ============== */
+
+.title {
+    margin-bottom: 0;
+}
+
+.slogan {
+    font-weight: inherit;
+    font-size: inherit;
+    margin-top: 0;
+}
 
 nav ul {
     margin: 0;
@@ -103,20 +136,19 @@ nav ul {
 
 nav a {
     display: block;
-    margin-bottom: 10px;
-    padding: 15px 0;
+    margin-bottom: 6px;
+    padding: 6px 0;
 
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
 
-    color: white;
-    background: #e44d26;
+    color: @grey;
+    background: @mid;
 }
 
 nav a:hover,
 nav a:visited {
-    color: white;
+    color: @grey;
 }
 
 nav a:hover {
@@ -128,7 +160,7 @@ nav a:hover {
    ============== */
 
 .main {
-    padding: 30px 0;
+    padding: 10px 0;
 }
 
 .main article h1 {
@@ -136,13 +168,26 @@ nav a:hover {
 }
 
 .main aside {
-    color: white;
+    color: @grey;
     padding: 0px 5% 10px;
+}
+
+article.post {
+    background: @creamy;
+    margin: 10px -5%;
+    padding: 5%;
 }
 
 .footer-container footer {
     color: white;
+    opacity: 0.8;
     padding: 20px 0;
+    font-size: 80%;
+}
+
+.footer-container footer a {
+    color: inherit;
+    opacity: 1;
 }
 
 /* ===============
@@ -183,9 +228,9 @@ nav a:hover {
 
     nav a {
         float: left;
-        width: 27%;
-        margin: 0 1.7%;
-        padding: 25px 2%;
+        width: 23%;
+        margin: 0 3px;
+        padding: 10px 0;
         margin-bottom: 0;
     }
 
@@ -229,11 +274,17 @@ nav a:hover {
 
     .title {
         float: left;
+        margin-bottom: 0;
+    }
+
+    .slogan {
+        float: left;
+        clear: left;
     }
 
     nav {
         float: right;
-        width: 38%;
+        width: 45%;
     }
 
 /* ============

@@ -6,7 +6,7 @@ assign into a 'post' variable, then include this file to render the post nicely.
         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
         {{ post.date | date_to_string}}
     </header>
-    {{ post.content }}
+    {{ post.content | markdownify }}
 </article>
 
 

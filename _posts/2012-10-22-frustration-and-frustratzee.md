@@ -1,6 +1,7 @@
 ---
 layout: post
 category: create
+tags: cards game frustration 'phase 10' frustratzee yahtzee
 ---
 Here's a card game my Friday Night Cards group came up with, back when we actually played cards instead of just sitting around chatting.
 
@@ -16,9 +17,9 @@ In Frustration, players race to complete, in order, every pattern in a list of c
 ### Patterns ###
 
 Frustration challenges the players to form particular patterns of cards.  There is a fixed list of 10 patterns, and each pattern is a combination of melds -- runs and sets.  A **run** is some cards in numerical order, e.g.
-<span class="cards"><span class="red">&hearts;8</span><span class="red">&hearts;9</span><span>&clubs;10</span><span class="red">&diams;J</span></span>.
+<span class="cards"><span class="heart">8</span><span class="heart">9</span><span class="club">10</span><span class="diamond">J</span></span>.
 A **set** is some cards with the same face value, e.g.
-<span class="cards"><span>&clubs;5</span><span>&spades;5</span><span class="red">&hearts;5</span></span>.
+<span class="cards"><span class="club">5</span><span class="spade">5</span><span class="heart">5</span></span>.
 
 Here's the list of patterns:
 
@@ -56,7 +57,7 @@ Whether or not the player can put down their pattern, to end their turn they cho
     Strategy tip: watch what the next player picks up, and consider the pattern they are trying to get.  Can you discard something they won't be able to use?
 </aside>
 
-Once a player has put their pattern down, they can also add cards to any melds on the table -- their own or other players'.  You can do this in the same turn you put your pattern down, or on any turn after that (until the end of the current hand).  The added cards must continue the set or run correctly: for example you can add a <span class="card">&spades;5</span> to a set of <span class="cards"><span class="red">&hearts;5</span><span>&spades;5</span><span>&clubs;5</span></span>, or add a <span class="red card">&diams;K</span> to the end of a <span class="cards"><span class="red">&hearts;9</span><span class="red">&diams;10</span><span class="red">&diams;J</span><span>&clubs;Q</span></span> run.
+Once a player has put their pattern down, they can also add cards to any melds on the table -- their own or other players'.  You can do this in the same turn you put your pattern down, or on any turn after that (until the end of the current hand).  The added cards must continue the set or run correctly: for example you can add a <span class="card spade">5</span> to a set of <span class="cards"><span class="heart">5</span><span class="spade">5</span><span class="club">5</span></span>, or add a <span class="card diamond">K</span> to the end of a <span class="cards"><span class="heart">9</span><span class="diamond">10</span><span class="diamond">J</span><span class="club">Q</span></span> run.
 
 Don't forget though, **you can only put out cards if you have put down your own pattern first.**
 

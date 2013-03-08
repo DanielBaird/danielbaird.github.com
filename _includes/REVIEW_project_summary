@@ -1,0 +1,12 @@
+h2. {{ projectname }} %(date){{ projectdate }}%
+
+{{ projectsummary }}
+
+{% if projectslug %}
+"more about this project &raquo;":/projects/{{projectslug}}
+{% endif %}
+
+{% if projecturl %}
+"go to project &raquo;":{{projecturl}}
+{% endif %}
+

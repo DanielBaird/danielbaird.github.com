@@ -1,0 +1,13 @@
+
+In 2012 the eResearch Centre at JCU started a project to do four things:
+
+* source and show australian bird observations on a web map
+* let visitors "vet" those observations (in the sense of detecting and deleting the incorrect ones)
+* determine the species' preferred climate conditions, using the clean set of observations and information about Australia's existing climate
+* determine where the species' preferred climate niche will be in the future, using climate models to project future climate, and matching that to species' preferences.
+
+Our partly-tame academics Jeremy VanDerWal and Lauren Hodgson provided the modelling algorithms, "The Amazing Rob":https://github.com/robertpyke did server stuff and arranged for the modelling to happen on-demand, and "Tom":https://github.com/tomdalling handled the data side.  I did most of the user interface, which has a few interesting bits:
+* crowdsourcing of the observation cleaning bit
+* stretching the map across the whole screen (sure, it's been done before, but it was fun doing it with OpenLayers and making it not suck).
+
+It's called Edgar because it was about ravens (and other birds..), and the project code was @AP03@.  EdgarAPO3 ~ Edgar A. Poe, geddit?

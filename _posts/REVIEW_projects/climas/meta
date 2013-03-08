@@ -1,0 +1,9 @@
+{% assign projectname = "CliMAS Suitability and Biodiversity" %}
+
+{% assign projectdate = "late 2012" %}
+
+{% assign projectslug = "climas" %}
+{% assign projecturl = "http://tropicaldatahub.org/goto/climas" %}
+
+
+{% assign projectsummary = "I joined the CliMAS project in late 2012, when the three CliMAS web tools were due to be finished, but weren't.  I managed to pull them together and they ended up alright.  Both include a map-displaying bit that I used "Leaflet":http://leafletjs.com/ for." %}

@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div class="categoryindex {{page.cetegory}}">
+    <h1>{{ page.category }}</h1>
+
+    {{ content }}
+
+    {% case page.category %}
+
+        {% when "coding" %}
+            {% assign post_list = site.categories.coding %}
+
+        {% when "complaining" %}
+            {% assign post_list = site.categories.complaining %}
+
+        {% when "creating" %}
+            {% assign post_list = site.categories.creating %}
+
+        {% when "caring" %}
+            {% assign post_list = site.categories.caring %}
+
+    {% endcase %}
+
+    {% include post_list %}
+
+</div>

@@ -1,0 +1,26 @@
+---
+layout: default
+title: Prototype/Notes
+---
+
+h2. Latest Articles
+
+- ...hmm what goes here...
+
+h2. Work Projects
+
+- Edgar
+- CliMAS Reports
+- CliMAS Suitability and Biodiversity
+
+h2. Fun Projects
+
+- Beliefs Inventory
+- Clocks
+- Bingo cards?
+- Weekends
+
+h2. Older Stuff
+
+- tiddlyspot
+- shitty blogs from 2006

@@ -1,0 +1,13 @@
+{% comment %}
+assign into a 'project' variable, then include this file to render the post nicely.
+{% endcomment %}
+<article class="project">
+    <header>
+        <small>PROJECT</small>
+        <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
+        {{ project.date | date_to_string}}
+    </header>
+    {{ project.content | textilize }}
+</article>
+
+

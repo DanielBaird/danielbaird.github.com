@@ -1,0 +1,12 @@
+{% comment %}
+assign into a 'article' variable, then include this file to render an item as an article.
+{% endcomment %}
+<article class="article">
+    <header>
+        <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+        an article written in {{ article.date | date: "%B %Y" }}
+    </header>
+    {{ article.content | textilize }}
+</article>
+
+

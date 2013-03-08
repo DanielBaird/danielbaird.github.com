@@ -1,6 +1,6 @@
 ---
 layout: post
-category: coding
+category: article
 title: 'Ruby Walkthrough: Making Bingo Cards, Part 3'
 ---
 

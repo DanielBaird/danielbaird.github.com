@@ -1,10 +1,9 @@
 ---
 layout: post
-category: coding
-title: 'Ruby Walkthrough: Making Bingo Cards, Part 3'
+category: article
+title: "Ruby Walkthrough: Making Bingo Cards, Part 3"
 ---
 
 h1. Ruby Walkthrough: Making Bingo Cards, Part 3
-
 
 I'm walking through a Ruby project -- making cards for a game of "Baby Bingo" at my wife's baby shower.  In (link)part 1, I describe the project and get a bit of code down that makes a bingo card. In (link)part 2, I wrap the code up into a class, and start using strings instead of numbers.

@@ -1,0 +1,213 @@
+---
+title: Clock Face Generator
+layout: none
+---
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"/>
+<title>{{ page.title }}</title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<style>
+    html, body { padding: 0; margin: 0; }
+    .clockface {
+        position: relative;
+        display: block;
+        float: left;
+        width: 3cm;
+        height: 3cm;
+        border: solid 0.1cm #000;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 1.6cm;
+        border-radius: 50%;
+        margin: 0.1cm 0.5cm 3cm;
+    }
+    .tick {
+        border: 0.2cm solid #000;
+        border-width: 0.2cm 0;
+        position: absolute;
+        display: block;
+        top: -0.13cm;
+        left: 1.47cm;
+        width: 0.06cm;
+        height: 2.9cm;
+    }
+    .big.tick {
+        left: 1.42cm;
+        width: 0.16cm;
+        border-bottom: none;
+    }
+    .p1  { -moz-transform: rotate( 30deg); -webkit-transform: rotate( 30deg); }
+    .p2  { -moz-transform: rotate( 60deg); -webkit-transform: rotate( 60deg); }
+    .p3  { -moz-transform: rotate( 90deg); -webkit-transform: rotate( 90deg); }
+    .p4  { -moz-transform: rotate(120deg); -webkit-transform: rotate(120deg); }
+    .p5  { -moz-transform: rotate(150deg); -webkit-transform: rotate(150deg); }
+    .p6  { -moz-transform: rotate(180deg); -webkit-transform: rotate(180deg); }
+    .p7  { -moz-transform: rotate(210deg); -webkit-transform: rotate(210deg); }
+    .p8  { -moz-transform: rotate(240deg); -webkit-transform: rotate(240deg); }
+    .p9  { -moz-transform: rotate(270deg); -webkit-transform: rotate(270deg); }
+    .p10 { -moz-transform: rotate(300deg); -webkit-transform: rotate(300deg); }
+    .p11 { -moz-transform: rotate(330deg); -webkit-transform: rotate(330deg); }
+    .p12 { }
+    .minuteface {
+        Xbackground: #ddd;
+        position: absolute;
+        display: block;
+        top: 0.1cm;
+        left: 0.1cm;
+        width: 2.8cm;
+        height: 2.8cm;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 1.4cm;
+        border-radius: 50%;
+    }
+    .minutehand {
+        display: block;
+        width: 1.35cm;
+        height: 1.45cm;
+        border-right: 0.1cm solid #000;
+    }
+    .hourface {
+        Xbackground: #ccc;
+        position: absolute;
+        display: block;
+        top: 0.6cm;
+        left: 0.6cm;
+        width: 1.8cm;
+        height: 1.8cm;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 0.9cm;
+        border-radius: 50%;
+    }
+    .hourhand {
+        display: block;
+        width: 0.8cm;
+        height: 0.9cm;
+        border-right: 0.2cm solid #000;
+    }
+    .middledot {
+        background: #000;
+        position: absolute;
+        display: block;
+        top: 1.35cm;
+        left: 1.35cm;
+        width: 0;
+        height: 0;
+        border: 0.15cm solid #000;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 0.675cm;
+        border-radius: 50%;
+    }
+
+    /* -- form layout ------------------------------------------ */
+    .fancyform {
+        border: 1px solid #ccc;
+        xpadding: 0.5em;
+        border-radius: 1em;
+        margin: 0.5em;
+        background: rgba(0,0,0, 0.1);
+    }
+    .controlgroup {
+        margin: 0.5em;
+        background: #fff;
+        border-radius: 0.5em;
+    }
+    .controlgroup h2 {
+        font-size: inherit;
+        margin: 0 0 0.5em;
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0,0,0, 0.1);
+    }
+    .control {
+        display: inline-block;
+        margin: 0.5em;
+    }
+    .control > label {
+        display: block;
+        margin: 0.1em 0;
+        padding: 0.1em;
+    }
+    .control button {
+        font-size: inherit;
+        font-family: inherit;
+        padding: 0.5em 1em;
+    }
+    .control h3 {
+        font-size: inherit;
+        margin: 0 0 0.5em;
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0,0,0, 0.1);
+    }
+
+    .xfancyform * { background: rgba(0,0,0, 0.2); }
+</style>
+
+<div class="clocksettings fancyform">
+    <div class="controlgroup">
+        <h2>Presets</h2>
+        <div class="control">
+            <button id="easy">Beginner</button>
+        </div>
+        <div class="control">
+            <button id="easy">Intermediate</button>
+        </div>
+        <div class="control">
+            <button id="easy">Expert</button>
+        </div>
+    </div>
+    <div class="controlgroup">
+        <h2>Detailed Settings</h2>
+        <div class="control">
+            <h3>Minute hand can be</h3>
+            <label><input type="radio" name="minutehand" value="60"> on the hour only</label>
+            <label><input type="radio" name="minutehand" value="15"> quarter hour increments (:00, :15, :30 and :45)</label>
+            <label><input type="radio" name="minutehand" value="5" checked="checked"> five minute increments (:00, :05, :10, :15, etc)</label>
+        </div>
+        <div class="control">
+        </div>
+    </div>
+    <div class="controlgroup">
+        <div class="control">
+            <button id="make">make clocks</button>
+        </div>
+    </div>
+</div>
+
+<div id="clocks" class="clocks">
+
+<!-- ?php
+        // ------------------------------------------------------------------
+        $minutes = array(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55);
+    for ($clock = 0; $clock < 20; $clock++) {
+        $minute = $minutes[rand(0,11)];
+        $hour = rand(1,12);
+        echo '<div class="clockface">';
+        echo '    <div class="big tick p12"></div>';
+        echo '    <div class="tick p1"></div>';
+        echo '    <div class="tick p2"></div>';
+        echo '    <div class="tick p3"></div>';
+        echo '    <div class="tick p4"></div>';
+        echo '    <div class="tick p5"></div>';
+        echo '    <div class="tick p6"></div>';
+        $rot = ($minute * 6);
+        echo '    <div class="minuteface" style="-moz-transform: rotate(' . $rot . 'deg); -webkit-transform: rotate(' . $rot . 'deg);">';
+        echo '        <div class="minutehand"></div>';
+        echo '    </div>';
+        $rot = (($hour * 30) + ($minute / 2));
+        echo '    <div class="hourface" style="-moz-transform: rotate(' . $rot . 'deg); -webkit-transform: rotate(' . $rot . 'deg);">';
+        echo '        <div class="hourhand"></div>';
+        echo '    </div>';
+        echo '    <div class="middledot"></div>';
+        echo '</div>';
+    }
+        // ------------------------------------------------------------------
+? -->
+
+</div>
+<script src="{{ site.base_url }}assets/js/jquery-1.3.2.min.js"></script>
+<script src="./clocks.js"></script>
+</body>
+</html>

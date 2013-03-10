@@ -1,0 +1,6 @@
+---
+layout: default
+title: About Daniel Baird
+---
+
+blah blah etc etc

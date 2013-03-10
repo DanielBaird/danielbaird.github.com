@@ -1,0 +1,9 @@
+---
+layout: project
+category: project
+title: Report Assembler
+timeperiod: late 2012
+url: https://github.com/DanielBaird/Report-Assembler
+summary: "This little JavaScript library takes JSON data and a carefully written source document, and merges them into a finished report.  I started this so I could get CliMAS Reports finished as quickly as possible."
+---
+This little JavaScript library takes JSON data and a carefully written source document, and merges them into a finished report.  I started this so I could get CliMAS Reports finished as quickly as possible.

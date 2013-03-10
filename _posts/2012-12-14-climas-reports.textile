@@ -1,0 +1,9 @@
+---
+layout: project
+category: project
+title: CliMAS Reports
+timeperiod: late 2012
+url: http://tropicaldatahub.org/goto/climas/reports
+summary: "In late 2012 \"Lauren\":https://github.com/LaurenHodgson and I built a report generator that takes environmental and biodiversity data (in JSON) and turns it into a lovely printable text report.  The whole thing turned out rather well, and left me with a nice little conditional text assembly library in JavaScript."
+---
+In late 2012 "Lauren":https://github.com/LaurenHodgson and I built a report generator that takes environmental and biodiversity data (in JSON) and turns it into a lovely printable text report.  The whole thing turned out rather well, and left me with a nice little conditional text assembly library in JavaScript.

@@ -1,8 +1,0 @@
-{% assign projectname = "Report Assembler" %}
-
-{% assign projectdate = "late 2012" %}
-
-{% assign projectslug = false %}
-{% assign projecturl = "https://github.com/DanielBaird/Report-Assembler" %}
-
-{% assign projectsummary = "This little JavaScript library takes JSON data and a carefully written source document, and merges them into a finished report.  I started this so I could get CliMAS Reports finished as quickly as possible." %}

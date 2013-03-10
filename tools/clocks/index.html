@@ -13,10 +13,13 @@ layout: none
 
 <style>
     html, body { padding: 0; margin: 0; }
+    .clocks {
+        text-align: center;
+    }
     .clockface {
         position: relative;
-        display: block;
-        float: left;
+        display: inline-block;
+        xfloat: left;
         width: 3cm;
         height: 3cm;
         border: solid 0.1cm #000;
@@ -136,7 +139,8 @@ layout: none
     }
     .control {
         display: inline-block;
-        margin: 0.5em;
+        vertical-align: top;
+        margin: 0.5em 1em;
         text-align: left;
     }
     .control h3 {
@@ -148,21 +152,35 @@ layout: none
     .control button {
         font-size: inherit;
         font-family: inherit;
-        padding: 0.5em 1em;
+        padding: 0.25em 1em;
     }
     .control > button {
         display: block;
-        margin: 0;
+        width: 100%;
+        margin: 0.25em 0;
     }
     .control > label {
         display: block;
         margin: 0.1em 0;
         padding: 0.1em;
     }
-    .control p:first-child:last-child {
-        text-align: center;
+    .control > p {
+        max-width: 15em;
     }
     .Xfancyform * { background: rgba(0,0,0, 0.2); }
+    /* -- print layout ----------------------------------------- */
+    @media print {
+        .clocksettings { display: none; }
+        @page :first {
+            margin: 2.5cm;
+            text-align: center;
+        }
+    }
+    @page :first {
+        margin: 2.5cm;
+        text-align: center;
+    }
+
 </style>
 
 <div class="heading">
@@ -171,30 +189,22 @@ layout: none
 </div>
 <div class="clocksettings fancyform">
     <div class="controlgroup">
-        <h2>Presets</h2>
+        <h2>Settings</h2>
         <div class="control">
+            <h3>Presets</h3>
             <button id="easy">Beginner</button>
+            <button id="intermediate">Intermediate</button>
+            <button id="expert">Expert</button>
         </div>
-        <div class="control">
-            <button id="easy">Intermediate</button>
-        </div>
-        <div class="control">
-            <button id="easy">Expert</button>
-        </div>
-    </div>
-    <div class="controlgroup">
-        <div class="control">
-            <h3>Made for printing</h3>
-            <p>To turn this into a work sheet, just print it!  The 16 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
-        </div>
-    </div>
-    <div class="controlgroup">
-        <h2>Detailed Settings</h2>
         <div class="control">
             <h3>Minute hand can be</h3>
             <label><input type="radio" name="minutehand" value="60"> on the hour only</label>
             <label><input type="radio" name="minutehand" value="15"> quarter hour increments (:00, :15, :30 and :45)</label>
             <label><input type="radio" name="minutehand" value="5" checked="checked"> five minute increments (:00, :05, :10, :15, etc)</label>
+        </div>
+        <div class="control">
+            <h3>Made for printing</h3>
+            <p>To turn this into a work sheet, just print it!  The 16 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
         </div>
     </div>
     <div class="controlgroup">

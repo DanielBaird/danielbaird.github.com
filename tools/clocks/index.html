@@ -197,10 +197,16 @@ layout: none
             <button id="expert">Expert</button>
         </div>
         <div class="control">
-            <h3>Minute hand can be</h3>
+            <h3>Minute hand:</h3>
             <label><input type="radio" name="minutehand" value="60"> on the hour only</label>
             <label><input type="radio" name="minutehand" value="15"> quarter hour increments (:00, :15, :30 and :45)</label>
             <label><input type="radio" name="minutehand" value="5" checked="checked"> five minute increments (:00, :05, :10, :15, etc)</label>
+        </div>
+        <div class="control">
+            <h3>Hour hand:</h3>
+            <label><input type="radio" name="hourhand" value="fake"> always dead-on the hour</label>
+            <label><input type="radio" name="hourhand" value="real"> between hours like a real clock</label>
+            <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> exaggerate being before the hour</label>
         </div>
         <div class="control">
             <h3>Made for printing</h3>

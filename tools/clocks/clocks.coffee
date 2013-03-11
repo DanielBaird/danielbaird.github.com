@@ -8,6 +8,7 @@ $ ->
 
         min_step = parseInt($('.clocksettings input[name="minutehand"]:checked').val(), 10)
         hour_hand_accuracy = $('.clocksettings input[name="hourhand"]:checked').val()
+        numbers = $('.clocksettings input[name="numbers"]:checked').val()
 
         possible_minutes = for min in [0..59] by min_step
             min

@@ -7,6 +7,7 @@ $ ->
     $('#make').click (event)->
 
         min_step = parseInt($('.clocksettings input[name="minutehand"]:checked').val(), 10)
+        hour_hand_accuracy = $('.clocksettings input[name="hourhand"]:checked').val()
 
         possible_minutes = for min in [0..59] by min_step
             min
@@ -19,7 +20,11 @@ $ ->
             minute_rotation = minute * 6
 
             hour = pick_one possible_hours
-            hour_rotation = hour * 30 + minute / 2
+            hour_rotation = hour * 30
+            if hour_hand_accuracy == 'real'
+                hour_rotation += minute / 2
+            else if hour_hand_accuracy == 'exaggerated'
+                hour_rotation += Math.min(50, minute) / 2
 
             clockhtml  = '<div class="clockface">'
             clockhtml += '  <div class="big tick p12"></div>'

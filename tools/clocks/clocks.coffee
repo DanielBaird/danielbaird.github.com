@@ -24,7 +24,7 @@ $ ->
             if hour_hand_accuracy == 'real'
                 hour_rotation += minute / 2
             else if hour_hand_accuracy == 'exaggerated'
-                hour_rotation += Math.min(50, minute) / 2
+                hour_rotation += Math.min(45, minute) / 2
 
             clockhtml  = '<div class="clockface">'
             clockhtml += '  <div class="big tick p12"></div>'

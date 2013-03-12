@@ -16,6 +16,11 @@ layout: none
     .clocks {
         text-align: center;
     }
+    .clockarea {
+        display: inline-block;
+        border: 1px dotted red;
+        padding: 0.3cm;
+    }
     .clockface {
         position: relative;
         display: inline-block;
@@ -23,9 +28,9 @@ layout: none
         height: 3cm;
         border: solid 0.1cm #000;
         -moz-border-radius: 50%;
-        -webkit-border-radius: 1.6cm;
+        -webkit-border-radius: 50%;
         border-radius: 50%;
-        margin: 0.1cm 0.5cm 3cm;
+        margin: 0.1cm;
     }
     .tick {
         border: 0.2cm solid #000;
@@ -100,6 +105,15 @@ layout: none
         -moz-border-radius: 50%;
         -webkit-border-radius: 0.675cm;
         border-radius: 50%;
+    }
+    .answer {
+        text-align: center;
+        margin: 0 10% 1cm;
+        height: 1.5cm;
+        font-size: 0.85cm;
+        line-height: 2cm;
+        border-bottom: 0.05cm dotted #000;
+
     }
     /* -- page ------------------------------------------------- */
     .heading {

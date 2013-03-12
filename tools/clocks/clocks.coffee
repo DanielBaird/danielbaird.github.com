@@ -27,7 +27,8 @@ $ ->
             else if hour_hand_accuracy == 'exaggerated'
                 hour_rotation += Math.min(45, minute) / 2
 
-            clockhtml  = '<div class="clockface">'
+            clockhtml  = '<div class="clockarea">'
+            clockhtml += '<div class="clockface">'
             clockhtml += '  <div class="big tick p12"></div>'
             clockhtml += '  <div class="tick p1"></div>'
             clockhtml += '  <div class="tick p2"></div>'
@@ -43,6 +44,8 @@ $ ->
             clockhtml += '  </div>'
             clockhtml += '  <div class="middledot"></div>'
             clockhtml += '</div>'
+            clockhtml += '<div class="answer">:</div>'
+            clockhtml += '</div>'
 
-        $('#clocks').empty().append $(clocks.join "\n")
+        $('#clocks').empty().append $(clocks.join "")
         event.stopPropagation()

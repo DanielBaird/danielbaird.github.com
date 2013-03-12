@@ -18,7 +18,6 @@ layout: none
     }
     .clockarea {
         display: inline-block;
-        border: 1px dotted red;
         padding: 0.3cm;
     }
     .clockface {
@@ -69,12 +68,14 @@ layout: none
         -moz-border-radius: 50%;
         -webkit-border-radius: 1.4cm;
         border-radius: 50%;
+        background: rgba(255,0,0, 0.1);
     }
     .minutehand {
         display: block;
         width: 1.35cm;
         height: 1.45cm;
         border-right: 0.1cm solid #000;
+        background: rgba(0,255,0, 0.1);
     }
     .hourface {
         position: absolute;
@@ -183,12 +184,12 @@ layout: none
     @media print {
         .clocksettings { display: none; }
         @page :first {
-            margin: 2.5cm;
+            margin: 5cm;
             text-align: center;
         }
     }
     @page :first {
-        margin: 2.5cm;
+        margin: 2cm;
         text-align: center;
     }
 

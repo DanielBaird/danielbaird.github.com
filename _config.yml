@@ -2,7 +2,7 @@
 site_title: DanielBaird.com
 site_slogan: Blogging Is Stupid
 
-url: http://danielbaird.github.com/ # or something
+url: http://danielbaird.github.com # or something
 base_url: / # or something
 
 # use category/title for permalinks

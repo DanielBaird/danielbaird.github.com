@@ -55,7 +55,6 @@ layout: none
     .p11 { -moz-transform: rotate(330deg); -webkit-transform: rotate(330deg); }
     .p12 { }
     .minuteface {
-        Xbackground: #ddd;
         position: absolute;
         display: block;
         top: 0.1cm;
@@ -73,7 +72,6 @@ layout: none
         border-right: 0.1cm solid #000;
     }
     .hourface {
-        Xbackground: #ccc;
         position: absolute;
         display: block;
         top: 0.6cm;
@@ -184,7 +182,7 @@ layout: none
 
 <div class="heading">
     <h1>Clock Faces</h1>
-    <p>for personal use only &mdash; contact daniel@danielbaird.com for additional rights</p>
+    <p>for personal use only &mdash; visit {{ site.url }} for info &amp; to make your own</p>
 </div>
 <div class="clocksettings fancyform">
     <div class="controlgroup">
@@ -196,20 +194,26 @@ layout: none
             <button id="expert">Expert</button>
         </div>
         <div class="control">
-            <h3>Minute hand positions:</h3>
+            <h3>Minute hand:</h3>
             <label><input type="radio" name="minutehand" value="60"> on the hour only</label>
-            <label><input type="radio" name="minutehand" value="15"> quarter hour increments (:00, :15, :30 and :45)</label>
-            <label><input type="radio" name="minutehand" value="5" checked="checked"> five minute increments (:00, :05, :10, :15, etc)</label>
+            <label><input type="radio" name="minutehand" value="15"> quarter hours (:00, :15, :30 and :45)</label>
+            <label><input type="radio" name="minutehand" value="5" checked="checked"> five minutes (:00, :05, :10, :15, &hellip;)</label>
         </div>
         <div class="control">
-            <h3>Hour hand positions:</h3>
+            <h3>Hour hand:</h3>
             <label><input type="radio" name="hourhand" value="fake"> always dead-on the hour</label>
             <label><input type="radio" name="hourhand" value="real"> between hours like a real clock</label>
-            <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> exaggerate being before the hour</label>
+            <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> not too close to the next hour</label>
         </div>
         <div class="control">
-            <h3>Made for printing</h3>
-            <p>To turn this into a work sheet, just print it!  The 16 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
+            <h3>Numbers:</h3>
+            <label><input type="radio" name="numbers" value="all"> all numbers 1&ndash;12</label>
+            <label><input type="radio" name="numbers" value="some"> just 12, 3, 6 and 9</label>
+            <label><input type="radio" name="numbers" value="none" checked="checked"> no numbers</label>
+        </div>
+        <div class="control">
+            <h3>Made for printing!</h3>
+            <p>To turn this page into a work sheet, just print it!  The 16 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
         </div>
     </div>
     <div class="controlgroup">

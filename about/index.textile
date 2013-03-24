@@ -3,4 +3,9 @@ layout: default
 title: About Daniel Baird
 ---
 
-blah blah etc etc
+Hi, maybe you want to hire me.
+
+{% assign item_list = site.posts %}
+{% assign selected_category = 'about' %}
+
+{% include item_list_selected_category %}

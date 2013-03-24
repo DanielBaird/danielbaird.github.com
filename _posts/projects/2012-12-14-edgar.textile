@@ -1,6 +1,6 @@
 ---
 layout: project
-category: project
+category: projects
 title: Edgar
 timeperiod: 2012
 url: http://tropicaldatahub.org/goto/edgar

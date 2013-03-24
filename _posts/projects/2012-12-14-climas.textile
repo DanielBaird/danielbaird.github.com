@@ -1,6 +1,6 @@
 ---
 layout: project
-category: project
+category: projects
 title: CliMAS Suitability and Biodiversity
 timeperiod: late 2012
 url: http://tropicaldatahub.org/goto/climas

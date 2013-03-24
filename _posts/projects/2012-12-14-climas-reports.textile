@@ -1,6 +1,6 @@
 ---
 layout: project
-category: project
+category: projects
 title: CliMAS Reports
 timeperiod: late 2012
 url: http://tropicaldatahub.org/goto/climas/reports

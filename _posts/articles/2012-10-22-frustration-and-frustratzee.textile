@@ -1,6 +1,6 @@
 ---
 layout: post
-category: article
+category: articles
 tags: cards game frustration 'phase 10' frustratzee yahtzee
 ---
 Here's a card game my Friday Night Cards group came up with, back when we actually played cards instead of just sitting around chatting.

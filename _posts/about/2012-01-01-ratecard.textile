@@ -1,0 +1,6 @@
+---
+layout: about
+category: about
+title: Hire Me
+---
+You can hire me for $165 per hour.

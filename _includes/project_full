@@ -1,6 +1,8 @@
+
 {% comment %}
 assign into a 'project' variable, then include this file to render the post nicely.
 {% endcomment %}
+
 <article class="project">
     <header>
         <small>PROJECT</small>

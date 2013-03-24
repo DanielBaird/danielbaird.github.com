@@ -1,0 +1,77 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ page.title }} &middot; daniel baird dot com</title>
+    <meta name="description" content="Daniel Baird's Things">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="{{ site.base_url }}assets/css/normalize.min.css">
+<!--
+    <link rel="stylesheet/less" href="{{ site.base_url }}assets/css/main.css.less">
+-->
+    <script src="{{ site.base_url }}assets/js/modernizr-2.6.1.min.js"></script>
+
+    <style>
+header {
+    background: #eee;
+    color: #bbb;
+    border-bottom: 1px solid #bbb;
+}
+header h1 {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0.6em 1em 0.4em;
+    text-align: center;
+    font-weight: 100;
+    font-size: 75%;
+    background: transparent;
+    color: inherit;
+    letter-spacing: 0.33em;
+}
+header nav ul {
+    margin: 0;
+    padding: 0.3em 0.5em 0.2em;
+
+}
+    </style>
+</head>
+<body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+<!-- ********************************** -->
+
+<header>
+    <h1>daniel baird dot com</h1>
+    <nav><ul>
+        {% for cat in site.categories %}
+        <li><a href="{{ site.base_url }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
+        {% endfor %}
+        <li><a href="#">github</a></li>
+    </ul></nav>
+</header>
+
+
+
+<!-- ********************************** -->
+    <script src="{{ site.base_url }}assets/js/less-1.3.0.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ site.base_url }}assets/js/jquery-1.8.2.min.js"><\/script>')</script>
+
+    <script>
+        var _gaq=[['_setAccount','{{ site.google_analytics.tracking_id }}'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+</body>
+</html>

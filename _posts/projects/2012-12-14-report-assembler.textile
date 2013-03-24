@@ -1,6 +1,6 @@
 ---
 layout: project
-category: project
+category: projects
 title: Report Assembler
 timeperiod: late 2012
 url: https://github.com/DanielBaird/Report-Assembler

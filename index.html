@@ -96,7 +96,7 @@ section > h1 {
     background: linear-gradient(to right,  rgba(255,0,0, 0.125) 0%,rgba(255,0,0, 0) 100%); /* W3C */
 
     display: block;
-    margin-left: -1.7em;
+    margin-left: -1.5em;
     border-left: solid red 0.2em;
     padding: 0.6em 1.5em 0.4em;
     text-align: left;
@@ -108,7 +108,7 @@ section > h1 {
     text-transform: uppercase;
 }
 article {
-    padding: 1em 0 2em;
+    padding: 1em 0 1.5em;
 }
 article h2 {
     display: block;
@@ -163,20 +163,35 @@ a.morelink {
 
 <section class="halfwidth articles">
     <h1>Recent Articles</h1>
+    {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
     {% for item in site.posts offset:1 %}
         {% if item.category == "articles" %}
-            {% include item_summary_html %}
+            {% assign printed = print_count.size %}
+            {% if printed > 3 %}
+            {% else %}
+                {% include item_summary_html %}
+                {% capture new_print_count %}{{ print_count }}*{% endcapture %}
+                {% assign print_count = new_print_count %}
+            {% endif %}
         {% endif %}
     {% endfor %}
+    <a class="morelink" href="">all articles</a>
 </section>
 
 <section class="halfwidth projects">
     <h1>Recent Projects</h1>
     {% for item in site.posts offset:1 %}
         {% if item.category == "projects" %}
-            {% include item_summary_html %}
+            {% assign printed = print_count.size %}
+            {% if printed > 3 %}
+            {% else %}
+                {% include item_summary_html %}
+                {% capture new_print_count %}{{ print_count }}*{% endcapture %}
+                {% assign print_count = new_print_count %}
+            {% endif %}
         {% endif %}
     {% endfor %}
+    <a class="morelink" href="">all projects</a>
 </section>
 
 <!-- ********************************** -->

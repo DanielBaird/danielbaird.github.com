@@ -1,0 +1,11 @@
+{% comment %}
+assign into a 'item' variable, then include this file to render an item summary.
+{% endcomment %}
+
+<a href="{{ item.url }}"><h2>{{ item.title }}</h2></a>
+{% if item.summary %}
+<p class="summary">
+    {{ item.summary }}
+</p>
+{% endif %}
+<a class="morelink" href="{{ item.url }}">more</a>

@@ -50,13 +50,11 @@ body { padding: 0 2px;}
     -moz-box-shadow:    0px 0px 400px rgba(0,0,0, 0.125);
     box-shadow:         0px 0px 400px rgba(0,0,0, 0.125);
 }
-
 header {
     background: #eee;
     color: #bbb;
     border-bottom: 1px solid #bbb;
 }
-
 header h1 {
     margin: 0;
     display: block;
@@ -82,7 +80,7 @@ header nav li {
     padding: 0.3em 0.5em 0.2em;
     display: inline-block;
 }
-.pagewrapper > section {
+section {
     padding: 3em 1em;
 }
 section > h1 {
@@ -120,6 +118,13 @@ article h2 {
     font-weight: bold;
     color: #999;
 }
+.twocolumn {
+}
+.twocolumn > section {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%;
+}
 a.morelink {
     display: block;
     text-align: right;
@@ -128,9 +133,14 @@ a.morelink {
 }
 p a.morelink {
     display: inline;
+    opacity: 0.75;
 }
 a.morelink:after {
-    content: ' \00bb';
+    /*
+        \00bb is a right-pointing double angle quote mark
+        \00a0 is a non-breaking space
+    */
+    content: '\00a0\00bb';
 }
     </style>
 </head>
@@ -159,38 +169,42 @@ a.morelink:after {
     {% endfor %}
 </section>
 
-<section class="halfwidth articles">
-    <h1>Recent Articles</h1>
-    {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
-    {% for item in site.posts offset:1 %}
-        {% if item.category == "articles" %}
-            {% assign printed = print_count.size %}
-            {% if printed > 3 %}
-            {% else %}
-                {% include item_summary_html %}
-                {% capture new_print_count %}{{ print_count }}*{% endcapture %}
-                {% assign print_count = new_print_count %}
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-    <a class="morelink" href="{{ site.base_url }}articles">all articles</a>
-</section>
+<div class="twocolumn">
 
-<section class="halfwidth projects">
-    <h1>Recent Projects</h1>
-    {% for item in site.posts offset:1 %}
-        {% if item.category == "projects" %}
-            {% assign printed = print_count.size %}
-            {% if printed > 3 %}
-            {% else %}
-                {% include item_summary_html %}
-                {% capture new_print_count %}{{ print_count }}*{% endcapture %}
-                {% assign print_count = new_print_count %}
+    <section class="halfwidth articles">
+        <h1>Recent Articles</h1>
+        {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
+        {% for item in site.posts offset:1 %}
+            {% if item.category == "articles" %}
+                {% assign printed = print_count.size %}
+                {% if printed > 3 %}
+                {% else %}
+                    {% include item_summary_html %}
+                    {% capture new_print_count %}{{ print_count }}*{% endcapture %}
+                    {% assign print_count = new_print_count %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
-    <a class="morelink" href="{{ site.base_url }}projects">all projects</a>
-</section>
+        {% endfor %}
+        <a class="morelink" href="{{ site.base_url }}articles">all articles</a>
+    </section>
+
+    <section class="halfwidth projects">
+        <h1>Recent Projects</h1>
+        {% for item in site.posts offset:1 %}
+            {% if item.category == "projects" %}
+                {% assign printed = print_count.size %}
+                {% if printed > 3 %}
+                {% else %}
+                    {% include item_summary_html %}
+                    {% capture new_print_count %}{{ print_count }}*{% endcapture %}
+                    {% assign print_count = new_print_count %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <a class="morelink" href="{{ site.base_url }}projects">all projects</a>
+    </section>
+
+</div>
 
 <!-- ********************************** -->
 

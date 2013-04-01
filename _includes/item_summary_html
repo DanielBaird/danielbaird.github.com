@@ -5,7 +5,7 @@ assign into a 'item' variable, then include this file to render an item summary.
 <article>
 <a href="{{ item.url }}"><h2>{{ item.title }}</h2></a>
 {% if item.summary %}
-    {% capture summary_plus_more_link %}{{ item.summary }}&nbsp;&nbsp;"(morelink)more":{{ item.url }}{% endcapture %}
+    {% capture summary_plus_more_link %}{{ item.summary }} &nbsp; "(morelink)more":{{ item.url }}{% endcapture %}
     {{ summary_plus_more_link | textilize }}
 {% else %}
     <a class="morelink" href="{{ item.url }}">more</a>

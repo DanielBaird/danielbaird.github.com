@@ -11,12 +11,9 @@ layout: none
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% if page.title %}{{ page.title }} &middot; {% endif %}daniel baird dot com</title>
     <meta name="description" content="Daniel Baird's Things">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 
-<!--
-    <link rel="stylesheet" href="{{ site.base_url }}assets/css/normalize.min.css">
-    <link rel="stylesheet/less" href="{{ site.base_url }}assets/css/main.css.less">
--->
+    <link rel="stylesheet" href="{{ site.base_url }}assets/css/bootstrap.css">
     <script src="{{ site.base_url }}assets/js/modernizr-2.6.1.min.js"></script>
 
     <style>
@@ -27,25 +24,22 @@ layout: none
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
 .subtle {
     opacity: 0.5;
 }
 
 html, body {
-    font-family: palatino;
+    font-family: Palatino, Georgia, serif;
     padding: 0;
     margin: 0;
     font-size: 100%;
     line-height: 1.6;
-    xbackground-color: #eee;
 }
-body { padding: 0 2px;}
+body { padding: 0 8px;}
 .pagewrapper {
     background-color: #fff;
     margin: 0 auto;
-    max-width: 18cm;
+    max-width: 760px;
 /*
     -webkit-box-shadow: 0px 0px 400px rgba(0,0,0, 0.125);
     -moz-box-shadow:    0px 0px 400px rgba(0,0,0, 0.125);
@@ -53,9 +47,8 @@ body { padding: 0 2px;}
 */
 }
 header {
-    background: #eee;
     color: #bbb;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid #ddd;
 }
 header h1 {
     margin: 0;
@@ -70,21 +63,27 @@ header h1 {
     letter-spacing: 0.16em;
     word-spacing: 0.5em;
 }
+header h1 .punc {
+    color: red;
+    xtext-transform: lowercase;
+    font-size: 75%;
+    position: relative;
+    bottom: 0.15em;
+}
 header nav {
     margin: 0;
 }
 header nav ul {
     margin: 0;
     padding: 0.3em 0.5em 0.2em;
-    text-align: right;
+    text-align: center;
 }
 header nav li {
     padding: 0.3em 0.5em 0.2em;
     display: inline-block;
 }
 section {
-    padding: 3em 1em;
-    padding: 3em 0;
+    padding: 2em 0;
 }
 section > h1 {
     background: -moz-linear-gradient(left,  rgba(255,0,0, 0.1) 0%, rgba(255,0,0, 0) 100%); /* FF3.6+ */
@@ -95,12 +94,11 @@ section > h1 {
     background: linear-gradient(to right,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0) 100%); /* W3C */
 
     display: block;
-    Xmargin-left: -1.5em;
     border-left: solid red 0.2em;
     padding: 0.6em 1.5em 0.4em;
     text-align: left;
     font-weight: 100;
-    color: #999;
+    color: #666;
     letter-spacing: 0.16em;
     line-height: 1.0;
     font-size: 66%;
@@ -111,7 +109,6 @@ article {
 }
 article h2 {
     display: block;
-    xfont-family: sans-serif;
     font-size: 200%;
     line-height: 1.1;
     letter-spacing: -0.05em;
@@ -121,16 +118,9 @@ article h2 {
     font-weight: bold;
     color: #999;
 }
-.twocolumn {
-}
-.twocolumn > section {
-    display: inline-block;
-    vertical-align: top;
-    width: 49%;
-}
 a.morelink {
     display: block;
-    text-align: right;
+    text-align: center;
     margin-top: -0.5em;
     padding-right: 1em;
 }
@@ -145,6 +135,11 @@ a.morelink:after {
     */
     content: '\00a0\00bb';
 }
+footer {
+    padding: 1em 0;
+    color: #bbb;
+    border-top: 1px solid #ddd;
+}
     </style>
 </head>
 <body><div class="pagewrapper">
@@ -153,8 +148,10 @@ a.morelink:after {
     <![endif]-->
 <!-- ********************************** -->
 
-<header>
-    <h1>daniel baird dot com</h1>
+<div class="row-fluid">
+
+<header class="span6">
+    <h1>daniel baird <span class="punc">dot</span> com</h1>
     <nav><ul>
         {% for cat in site.categories %}
         <li><a href="{{ site.base_url }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
@@ -163,7 +160,9 @@ a.morelink:after {
     </ul></nav>
 </header>
 
-<section class="fullwidth latestitem">
+</div><div class="row-fluid">
+
+<section class="span4 offset1 latestitem">
     {% for item in site.posts limit:1 offset:0 %}
         <h1>Latest thing <span class="subtle">({% case item.category %}{% when "articles" %}article
             {% when "projects" %}project
@@ -172,9 +171,9 @@ a.morelink:after {
     {% endfor %}
 </section>
 
-<div class="twocolumn">
+</div><div class="row-fluid">
 
-    <section class="halfwidth articles">
+    <section class="span3 articles">
         <h1>Recent Articles</h1>
         {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
         {% for item in site.posts offset:1 %}
@@ -191,7 +190,7 @@ a.morelink:after {
         <a class="morelink" href="{{ site.base_url }}articles">all articles</a>
     </section>
 
-    <section class="halfwidth projects">
+    <section class="span3 projects">
         <h1>Recent Projects</h1>
         {% for item in site.posts offset:1 %}
             {% if item.category == "projects" %}
@@ -207,8 +206,13 @@ a.morelink:after {
         <a class="morelink" href="{{ site.base_url }}projects">all projects</a>
     </section>
 
-</div>
+</div><div class="row-fluid">
 
+<footer class="span6">
+footer.  yes, footer.
+</footer>
+
+</div>
 <!-- ********************************** -->
 
     <script src="{{ site.base_url }}assets/js/less-1.3.0.min.js"></script>

@@ -27,7 +27,9 @@ layout: none
 .subtle {
     opacity: 0.5;
 }
-
+a {
+    color: rgba(200,0,0, 1);
+}
 html, body {
     font-family: Palatino, Georgia, serif;
     padding: 0;
@@ -35,11 +37,15 @@ html, body {
     font-size: 100%;
     line-height: 1.6;
 }
-body { padding: 0 8px;}
+body {
+    padding: 0 8px;
+
+}
+
 .pagewrapper {
     background-color: #fff;
     margin: 0 auto;
-    max-width: 760px;
+    max-width: 820px;
 /*
     -webkit-box-shadow: 0px 0px 400px rgba(0,0,0, 0.125);
     -moz-box-shadow:    0px 0px 400px rgba(0,0,0, 0.125);
@@ -85,17 +91,22 @@ header nav li {
 section {
     padding: 2em 0;
 }
-section > h1 {
-    background: -moz-linear-gradient(left,  rgba(255,0,0, 0.1) 0%, rgba(255,0,0, 0) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0, 0.1)), color-stop(100%,rgba(255,0,0, 0))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0) 100%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0) 100%); /* W3C */
+section.hireme { padding: 0;}
+section > h1, div.row-fluid.hireme {
+    background: -moz-linear-gradient(left,  rgba(255,0,0, 0.1) 0%, rgba(255,0,0, 0.01) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0, 0.1)), color-stop(100%,rgba(255,0,0, 0.01))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* IE10+ */
+    background: linear-gradient(to right,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* W3C */
 
     display: block;
     border-left: solid red 0.2em;
     padding: 0.6em 1.5em 0.4em;
+    margin-left: -2px;
+    border-left: solid red 2px;
+}
+section > h1, div.row-fluid.hireme h2 {
     text-align: left;
     font-weight: 100;
     color: #666;
@@ -103,6 +114,12 @@ section > h1 {
     line-height: 1.0;
     font-size: 66%;
     text-transform: uppercase;
+}
+section.latestitemheader {
+    padding-bottom: 0;
+}
+section.latestitem {
+    padding-top: 0;
 }
 article {
     padding: 1em 0 1.5em;
@@ -129,8 +146,7 @@ p a.morelink {
     opacity: 0.75;
 }
 a.morelink:after {
-    /*
-        \00bb is a right-pointing double angle quote mark
+    /*  \00bb is a right-pointing double angle quote mark
         \00a0 is a non-breaking space
     */
     content: '\00a0\00bb';
@@ -162,13 +178,32 @@ footer {
 
 </div><div class="row-fluid">
 
-<section class="span4 offset1 latestitem">
+<section class="span6 latestitemheader">
     {% for item in site.posts limit:1 offset:0 %}
         <h1>Latest thing <span class="subtle">({% case item.category %}{% when "articles" %}article
             {% when "projects" %}project
             {% endcase %}from {{ item.date | date: "%B %Y" }})</span></h1>
+    {% endfor %}
+</section>
+
+</div><div class="row-fluid">
+
+<section class="span4 offset1 latestitem">
+    {% for item in site.posts limit:1 offset:0 %}
         {% include item_summary_html %}
     {% endfor %}
+</section>
+
+</div><div class="row-fluid hireme">
+
+<section class="span4 offset1 hireme">
+    <article>
+        <h2>Let's work together</h2>
+        <p>
+            I reserve some of my time for technology consulting work, and I'm currently accepting new clients.
+            &nbsp; <a class="morelink" href="{{ site.base_url }}about">interested?</a>
+        </p>
+    </article>
 </section>
 
 </div><div class="row-fluid">

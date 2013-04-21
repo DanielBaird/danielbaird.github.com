@@ -13,150 +13,11 @@ layout: none
     <meta name="description" content="Daniel Baird's Things">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 
-    <link rel="stylesheet" href="{{ site.base_url }}assets/css/bootstrap.css">
+    <link rel="stylesheet/less" type="text/css" href="{{ site.base_url }}assets/less/main.less">
+
+    <script src="{{ site.base_url }}assets/js/less-1.3.3.min.js"></script>
     <script src="{{ site.base_url }}assets/js/modernizr-2.6.1.min.js"></script>
 
-    <style>
-* {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.subtle {
-    opacity: 0.5;
-}
-a {
-    color: rgba(200,0,0, 1);
-}
-html, body {
-    font-family: Palatino, Georgia, serif;
-    padding: 0;
-    margin: 0;
-    font-size: 100%;
-    line-height: 1.6;
-}
-body {
-    padding: 0 8px;
-
-}
-
-.pagewrapper {
-    background-color: #fff;
-    margin: 0 auto;
-    max-width: 820px;
-/*
-    -webkit-box-shadow: 0px 0px 400px rgba(0,0,0, 0.125);
-    -moz-box-shadow:    0px 0px 400px rgba(0,0,0, 0.125);
-    box-shadow:         0px 0px 400px rgba(0,0,0, 0.125);
-*/
-}
-header {
-    color: #bbb;
-    border-bottom: 1px solid #ddd;
-}
-header h1 {
-    margin: 0;
-    display: block;
-    padding: 1em 1em 0.4em;
-    text-align: center;
-    font-weight: 100;
-    background: transparent;
-    color: inherit;
-    text-transform: uppercase;
-    font-size: 66%;
-    letter-spacing: 0.16em;
-    word-spacing: 0.5em;
-}
-header h1 .punc {
-    color: red;
-    xtext-transform: lowercase;
-    font-size: 75%;
-    position: relative;
-    bottom: 0.15em;
-}
-header nav {
-    margin: 0;
-}
-header nav ul {
-    margin: 0;
-    padding: 0.3em 0.5em 0.2em;
-    text-align: center;
-}
-header nav li {
-    padding: 0.3em 0.5em 0.2em;
-    display: inline-block;
-}
-section {
-    padding: 2em 0;
-}
-section.hireme { padding: 0;}
-section > h1, div.row-fluid.hireme {
-    background: -moz-linear-gradient(left,  rgba(255,0,0, 0.1) 0%, rgba(255,0,0, 0.01) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0, 0.1)), color-stop(100%,rgba(255,0,0, 0.01))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%); /* W3C */
-
-    display: block;
-    border-left: solid red 0.2em;
-    padding: 0.6em 1.5em 0.4em;
-    margin-left: -2px;
-    border-left: solid red 2px;
-}
-section > h1, div.row-fluid.hireme h2 {
-    text-align: left;
-    font-weight: 100;
-    color: #666;
-    letter-spacing: 0.16em;
-    line-height: 1.0;
-    font-size: 66%;
-    text-transform: uppercase;
-}
-section.latestitemheader {
-    padding-bottom: 0;
-}
-section.latestitem {
-    padding-top: 0;
-}
-article {
-    padding: 1em 0 1.5em;
-}
-article h2 {
-    display: block;
-    font-size: 200%;
-    line-height: 1.1;
-    letter-spacing: -0.05em;
-    opacity: 0.8;
-    padding: 0.6em 0 0.1em;
-    text-align: left;
-    font-weight: bold;
-    color: #999;
-}
-a.morelink {
-    display: block;
-    text-align: center;
-    margin-top: -0.5em;
-    padding-right: 1em;
-}
-p a.morelink {
-    display: inline;
-    opacity: 0.75;
-}
-a.morelink:after {
-    /*  \00bb is a right-pointing double angle quote mark
-        \00a0 is a non-breaking space
-    */
-    content: '\00a0\00bb';
-}
-footer {
-    padding: 1em 0;
-    color: #bbb;
-    border-top: 1px solid #ddd;
-}
-    </style>
 </head>
 <body><div class="pagewrapper">
     <!--[if lt IE 7]>
@@ -164,9 +25,9 @@ footer {
     <![endif]-->
 <!-- ********************************** -->
 
-<div class="row-fluid">
+<div class="pagerow">
 
-<header class="span6">
+<header>
     <h1>daniel baird <span class="punc">dot</span> com</h1>
     <nav><ul>
         {% for cat in site.categories %}
@@ -176,27 +37,27 @@ footer {
     </ul></nav>
 </header>
 
-</div><div class="row-fluid">
+</div><div class="pagerow">
 
-<section class="span6 latestitemheader">
+<section class="latestitemheader">
     {% for item in site.posts limit:1 offset:0 %}
-        <h1>Latest thing <span class="subtle">({% case item.category %}{% when "articles" %}article
+        <h1>Latest thing <small>({% case item.category %}{% when "articles" %}article
             {% when "projects" %}project
-            {% endcase %}from {{ item.date | date: "%B %Y" }})</span></h1>
+            {% endcase %}from {{ item.date | date: "%B %Y" }})</small></h1>
     {% endfor %}
 </section>
 
-</div><div class="row-fluid">
+</div><div class="pagerow">
 
-<section class="span4 offset1 latestitem">
+<section class="latestitem">
     {% for item in site.posts limit:1 offset:0 %}
         {% include item_summary_html %}
     {% endfor %}
 </section>
 
-</div><div class="row-fluid hireme">
+</div><div class="pagerow hiremerow">
 
-<section class="span4 offset1 hireme">
+<section class="hireme">
     <article>
         <h2>Let's work together</h2>
         <p>
@@ -206,9 +67,9 @@ footer {
     </article>
 </section>
 
-</div><div class="row-fluid">
+</div><div class="pagerow">
 
-    <section class="span3 articles">
+    <section class="articles">
         <h1>Recent Articles</h1>
         {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
         {% for item in site.posts offset:1 %}
@@ -225,7 +86,7 @@ footer {
         <a class="morelink" href="{{ site.base_url }}articles">all articles</a>
     </section>
 
-    <section class="span3 projects">
+    <section class="projects">
         <h1>Recent Projects</h1>
         {% for item in site.posts offset:1 %}
             {% if item.category == "projects" %}
@@ -241,18 +102,17 @@ footer {
         <a class="morelink" href="{{ site.base_url }}projects">all projects</a>
     </section>
 
-</div><div class="row-fluid">
+</div><div class="pagerow">
 
-<footer class="span6">
+<footer>
 footer.  yes, footer.
 </footer>
 
 </div>
 <!-- ********************************** -->
 
-    <script src="{{ site.base_url }}assets/js/less-1.3.0.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{{ site.base_url }}assets/js/jquery-1.8.2.min.js"><\/script>')</script>
+    <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ site.base_url }}assets/js/jquery-1.8.2.min.js"><\/script>')</script -->
 
     <script>
         var _gaq=[['_setAccount','{{ site.google_analytics.tracking_id }}'],['_trackPageview']];

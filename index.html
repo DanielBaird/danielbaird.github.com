@@ -11,7 +11,7 @@ layout: none
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% if page.title %}{{ page.title }} &middot; {% endif %}daniel baird dot com</title>
     <meta name="description" content="Daniel Baird's Things">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <link rel="stylesheet/less" type="text/css" href="{{ site.base_url }}assets/less/main.less">
 
@@ -19,13 +19,11 @@ layout: none
     <script src="{{ site.base_url }}assets/js/modernizr-2.6.1.min.js"></script>
 
 </head>
-<body><div class="pagewrapper">
+<body><div class="page">
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
 <!-- ********************************** -->
-
-<div class="pagerow">
 
 <header>
     <h1>daniel baird <span class="punc">dot</span> com</h1>
@@ -37,37 +35,25 @@ layout: none
     </ul></nav>
 </header>
 
-</div><div class="pagerow">
-
-<section class="latestitemheader">
+<section class="feature">
     {% for item in site.posts limit:1 offset:0 %}
         <h1>Latest thing <small>({% case item.category %}{% when "articles" %}article
             {% when "projects" %}project
             {% endcase %}from {{ item.date | date: "%B %Y" }})</small></h1>
-    {% endfor %}
-</section>
 
-</div><div class="pagerow">
-
-<section class="latestitem">
-    {% for item in site.posts limit:1 offset:0 %}
         {% include item_summary_html %}
     {% endfor %}
 </section>
 
-</div><div class="pagerow hiremerow">
-
-<section class="hireme">
-    <article>
-        <h2>Let's work together</h2>
-        <p>
-            I reserve some of my time for technology consulting work, and I'm currently accepting new clients.
-            &nbsp; <a class="morelink" href="{{ site.base_url }}about">interested?</a>
-        </p>
-    </article>
+<section class="feature promo">
+    <h2>Let's work together</h2>
+    <p>
+        I reserve some of my time for technology consulting work, and I'm currently accepting new clients.
+        &nbsp; <a class="morelink" href="{{ site.base_url }}about">interested?</a>
+    </p>
 </section>
 
-</div><div class="pagerow">
+<div class="columns twocolumns">
 
     <section class="articles">
         <h1>Recent Articles</h1>
@@ -102,7 +88,7 @@ layout: none
         <a class="morelink" href="{{ site.base_url }}projects">all projects</a>
     </section>
 
-</div><div class="pagerow">
+</div>
 
 <footer>
 footer.  yes, footer.

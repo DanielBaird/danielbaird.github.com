@@ -7,150 +7,178 @@
 @import 'tbs/reset';
 
 @import 'tbs/scaffolding';
-@import 'tbs/grid';
-@import 'tbs/layouts'; // responsive container
-@import 'tbs/responsive'; // responsive grid
+// @import 'tbs/grid';
+// @import 'tbs/layouts'; // responsive container
+// @import 'tbs/responsive'; // responsive grid
 
 @import 'tbs/type';
-@import 'tbs/code';
-@import 'tbs/forms';
+// @import 'tbs/code';
+// @import 'tbs/forms';
 //@import 'tbs/tables';
 
 //@import 'tbs/navs';
 //@import 'tbs/navbar';
 
+// -- debug -----
+
+// section { background: pink; }
+// section > * { background: white;}
+
+// .diag {
+// 	background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0, 0.25) 10px, rgba(0,0,0, 0.25) 20px, transparent 20px);
+// }
+
+// .checkers {
+// 	background-image: linear-gradient(45deg, rgba(0,0,0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0,0,0, 0.25) 75%, rgba(0,0,0, 0.25)),
+// 	linear-gradient(45deg, rgba(0,0,0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0,0,0, 0.25) 75%, rgba(0,0,0, 0.25));
+// 	background-size:10px 10px;
+// 	background-position:0 0, 5px 5px
+// }
+
 // -- general layout ------------------------------------------------
 
-.pagewrapper {
-	.container-fluid;
-	max-width: 820px;
-	margin: 0 auto;
-}
-
-.pagerow {
-	.row-fluid;
-}
-
-header {
-	.muted;
-	border-bottom: 1px solid #ddd;
-}
+// for including..
 
 .highlit {
 	#gradient > .horizontal(fade(@highlight, 10%), fade(@highlight, 1%));
 	display: block;
 	margin-left: -2px;
 	border-left: solid red 2px;
+	padding-left: 5px;
 }
 
-.segmentheading {
+.heading {
 	text-align: left;
 	font-weight: 900;
 	color: #666;
 	letter-spacing: 0.16em;
 	line-height: 1.0;
-	font-size: 66%;
+	font-size: 75%;
+	small {
+		font-size: inherit;
+		color: #999;
+	}
 	text-transform: uppercase;
-	padding: 0.3em 0 0.2em 1em;
+	padding: 0.4em 0 0.4em 0.6em;
 }
 
-// required for tbs integration
-.spanningblock {
-		.input-block-level();
-		float: left;
-		margin-left: @fluidGridGutterWidth;
-		*margin-left: @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
+
+// actual page elements..
+
+body {
+	padding: 0 10px; // don't get any closer to the edge than 10px
 }
 
-.header           { .spanningblock;  .span(12);   margin-left: 0; }
-.latestitemheader { .spanningblock;  .span(12);   margin-left: 0; }
-.latestitem       { .spanningblock;  .span(10);   .offsetFirstChild(1); }
-.hireme           { .spanningblock;  .span(10);   .offsetFirstChild(1); }
-.articles         { .spanningblock;  .span(6);    margin-left: 0; }
-.projects         { .spanningblock;  .span(6);    }
-.footer           { .spanningblock;  .span(12);   margin-left: 0; }
-
-nav {
-//    .navbar;
+.page {
+	// the box within which the entire page content lives
+	max-width: 900px;
+	margin: 0 auto;
 }
 
-section {
+.page header {
+	.clearfix;
+}
+
+.page section {
+	// page-level sections
 	padding: 2em 0;
 
 	> h1 {
 		.highlit;
-		.segmentheading;
+		.heading;
 	}
 }
+
+section.promo {
+	padding-top: 1em;
+	padding-bottom: 0.5em;
+	// promo parts are highlighted, and have smaller headings
+	.highlit;
+	h2 {
+		font-size: inherit;
+		line-height: inherit;
+		padding: 0;
+		margin: 0;
+	}
+	p {
+		margin: 0 0 0.5em;
+	}
+}
+
+
+// -- columns --------------------------------------------------
+
+@media (min-width: 600px) {
+	.page section.feature > * {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+
+	.columns {
+		.clearfix;
+
+		@column-gap: 3%;
+
+		section {
+			// a section inside a .columns is a column :)
+			background: #fff;
+			float: left;
+			margin-left: @column-gap; // standard column gap
+		}
+		// first column has no left margin
+		section:first-child { margin-left: 0; }
+
+		&.twocolumns section { width: ((100 - @column-gap)/2); }
+	}
+}
+
+// -- page header ------------------------------------------------
+
+.page header {
+	display: table;
+	width: 100%;
+	padding: 100px 0 50px;
+	h1 {
+		display: table-cell;
+		vertical-align: middle;
+		white-space: nowrap;
+		.heading;
+		float: left;
+		margin: 0;
+		padding-left: 0;
+		word-spacing: 0.5em;
+		.punc {
+			color: red;
+			font-size: 75%;
+			position: relative;
+			bottom: 0.15em;
+		}
+	}
+	nav {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: right;
+		padding: 0;
+		margin: 0 0 0 1em;
+	}
+	nav li {
+		display: inline-block;
+		margin: 0;
+		margin-left: 1em;
+	}
+}
+
+article {
+	padding: 1em 0 1.5em;
+}
+
 
 /*
 
 being rewritten
 
-header h1 {
-	margin: 0;
-	display: block;
-	padding: 1em 1em 0.4em;
-	text-align: center;
-	font-weight: 100;
-	background: transparent;
-	color: inherit;
-	text-transform: uppercase;
-	font-size: 66%;
-	letter-spacing: 0.16em;
-	word-spacing: 0.5em;
-}
-header h1 .punc {
-	color: red;
-	xtext-transform: lowercase;
-	font-size: 75%;
-	position: relative;
-	bottom: 0.15em;
-}
-header nav {
-	margin: 0;
-}
-header nav ul {
-	margin: 0;
-	padding: 0.3em 0.5em 0.2em;
-	text-align: center;
-}
-header nav li {
-	padding: 0.3em 0.5em 0.2em;
-	display: inline-block;
-}
-section {
-}
 section.hireme { padding: 0;}
-section > h1, div.row-fluid.hireme {
-	background: -moz-linear-gradient(left,  fade(@highlight, 10%) 0%, rgba(255,0,0, 0.01) 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0, 0.1)), color-stop(100%,rgba(255,0,0, 0.01)));
-	background: -webkit-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%);
-	background: -o-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%);
-	background: -ms-linear-gradient(left,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%);
-	background: linear-gradient(to right,  rgba(255,0,0, 0.1) 0%,rgba(255,0,0, 0.01) 100%);
 
-	display: block;
-	border-left: solid red 0.2em;
-	padding: 0.6em 1.5em 0.4em;
-	margin-left: -2px;
-	border-left: solid red 2px;
-}
-section > h1, div.row-fluid.hireme h2 {
-	text-align: left;
-	font-weight: 100;
-	color: #666;
-	letter-spacing: 0.16em;
-	line-height: 1.0;
-	font-size: 66%;
-	text-transform: uppercase;
-}
-section.latestitemheader {
-	padding-bottom: 0;
-}
-section.latestitem {
-	padding-top: 0;
-}
 article {
 	padding: 1em 0 1.5em;
 }

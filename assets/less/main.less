@@ -95,23 +95,24 @@ section.promo {
 	// promo parts are highlighted, and have smaller headings
 	.highlit;
 	h2 {
-		font-size: inherit;
-		line-height: inherit;
-		padding: 0;
-		margin: 0;
+		.heading;
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-top: 0;
 	}
 	p {
+//		font-size: 75%;
 		margin: 0 0 0.5em;
 	}
 }
 
 
-// -- columns --------------------------------------------------
+// -- adapt layout to width ------------------------------------
 
 @media (min-width: 600px) {
 	.page section.feature > * {
-		padding-left: 10%;
-		padding-right: 10%;
+		padding-left: 15%;
+		padding-right: 15%;
 	}
 
 	.columns {
@@ -129,6 +130,19 @@ section.promo {
 		section:first-child { margin-left: 0; }
 
 		&.twocolumns section { width: ((100 - @column-gap)/2); }
+	}
+}
+
+@media (min-width: 400px) and (max-width: 599px) {
+	.page section.feature > * {
+		padding-left: 8%;
+		padding-right: 8%;
+	}
+}
+
+@media (max-width: 399px) {
+	section.promo h2 {
+		padding-left: 0;
 	}
 }
 
@@ -168,34 +182,24 @@ section.promo {
 	}
 }
 
-article {
-	padding: 1em 0 1.5em;
-}
-
-
-/*
-
-being rewritten
-
-section.hireme { padding: 0;}
+// -- articles -------------------------------------------------
 
 article {
 	padding: 1em 0 1.5em;
+
+	h2 {
+		font-size: 200%;
+		line-height: 1.1;
+		letter-spacing: -0.05em;
+		padding: 0.6em 0 0.1em;
+		text-align: left;
+		font-weight: bold;
+		color: #888;
+
+		a { color: inherit !important; }
+	}
 }
-article h2 {
-	display: block;
-	font-size: 200%;
-	line-height: 1.1;
-	letter-spacing: -0.05em;
-	opacity: 0.8;
-	padding: 0.6em 0 0.1em;
-	text-align: left;
-	font-weight: bold;
-	color: #999;
-}
-article h2 a {
-	color: inherit !important;
-}
+
 a.morelink {
 	display: block;
 	text-align: center;
@@ -214,7 +218,4 @@ a.morelink:after {
 footer {
 	padding: 1em 0;
 	color: #bbb;
-	border-top: 1px solid #ddd;
 }
-
- */

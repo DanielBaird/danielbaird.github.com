@@ -3,7 +3,7 @@ assign into a 'item' variable, then include this file to render an item summary.
 {% endcomment %}
 
 <article>
-<h2><a href="{{ item.url }}">{{ item.title }}</a></h2>
+<h1><a href="{{ item.url }}">{{ item.title }}</a></h1>
 {% if item.summary %}
     {% capture summary_plus_more_link %}{{ item.summary }} &nbsp; "(morelink)more":{{ item.url }}{% endcapture %}
     {{ summary_plus_more_link | textilize }}

@@ -47,7 +47,11 @@
 	padding-left: 5px;
 }
 
-.heading {
+h1, h2, h3, h4 {
+	letter-spacing: -0.05em;
+}
+
+.groupheading {
 	text-align: left;
 	font-weight: 900;
 	color: #666;
@@ -62,6 +66,18 @@
 	padding: 0.4em 0 0.4em 0.6em;
 }
 
+.articleheading {
+	font-size: 200%;
+	line-height: 1.1;
+	letter-spacing: -0.05em;
+	padding: 0.6em 0 0.1em;
+	margin: 0;
+	text-align: left;
+	font-weight: bold;
+	color: #888;
+
+	a { color: inherit !important; }
+}
 
 // actual page elements..
 
@@ -71,12 +87,13 @@ body {
 
 .page {
 	// the box within which the entire page content lives
-	max-width: 900px;
+	max-width: 800px;
 	margin: 0 auto;
 }
 
-.page header {
+.page > header {
 	.clearfix;
+
 }
 
 .page section {
@@ -85,7 +102,7 @@ body {
 
 	> h1 {
 		.highlit;
-		.heading;
+		.groupheading;
 	}
 }
 
@@ -95,7 +112,7 @@ section.promo {
 	// promo parts are highlighted, and have smaller headings
 	.highlit;
 	h2 {
-		.heading;
+		.groupheading;
 		padding-top: 0;
 		padding-bottom: 0;
 		margin-top: 0;
@@ -109,16 +126,22 @@ section.promo {
 
 // -- adapt layout to width ------------------------------------
 
+// mobile first: imagine these rules are in a "narrow" media section.
+// @media (max-width: 399px) {
+	section.promo h1 {
+		padding-left: 0;
+	}
+// }
+
+@column-gap: 3%;
+
 @media (min-width: 600px) {
-	.page section.feature > * {
+	.page > section.feature > * {
 		padding-left: 15%;
 		padding-right: 15%;
 	}
 
 	.columns {
-		.clearfix;
-
-		@column-gap: 3%;
 
 		section {
 			// a section inside a .columns is a column :)
@@ -134,29 +157,23 @@ section.promo {
 }
 
 @media (min-width: 400px) and (max-width: 599px) {
-	.page section.feature > * {
+	.page > section.feature > * {
 		padding-left: 8%;
 		padding-right: 8%;
 	}
 }
 
-@media (max-width: 399px) {
-	section.promo h2 {
-		padding-left: 0;
-	}
-}
-
 // -- page header ------------------------------------------------
 
-.page header {
+.page > header {
 	display: table;
 	width: 100%;
-	padding: 100px 0 50px;
+	padding: 100px 0;
 	h1 {
 		display: table-cell;
 		vertical-align: middle;
 		white-space: nowrap;
-		.heading;
+		.groupheading;
 		float: left;
 		margin: 0;
 		padding-left: 0;
@@ -166,6 +183,10 @@ section.promo {
 			font-size: 75%;
 			position: relative;
 			bottom: 0.15em;
+		}
+		a {
+			text-decoration: inherit;
+			color: inherit;
 		}
 	}
 	nav {
@@ -187,35 +208,53 @@ section.promo {
 article {
 	padding: 1em 0 1.5em;
 
-	h2 {
-		font-size: 200%;
-		line-height: 1.1;
-		letter-spacing: -0.05em;
-		padding: 0.6em 0 0.1em;
-		text-align: left;
-		font-weight: bold;
-		color: #888;
-
-		a { color: inherit !important; }
+	header {
+		padding: 0 0 1em;
+	}
+	h1 {
+		.articleheading;
 	}
 }
 
-a.morelink {
-	display: block;
-	text-align: center;
-	margin-top: -0.5em;
-	padding-right: 1em;
+.page > article {
+	// an article on a page of its own
+	padding: 0 0 1.5em;
+	header {
+		padding: 0 0 3em;
+		h1 {
+			font-size: 350%;
+			padding: 0 0 0.1em;
+		}
+	}
+	h2, h3, h4, h5, h6 {
+		padding: 1em 0 0.2em;
+	}
+	h2 { color: #666;    font-size: 250%;    }
+	h3 { color: #444;    font-size: 150%;    }
+	h4 { color: #222;    font-size: inherit; }
+	h5 { color: inherit; font-size: inherit; font-weight: normal; }
 }
+
+
 p a.morelink {
 	display: inline;
 	opacity: 0.75;
 }
+
 a.morelink:after {
 	//  \00bb is a right-pointing double angle quote mark
 	//    \00a0 is a non-breaking space
 	content: '\00a0\00bb';
 }
-footer {
+
+section > a.morelink {
+	display: block;
+	font-weight: bold;
 	padding: 1em 0;
+}
+
+footer {
+	padding: 1.5em 0;
 	color: #bbb;
+	a { white-space: nowrap; }
 }

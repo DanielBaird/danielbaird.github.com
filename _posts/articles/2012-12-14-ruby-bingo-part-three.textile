@@ -1,12 +1,9 @@
 ---
-layout: post
+layout: article
 category: articles
 title: 'Ruby walkthrough: making bingo cards part 3'
 summary: I'm walking through a little Ruby project – making a bingo game – explaining the code as I go. This might be useful if you're new to Ruby. Here's part 3, where we (TODO something).
 ---
-
-h1. Ruby Walkthrough: Making Bingo Cards, Part 3
-
 
 I'm walking through a Ruby project -- making cards for a game of "Baby Bingo" at my wife's baby shower.  In (link)part 1, I describe the project and get a bit of code down that makes a bingo card. In (link)part 2, I wrap the code up into a class, and start using strings instead of numbers.
 

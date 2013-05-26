@@ -6,9 +6,29 @@ assign into a 'article' variable, then include this file to render an item as an
 <article class="article">
     <header>
         <h1><a href="{{ article.url }}">{{ article.title }}</a></h1>
-        an article written in {{ article.date | date: "%B %Y" }}
     </header>
-    {{ article.content | textilize }}
+    <div class="columns thickthin">
+
+        <section class="maincontent">
+{{ article.content | textilize }}
+        </section>
+
+        <section class="metainfo">
+            <section class="info">
+                <h1>This article</h1>
+                by Daniel Baird first appeared here on <span class="morsel">{{ article.date | date: "%d %B" }}</span> {{ article.date | date: "%Y" }}.
+            </section>
+            {% if article.tags.size > 0 %}
+                <section class="tags">
+                    <h1>Topics</h1>
+                        {% for topic in article.tags %}
+                            {% assign fullname = topic %}{% include split_name %}
+                            <a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a>
+                        {% endfor %}
+                </section>
+            {% endif %}
+        </section>
+    </div>
 </article>
 
 

@@ -19,36 +19,70 @@
 //@import 'tbs/navs';
 //@import 'tbs/navbar';
 
-// -- debug -----
 
-// section { background: pink; }
-// section > * { background: white;}
+@media-wide-max: 860px;
+@media-wide-min: 630px;
 
-// .diag {
-// 	background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0, 0.25) 10px, rgba(0,0,0, 0.25) 20px, transparent 20px);
-// }
+@media-medium-max: (@media-wide-min - 1px);
+@media-medium-min: 500px;
 
-// .checkers {
-// 	background-image: linear-gradient(45deg, rgba(0,0,0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0,0,0, 0.25) 75%, rgba(0,0,0, 0.25)),
-// 	linear-gradient(45deg, rgba(0,0,0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0,0,0, 0.25) 75%, rgba(0,0,0, 0.25));
-// 	background-size:10px 10px;
-// 	background-position:0 0, 5px 5px
-// }
+@media-narrow-max: (@media-medium-min - 1px);
 
-// -- general layout ------------------------------------------------
+// -- debug ----------------------------------------------------
 
-// for including..
+// -- typography -----------------------------------------------
+
+@mediumheadingcolor: #666;
+@bigheadingcolor: #333;
+
+h1, h2, h3, h4 {
+	// tighten up heading spacing a bit
+	letter-spacing: -0.05em;
+	// links in headings should be the heading colour
+	a { color: inherit !important; }
+}
+
+// don't linebreak inside important phrases
+.morsel {
+	white-space: nowrap;
+}
+
+// "more" links fit on the end of paragraphs
+a.morelink {
+	display: inline;
+	opacity: 0.75;
+	&:after {
+		//  \00bb is a right-pointing double angle quote mark
+		//  \00a0 is a non-breaking space
+		content: '\00a0\00bb';
+	}
+}
+
+a.topic {
+	background: #eee; // TODO: fix
+	padding: 0.1em 0.5em;
+	.border-radius(0.5em);
+}
 
 .highlit {
-	#gradient > .horizontal(fade(@highlight, 10%), fade(@highlight, 1%));
+	#gradient > .horizontal(lighten(@highlight, 38%), lighten(@highlight, 48%));
 	display: block;
 	margin-left: -2px;
 	border-left: solid red 2px;
 	padding-left: 5px;
 }
 
-h1, h2, h3, h4 {
+.bigheading {
+	font-size: 600%;
+	line-height: 1;
 	letter-spacing: -0.05em;
+	padding: 0.6em 0 0.3em;
+	margin: 0;
+	text-align: center;
+	font-weight: bold;
+	color: @bigheadingcolor;
+
+	a { color: inherit; }
 }
 
 .groupheading {
@@ -67,19 +101,19 @@ h1, h2, h3, h4 {
 }
 
 .articleheading {
-	font-size: 200%;
-	line-height: 1.1;
+	font-size: 300%;
+	line-height: 1;
 	letter-spacing: -0.05em;
-	padding: 0.6em 0 0.1em;
+	padding: 0.6em 0 0.3em;
 	margin: 0;
 	text-align: left;
 	font-weight: bold;
-	color: #888;
+	color: @mediumheadingcolor;
 
-	a { color: inherit !important; }
+	a { color: inherit; }
 }
 
-// actual page elements..
+// -- general layout -------------------------------------------
 
 body {
 	padding: 0 10px; // don't get any closer to the edge than 10px
@@ -87,83 +121,177 @@ body {
 
 .page {
 	// the box within which the entire page content lives
-	max-width: 800px;
+	max-width: @media-wide-max;
 	margin: 0 auto;
 }
 
 .page > header {
 	.clearfix;
-
+	text-shadow:
+		  -1px 0  2px white,
+		   1px 0  2px white,
+		   0   0  6px white,
+		   0   0 12px white;
 }
 
-.page > section {
-	// page-level sections
-	padding: 2em 0;
+// -- index page -----------------------------------------------
 
-	> h1 {
+.home.page {
+	> section {
+		// page-level sections
+		padding: 2em 0;
+	}
+
+	section > h1 {
 		.highlit;
 		.groupheading;
 	}
-}
 
-section.promo {
-	padding-top: 1em;
-	padding-bottom: 0.5em;
-	// promo parts are highlighted, and have smaller headings
-	.highlit;
-	h2 {
+	> section:first-of-type {
+		padding-top: 1em;
+	}
+
+	.columns > section > h1 {
+		.highlit;
 		.groupheading;
-		padding-top: 0;
-		padding-bottom: 0;
-		margin-top: 0;
 	}
-	p {
-//		font-size: 75%;
-		margin: 0 0 0.5em;
+
+	section.promo {
+		padding-top: 1em;
+		padding-bottom: 0.5em;
+		// promo parts are highlighted, and have smaller headings
+		.highlit;
+		h2 {
+			.groupheading;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+		}
+		p {
+			font-size: 85%;
+			margin: 0 0 0.5em;
+		}
+	}
+} // end of .home.page
+
+@media (min-width: @media-wide-min) {
+	.home.page > section.feature > * {
+		padding-left: 15% !important;
+		padding-right: 15% !important;
 	}
 }
 
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
+	.home.page > section.feature > * {
+		padding-left: 7% !important;
+		padding-right: 7% !important;
+	}
+}
+
+// -- article page ---------------------------------------------
+
+.article.page {
+	article header h1 {
+		.bigheading;
+	}
+	.metainfo > section > h1 {
+		.highlit;
+		.groupheading;
+	}
+} // end of .article.page
+
+// -- topics page ----------------------------------------------
+
+.topics.page {
+	> h1 {
+		.bigheading;
+	}
+
+	> section {
+		// page-level sections
+		padding: 2em 0;
+	}
+
+	section > h1 {
+		.highlit;
+		.groupheading;
+	}
+
+	> section:first-of-type {
+		padding-top: 1em;
+	}
+
+	.columns > section > h1 {
+		.highlit;
+		.groupheading;
+	}
+
+	section.promo {
+		padding-top: 1em;
+		padding-bottom: 0.5em;
+		// promo parts are highlighted, and have smaller headings
+		.highlit;
+		h2 {
+			.groupheading;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+		}
+		p {
+			font-size: 85%;
+			margin: 0 0 0.5em;
+		}
+	}
+} // end of .topics.page
 
 // -- adapt layout to width ------------------------------------
 
 // mobile first: imagine these rules are in a "narrow" media section.
-// @media (max-width: 399px) {
+
+//// @media (max-width: @media-narrow-min) {
 	section.promo h1 {
 		padding-left: 0;
 	}
-// }
-
-@column-gap: 3%;
-
-@media (min-width: 600px) {
-	.page > section.feature > * {
-		padding-left: 15%;
-		padding-right: 15%;
+	.columns {
+		padding-top: 4em;
 	}
+//// }
+
+@column-gap: 5%;
+
+// now the wider verison..
+
+@media (min-width: @media-medium-min) {
 
 	.columns {
+		padding-top: 2em;
+		.clearfix;
 
-		section {
+		> section {
 			// a section inside a .columns is a column :)
 			background: #fff;
 			float: left;
 			margin-left: @column-gap; // standard column gap
 		}
 		// first column has no left margin
-		section:first-child { margin-left: 0; }
+		> section:first-child { margin-left: 0; }
 
-		&.twocolumns section { width: ((100 - @column-gap)/2); }
+		// twocolumns version has two equal width columns
+		&.twocolumns > section { width: ((100 - @column-gap)/2); }
+
+		// thickthin version has left column thick, right column thin
+		&.thickthin > section { width: ((100 - @column-gap)/4); }
+		&.thickthin > section:first-child { width: ((100 - @column-gap) * 3/4); }
+		&.thickthin .metainfo {
+			padding-top: 0;
+			h1 { margin-top: 0; }
+			> section { padding: 0 0 2em; }
+		}
 	}
 }
 
-@media (min-width: 400px) and (max-width: 599px) {
-	.page > section.feature > * {
-		padding-left: 8%;
-		padding-right: 8%;
-	}
-}
 
-// -- page header ------------------------------------------------
+// -- page header ----------------------------------------------
 
 .page > header {
 	display: table;
@@ -180,9 +308,22 @@ section.promo {
 		word-spacing: 0.5em;
 		.punc {
 			color: red;
+			background: white;
 			font-size: 75%;
+			text-align: center;
+			border-radius: 50%;
+
 			position: relative;
-			bottom: 0.15em;
+			bottom: 0.33em;
+
+			display: inline-block;
+			vertical-align: middle;
+			width: 3.2em;
+			height: 3.2em;
+			line-height: 3.5em;
+			margin: 0 -0.33em;
+
+			box-shadow: 0 0 10px white, 0 0 10px white;
 		}
 		a {
 			text-decoration: inherit;
@@ -208,10 +349,10 @@ section.promo {
 article {
 	padding: 1em 0 1.5em;
 
-	header {
+	> header {
 		padding: 0 0 1em;
 	}
-	h1 {
+	> header > h1, > h1 {
 		.articleheading;
 	}
 }
@@ -220,7 +361,7 @@ article {
 	// an article on a page of its own
 	padding: 0 0 1.5em;
 	header {
-		padding: 0 0 3em;
+		padding: 0;
 		h1 {
 			font-size: 350%;
 			padding: 0 0 0.1em;
@@ -236,18 +377,9 @@ article {
 }
 
 
-p a.morelink {
-	display: inline;
-	opacity: 0.75;
-}
-
-a.morelink:after {
-	//  \00bb is a right-pointing double angle quote mark
-	//    \00a0 is a non-breaking space
-	content: '\00a0\00bb';
-}
 
 section > a.morelink {
+	opacity: 1;
 	display: block;
 	font-weight: bold;
 	padding: 1em 0;

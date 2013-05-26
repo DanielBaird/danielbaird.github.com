@@ -1,6 +1,7 @@
 ---
 layout: article
 category: articles
+tags: ['Ruby|the Ruby programming language']
 title: 'Ruby walkthrough: making bingo cards part 3'
 summary: I'm walking through a little Ruby project – making a bingo game – explaining the code as I go. This might be useful if you're new to Ruby. Here's part 3, where we (TODO something).
 ---

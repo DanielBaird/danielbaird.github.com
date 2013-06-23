@@ -1,0 +1,17 @@
+---
+layout: default
+flavour: list
+---
+<h1>Articles</h1>
+{% capture previousyear %}9999{% endcapture %}
+{% for item in site.posts %}
+    {% if item.category == 'articles' %}
+        {% comment %}    maybe include a year header..   {% endcomment %}
+        {% capture articleyear %}{{ item.date | date: "%Y" }}{% endcapture %}
+        {% if articleyear != previousyear %}
+            {% capture previousyear %}{{ item.date | date: "%Y" }}{% endcapture %}
+            <h2 class="yearheading">{{ articleyear }}</h2>
+        {% endif %}
+        {% include item_summary_twocol_html %}
+    {% endif %}
+{% endfor %}

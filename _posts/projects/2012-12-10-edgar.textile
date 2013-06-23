@@ -2,6 +2,7 @@
 layout: project
 category: projects
 title: Edgar
+tags: ['SDM|species distribution modelling', 'Climate Change|dealing with the future climate', 'GIS|digital geographic systems']
 timeperiod: 2012
 url: http://tropicaldatahub.org/goto/edgar
 summary: "Edgar shows ecological niches for Australian birds, now and in the globally-warmed future.  It also lets bird watchers correct observations of bird species (thereby improving the modelling of birds' niches).  This was my first put-a-map-on-a-web-page project and it turned out pretty good."

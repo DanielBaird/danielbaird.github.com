@@ -3,14 +3,14 @@ layout: default
 flavour: topics
 ---
 <h1>Topics</h1>
-{% for topic in site.tags %}
+{% for topic in site.tags | sort_by:topic order:ascending %}
     <section class="topic">
         {% assign fullname = topic[0] %}
         {% include split_name %}
         <h1><a name="{{ shortname }}">{{ shortname }}{% if shortname != longname %} <small>{{ longname }}</small>{% endif %}</a></h1>
         {% for item in site.posts %}
             {% if item.tags contains fullname %}
-                {% include item_summary_html %}
+                {% include item_summary_twocol_html %}
             {% endif %}
         {% endfor %}
 

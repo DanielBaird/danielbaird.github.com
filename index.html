@@ -4,9 +4,9 @@ flavour: home
 ---
 <section class="feature">
     {% for item in site.posts limit:1 offset:0 %}
-        <h1>Latest thing <small>({% case item.category %}{% when "articles" %}article
+        <h1>Latest thing <small>{% case item.category %}{% when "articles" %}article
             {% when "projects" %}project
-            {% endcase %}from {{ item.date | date: "%B %Y" }})</small></h1>
+            {% endcase %}from {{ item.date | date: "%B %Y" }}</small></h1>
 
         {% include item_summary_html %}
     {% endfor %}

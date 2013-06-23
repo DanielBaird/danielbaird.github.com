@@ -1,15 +1,39 @@
 
 {% comment %}
-assign into a 'project' variable, then include this file to render the post nicely.
+assign into a 'project' variable, then include this file to render an item as an project.
 {% endcomment %}
 
 <article class="project">
     <header>
-        <small>PROJECT</small>
-        <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
-        {{ project.date | date_to_string}}
+        <h1><a href="{{ project.url }}">{{ project.title }}</a></h1>
     </header>
-    {{ project.content | textilize }}
+    <div class="columns thickthin">
+
+        <section class="maincontent">
+{{ project.content | textilize }}
+        </section>
+
+        <section class="metainfo">
+            <section class="info">
+                <h1>This project</h1>
+                {% if project.timeperiod %}
+                    was developed in {{ project.timeperiod }} and 'launched'
+                {% else %}
+                    was 'launched'
+                {% endif %}
+                in <span class="morsel">{{ project.date | date: "%B %Y" }}</span>.
+            </section>
+            {% if project.tags.size > 0 %}
+                <section class="tags">
+                    <h1>Topics</h1>
+                        {% for topic in project.tags %}
+                            {% assign fullname = topic %}{% include split_name %}
+                            <a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a>
+                        {% endfor %}
+                </section>
+            {% endif %}
+        </section>
+    </div>
 </article>
 
 

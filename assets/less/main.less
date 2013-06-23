@@ -1,7 +1,7 @@
 
 @highlightcolor: rgb(255,0,0);
 
-@import 'tbs/variables'; // is actually a modified version of twitter bootstrap file
+@import 'tbs/variables'; // is actually a modified version of twitter bootstrap's vars
 
 @import 'tbs/mixins';
 @import 'tbs/reset';
@@ -21,12 +21,20 @@
 
 
 @media-wide-max: 860px;
-@media-wide-min: 630px;
+@media-wide-min: 700px;
 
 @media-medium-max: (@media-wide-min - 1px);
 @media-medium-min: 500px;
 
 @media-narrow-max: (@media-medium-min - 1px);
+
+@size-pagehead-wide:  1000%;
+@size-pagehead-medium: 800%;
+@size-pagehead-narrow: 600%;
+
+@size-articlehead-wide:   500%;
+@size-articlehead-medium: 433%;
+@size-articlehead-narrow: 300%;
 
 // -- debug ----------------------------------------------------
 
@@ -58,9 +66,20 @@ a.morelink {
 }
 
 a.topic {
-	background: #eee; // TODO: fix
-	padding: 0.1em 0.5em;
-	.border-radius(0.5em);
+	@topicheight: 1.5em;
+
+	display: inline-block;
+
+	height: @topicheight;
+	line-height: @topicheight;
+	padding: 0 (@topicheight / 2);
+
+	.border-radius((@topicheight / 2));
+	border: 2px solid #ccc;
+	border-width: 0 2.5px;
+	&:hover {
+		border-color: @highlightcolor;
+	}
 }
 
 .highlit {
@@ -72,7 +91,7 @@ a.topic {
 }
 
 .bigheading {
-	font-size: 600%;
+	// font-size: 600%;
 	line-height: 1;
 	letter-spacing: -0.05em;
 	padding: 0.6em 0 0.3em;
@@ -82,16 +101,30 @@ a.topic {
 	color: @bigheadingcolor;
 
 	a { color: inherit; }
+
+}
+
+.pageheading {
+	font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 100;
+	line-height: 1;
+	margin: 0;
+	padding: 0 0 0.6em;
+	letter-spacing: 0;
+	text-align: center;
+
+	color: @bigheadingcolor;
 }
 
 .groupheading {
 	text-align: left;
 	font-weight: 900;
-	color: #666;
+	color: #555;
 	letter-spacing: 0.16em;
 	line-height: 1.0;
 	font-size: 75%;
 	small {
+		padding-left: 0.33em;
 		font-size: inherit;
 		color: #999;
 	}
@@ -122,15 +155,11 @@ body {
 	// the box within which the entire page content lives
 	max-width: @media-wide-max;
 	margin: 0 auto;
+	line-height: 1.7;
 }
 
-.page > header {
-	.clearfix;
-	text-shadow:
-		  -1px 0  2px white,
-		   1px 0  2px white,
-		   0   0  6px white,
-		   0   0 12px white;
+@media (min-width: @media-wide-min) {
+	.page { font-size: 115%; }
 }
 
 // -- index page -----------------------------------------------
@@ -187,11 +216,40 @@ body {
 	}
 }
 
+// -- list page ------------------------------------------------
+
+.list.page {
+	> h1 {
+		.pageheading;
+		font-size: @size-pagehead-narrow;
+	}
+	h2.yearheading {
+		.groupheading;
+		.highlit;
+	}
+	article {
+		padding: 2em 0;
+	}
+}
+
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
+	.list.page > h1 {
+		font-size: @size-pagehead-medium;
+	}
+}
+
+@media (min-width: @media-wide-min) {
+	.list.page > h1 {
+		font-size: @size-pagehead-wide;
+	}
+}
+
 // -- article page ---------------------------------------------
 
-.article.page {
+.article.page, .project.page {
 	article header h1 {
 		.bigheading;
+		font-size: @size-articlehead-narrow;
 	}
 	.metainfo > section > h1 {
 		.highlit;
@@ -199,49 +257,77 @@ body {
 	}
 } // end of .article.page
 
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
+	.article.page, .project.page {
+		article header h1 {
+			font-size: @size-articlehead-medium;
+		}
+	}
+}
+
+@media (min-width: @media-wide-min) {
+	.article.page, .project.page {
+		article header h1 {
+			font-size: @size-articlehead-wide;
+		}
+	}
+}
+
 // -- topics page ----------------------------------------------
 
 .topics.page {
 	> h1 {
-		.bigheading;
+		.pageheading;
+		font-size: @size-pagehead-narrow;
 	}
 
 	> section {
-		// page-level sections
+		// page-level sections are a single topic
 		padding: 2em 0;
-	}
 
-	section > h1 {
-		.highlit;
-		.groupheading;
+		> h1 {
+			// heading is the topic name
+			.highlit;
+			.groupheading;
+		}
 	}
 
 	> section:first-of-type {
+		// first topic doesn't need as much top padding
 		padding-top: 1em;
 	}
 
-	.columns > section > h1 {
-		.highlit;
-		.groupheading;
+	// column setup for narrow screens
+	.columns > section {
+		padding-top: 0;
 	}
 
-	section.promo {
-		padding-top: 1em;
-		padding-bottom: 0.5em;
-		// promo parts are highlighted, and have smaller headings
-		.highlit;
-		h2 {
-			.groupheading;
-			padding-top: 0;
-			padding-bottom: 0;
-			margin-top: 0;
-		}
-		p {
-			font-size: 85%;
-			margin: 0 0 0.5em;
-		}
-	}
 } // end of .topics.page
+
+// .topics.page medium width setup
+@media (min-width: @media-medium-min) { .topics.page {
+		// column setup for non-narrow screens
+
+		.columns > section:first-of-type {
+			// reset the narrow-screen padding
+			padding-top: 0;
+		}
+		article.columns > h1 {
+			text-align: right;
+		}
+
+}	}
+
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
+	.topics.page > h1 {
+		font-size: @size-pagehead-medium;
+}	}
+
+@media (min-width: @media-wide-min) {
+	.topics.page > h1 {
+		font-size: @size-pagehead-wide;
+}	}
+
 
 // -- adapt layout to width ------------------------------------
 
@@ -251,7 +337,7 @@ body {
 	section.promo h1 {
 		padding-left: 0;
 	}
-	.columns {
+	.columns > section {
 		padding-top: 4em;
 	}
 //// }
@@ -266,17 +352,17 @@ body {
 		padding-top: 2em;
 		.clearfix;
 
-		> section {
-			// a section inside a .columns is a column :)
-			background: #fff;
+		> section, > .column {
+			// a section inside a .columns is automatically a column, or you can class something as a column
+			padding-top: 0;
 			float: left;
 			margin-left: @column-gap; // standard column gap
 		}
 		// first column has no left margin
-		> section:first-child { margin-left: 0; }
+		> section:first-child, > .column:first-child { margin-left: 0; }
 
 		// twocolumns version has two equal width columns
-		&.twocolumns > section { width: ((100 - @column-gap)/2); }
+		&.twocolumns > section, &.twocolumns > .column { width: ((100 - @column-gap)/2); }
 
 		// thickthin version has left column thick, right column thin
 		&.thickthin > section { width: ((100 - @column-gap)/4); }
@@ -293,9 +379,21 @@ body {
 // -- page header ----------------------------------------------
 
 .page > header {
+	.clearfix;
+	text-shadow:
+		  -1px 0  2px white,
+		   1px 0  2px white,
+		   0   0  6px white,
+		   0   0 12px white;
+	transition: box-shadow 3s;
 	display: table;
 	width: 100%;
-	padding: 100px 0;
+	padding: 20px 0;
+
+	&:hover {
+		box-shadow: inset 0 0 50px fade(@highlightcolor,10%), 0 0 50px fade(@highlightcolor,10%);
+	}
+
 	h1 {
 		display: table-cell;
 		vertical-align: middle;
@@ -343,6 +441,14 @@ body {
 	}
 }
 
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
+	.page > header { padding: 70px 0; }
+}
+
+@media (min-width: @media-wide-min) {
+	.page > header { padding: 120px 0; }
+}
+
 // -- articles -------------------------------------------------
 
 article {
@@ -361,9 +467,11 @@ article {
 	padding: 0 0 1.5em;
 	header {
 		padding: 0;
+		margin-top: 0;
 		h1 {
 			font-size: 350%;
 			padding: 0 0 0.1em;
+			margin-top: 0;
 		}
 	}
 	h2, h3, h4, h5, h6 {

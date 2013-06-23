@@ -2,7 +2,7 @@
 layout: post
 title: Frustration and Frustratzee
 category: articles
-tags: cards game frustration 'phase 10' frustratzee yahtzee
+tags: ['Cards|games with playing cards']
 summary: Rules for a card game I've played a lot but can't find on Google, and a similar game we invented.
 ---
 Here's a card game my Friday Night Cards group came up with, back when we actually played cards instead of just sitting around chatting.

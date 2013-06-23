@@ -10,19 +10,26 @@ handleDots = function() {
     wk_dots = [];
     w3_dots = [];
     moz_dots = [];
-    offset = $header.offset();
+    step = 3;
+    close = 15;
+    // offset = $header.offset();
+    offset = { left: 0, top: 0 }
     $.each(dots, function(ref, d) {
-        step = 4;
         // is the mouse near this one?
         xdiff = window.mx - offset.left - d.x;
         ydiff = window.my - offset.top - d.y;
-        if (dotthere = (in_header && xdiff < 15 && xdiff > -15 && ydiff < 15 && ydiff > -15)) {
+        if (in_header && xdiff < close && xdiff > -close && ydiff < close && ydiff > -close) {
+            dotthere = true
             // increment this one..
             d.size += step;
-            d.age = Math.max(-0.33, d.age - step/100);
+            if (d.size < 150) {
+                d.age = Math.max(-0.25, d.age - step/25);
+            } else {
+                d.age += step/75;
+            }
         } else {
             d.size += step;
-            d.age += step/200;
+            d.age += step/75;
         }
         if (d.age > 1) {
             delete dots[ref];
@@ -30,7 +37,7 @@ handleDots = function() {
             x = d.x;
             y = d.y;
             size = d.size;
-            opac = 0.66 - d.age;
+            opac = 0.75 - d.age;
             moz_dots.push('-moz-radial-gradient('+x+'px '+y+'px, circle, rgba(255,0,0, '+ opac +'), rgba(255,0,0, 0) '+ size +'px)');
             w3_dots.push('radial-gradient('+ size +'px at '+x+'px '+y+'px, rgba(255,0,0, '+ opac +'), rgba(255,0,0, 0))');
         }
@@ -39,8 +46,8 @@ handleDots = function() {
         ref = (window.mx - offset.left) + ',' + (window.my - offset.top);
         dots[ref] = { x: (window.mx - offset.left), y: (window.my - offset.top), size: 7, age: 0 };
     }
-//    $header.css('background', moz_dots.join(','));
-    $header.css('background-image', w3_dots.join(','));
+    $('body').css('background-image', moz_dots.join(','));
+    $('body').css('background-image', w3_dots.join(','));
 
     window.tick = setTimeout("handleDots()", tick_length);
 }

@@ -17,9 +17,44 @@ layout: base
 
 <script src="{{ site.base_url }}assets/js/jquery-1.8.2.min.js"></script>
 <script src="{{ site.base_url }}assets/js/mousedots.js"></script>
+
 <footer>
-    Hmm big footer or minimal footer?  Content not owned by someone else is owned by Daniel Baird.  Don't use without permission.
-    <a href="mailto:blogcontact@danielbaird.com">contact Daniel via email</a>.
+    <div class="columns thinthickthin">
+        <section>
+            <h1>site links</h1>
+            <ul>
+                {% for cat in site.categories %}
+                <li><a href="{{ site.base_url }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
+                {% endfor %}
+                <li><a href="{{ site.base_url }}topics/">topics</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>about me</h1>
+            <p>
+                I'm a software maker and technology generalist with interests in user experience, especially on the web.  I'm based in <a href="https://en.wikipedia.org/wiki/Townsville">Townsville</a>, which is totally a real place in the tropical north east of Australia. <a class="morelink" href="{{ site.base_url }}about/">more</a>
+
+            </p>
+        </section>
+
+        <section>
+            <h1>contact</h1>
+            <ul>
+                <li><a href="mailto:contact@danielbaird.com">email</a></li>
+                <li>
+                    <a href="https://twitter.com/DanielBaird" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-dnt="true">Follow @DanielBaird</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <section class="fineprint">
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/au/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/au/80x15.png" /></a> Except where otherwise noted, this site is copyright © 2012, 2013 and licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/au/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Australia License</a>.
+        </p>
+    </section>
 </footer>
 
 </div>

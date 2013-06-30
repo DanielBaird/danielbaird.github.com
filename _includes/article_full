@@ -21,9 +21,10 @@ assign into a 'article' variable, then include this file to render an item as an
             {% if article.tags.size > 0 %}
                 <section class="tags">
                     <h1>Topics</h1>
+                        <ul class="topiclist">
                         {% for topic in article.tags %}
                             {% assign fullname = topic %}{% include split_name %}
-                            <a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a>
+                            <li><a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
                         {% endfor %}
                 </section>
             {% endif %}

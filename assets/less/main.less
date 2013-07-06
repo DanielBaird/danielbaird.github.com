@@ -94,7 +94,8 @@ a.topic {
 }
 
 .highlit {
-	#gradient > .horizontal(lighten(@highlight, 38%), lighten(@highlight, 48%));
+	// #gradient > .horizontal(lighten(@highlight, 38%), lighten(@highlight, 48%));
+	background-color: lighten(@highlight, 46%);
 	display: block;
 	margin-left: -2px;
 	border-left: solid red 2px;
@@ -274,9 +275,9 @@ body {
 	}
 }
 
-// -- single article or project page ---------------------------
+// -- article / project / content page -------------------------
 
-.article.page, .project.page {
+.plain.page, .article.page, .project.page {
 	article header h1 {
 		.bigheading;
 		padding-top: 0;
@@ -288,8 +289,13 @@ body {
 	}
 } // end of .article.page
 
+// plain pages don't have columns so they need a bit of top padding.
+.plain.page article header h1 {
+	padding-bottom: 1em;
+}
+
 @media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
-	.article.page, .project.page {
+	.plain.page, .article.page, .project.page {
 		article header h1 {
 			font-size: @size-articlehead-medium;
 		}
@@ -297,7 +303,7 @@ body {
 }
 
 @media (min-width: @media-wide-min) {
-	.article.page, .project.page {
+	.plain.page, .article.page, .project.page {
 		article header h1 {
 			font-size: @size-articlehead-wide;
 		}
@@ -592,7 +598,7 @@ footer:hover {
 @media (min-width: @media-medium-min) {
 	footer {
 		opacity: 0.25;
-		border-top: none;
+		// border-top: none;
 		.columns section {
 			padding-top: 0;
 			&:first-child { text-align: left }

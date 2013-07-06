@@ -1,11 +1,11 @@
 ---
-layout: default
-title: About Daniel Baird
+layout: plain
+title: About Daniel
+summary: About Daniel
 ---
 
-Hi, maybe you want to hire me.
+Hi. I'm a software maker from "Townsville":https://en.wikipedia.org/wiki/Townsville, Australia. I have a deep interest in user experience, especially on the web.  Someone in Townsville bought a 14.4k modem last year, so I've finally been able to build "a few web projects":{{ site.base_url }}projects.
 
-{% assign item_list = site.posts %}
-{% assign selected_category = 'about' %}
+Currently I spend most of my time working on eResearch projects with university researchers, but I keep some time spare for technology consulting and other side projects, including the occasional "article":{{ site.base_url }}projects for this web site.
 
-{% include item_list_selected_category %}
+If you want to discuss a project, an article, or some consulting, please "get in touch":mailto:contact@danielbaird.com.

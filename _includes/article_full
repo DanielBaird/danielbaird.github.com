@@ -1,7 +1,8 @@
+{% comment %} ------------------------------------------------------------
 
-{% comment %}
 assign into a 'article' variable, then include this file to render an item as an article.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 
 <article class="article">
     <header>
@@ -24,7 +25,7 @@ assign into a 'article' variable, then include this file to render an item as an
                         <ul class="topiclist">
                         {% for topic in article.tags %}
                             {% assign fullname = topic %}{% include split_name %}
-                            <li><a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
+                            <li><a href="{{ site.baseurl }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
                         {% endfor %}
                 </section>
             {% endif %}

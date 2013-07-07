@@ -1,9 +1,10 @@
 
 site_title: daniel baird dot com
-site_slogan: Blogging Is Stupid
 
 url: http://danielbaird.github.com # or something
-base_url: / # or something
+baseurl: / # or something
+
+excerpt_separator: "\n"
 
 # use category/title for permalinks
 permalink: /:categories/:title/

@@ -1,7 +1,8 @@
+{% comment %} ------------------------------------------------------------
 
-{% comment %}
 assign into a 'project' variable, then include this file to render an item as an project.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 
 <article class="project">
     <header>
@@ -17,9 +18,9 @@ assign into a 'project' variable, then include this file to render an item as an
             <section class="info">
                 <h1>This project</h1>
                 {% if project.timeperiod %}
-                    was developed in {{ project.timeperiod }} and 'launched'
+                    was developed in {{ project.timeperiod }} and released
                 {% else %}
-                    was 'launched'
+                    and released
                 {% endif %}
                 in <span class="morsel">{{ project.date | date: "%B %Y" }}</span>.
             </section>
@@ -29,7 +30,7 @@ assign into a 'project' variable, then include this file to render an item as an
                         <ul class="topiclist">
                         {% for topic in project.tags %}
                             {% assign fullname = topic %}{% include split_name %}
-                            <li><a href="{{ site.base_url }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
+                            <li><a href="{{ site.baseurl }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
                         {% endfor %}
                 </section>
             {% endif %}

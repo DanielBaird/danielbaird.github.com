@@ -4,21 +4,21 @@ layout: base
 <div class="page {{ page.flavour }}">
 <p style="text-align: center; font-weight: bold; width: 100%">Everything here is just test content. Please ignore it all for now.<br>Love, Daniel.</p>
 <header>
-    <h1><a href="{{ site.base_url }}">daniel baird <span class="punc">dot</span> com</a></h1>
+    <h1><a href="{{ site.baseurl }}">daniel baird <span class="punc">dot</span> com</a></h1>
     <nav><ul>
         <!-- {% for cat in site.categories %}
-        <li><a href="{{ site.base_url }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
         {% endfor %} -->
-        <li><a href="{{ site.base_url }}articles">articles</a></li>
-        <li><a href="{{ site.base_url }}projects">projects</a></li>
+        <li><a href="{{ site.baseurl }}articles">articles</a></li>
+        <li><a href="{{ site.baseurl }}projects">projects</a></li>
         <li><a href="https://github.com/DanielBaird">github</a></li>
     </ul></nav>
 </header>
 
 {{ content }}
 
-<script src="{{ site.base_url }}assets/js/jquery-1.8.2.min.js"></script>
-<script src="{{ site.base_url }}assets/js/mousedots.js"></script>
+<script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script>
+<script src="{{ site.baseurl }}assets/js/mousedots.js"></script>
 
 <footer>
     <div class="columns thinthickthin">
@@ -26,16 +26,16 @@ layout: base
             <h1>site links</h1>
             <ul>
                 {% for cat in site.categories %}
-                <li><a href="{{ site.base_url }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
+                <li><a href="{{ site.baseurl }}{{ cat[0] }}/">{{ cat[0] }}</a></li>
                 {% endfor %}
-                <li><a href="{{ site.base_url }}topics/">topics</a></li>
+                <li><a href="{{ site.baseurl }}topics/">topics</a></li>
             </ul>
         </section>
 
         <section>
             <h1>about me</h1>
             <p>
-                I'm a software maker and technology generalist with interests in user experience, especially on the web.  I'm based in <a href="https://en.wikipedia.org/wiki/Townsville">Townsville</a>, which is totally a real place in the tropical north east of Australia. &nbsp; <a class="morelink" href="{{ site.base_url }}about/">more</a>
+                I'm a software maker and technology generalist with interests in user experience, especially on the web.  I'm based in <a href="https://en.wikipedia.org/wiki/Townsville">Townsville</a>, which is totally a real place in the tropical north east of Australia. &nbsp; <a class="morelink" href="{{ site.baseurl }}about/">more</a>
 
             </p>
         </section>

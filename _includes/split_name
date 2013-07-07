@@ -1,5 +1,5 @@
+{% comment %} ------------------------------------------------------------
 
-{% comment %}
 assign into a 'fullname' variable, then include this file.
 This file creates 'shortname' and 'longname' variables from the fullname by
 splitting on a pipe character, eg:
@@ -18,7 +18,8 @@ If there's no pipe character, shortname and longname will both be set
 to the full name.  If there's multiple pipe characters, the text before
 the first pipe will be the shortname, and the text after the last pipe
 will be the longname.  Text between is not returned.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 {% capture shortname %}{{ fullname | split:'|' | first }}{% endcapture %}
 {% capture longname %}{{ fullname | split:'|' | last }}{% endcapture %}
 

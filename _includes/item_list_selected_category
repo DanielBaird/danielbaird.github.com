@@ -1,9 +1,10 @@
+{% comment %} ------------------------------------------------------------
 
-{% comment %}
 assign into a item_list variable and a selected_category variable, then include this file.
 
 this will show a list of items in that category.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 
 {% for item in item_list %}
     {% if item.category == selected_category %}

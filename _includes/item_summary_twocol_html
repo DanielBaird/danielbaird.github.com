@@ -1,6 +1,8 @@
-{% comment %}
+{% comment %} ------------------------------------------------------------
+
 assign into a 'item' variable, then include this file to render an item summary.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 
 <article class="columns twocolumns">
     <h1 class="column"><a href="{{ item.url }}">{{ item.title }}</a></h1>

@@ -4,8 +4,8 @@ title: About Daniel
 summary: About Daniel
 ---
 
-Hi. I'm a software maker from "Townsville":https://en.wikipedia.org/wiki/Townsville, Australia. I have a deep interest in user experience, especially on the web.  Someone in Townsville bought a 14.4k modem last year, so I've finally been able to build "a few web projects":{{ site.base_url }}projects.
+Hi. I'm a software maker from "Townsville":https://en.wikipedia.org/wiki/Townsville, Australia. I have a deep interest in user experience, especially on the web.  Someone in Townsville bought a 14.4k modem last year, so I've finally been able to build "a few web projects":{{ site.baseurl }}projects.
 
-Currently I spend most of my time working on eResearch projects with university researchers, but I keep some time spare for technology consulting and other side projects, including the occasional "article":{{ site.base_url }}projects for this web site.
+Currently I spend most of my time working on eResearch projects with university researchers, but I keep some time spare for technology consulting and other side projects, including the occasional "article":{{ site.baseurl }}projects for this web site.
 
 If you want to discuss a project, an article, or some consulting, please "get in touch":mailto:contact@danielbaird.com.

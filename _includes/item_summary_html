@@ -1,18 +1,11 @@
-{% comment %}
+{% comment %} ------------------------------------------------------------
+
 assign into a 'item' variable, then include this file to render an item summary.
-{% endcomment %}
+
+--------------------------------------------------------- {% endcomment %}
 
 <article>
 <h1><a href="{{ item.url }}">{{ item.title }}</a></h1>
 {% capture excerpt_plus_more_link %}{{ item.excerpt | replace:'<p>','' | replace:'</p>','' }} &nbsp; "(morelink)more":{{ item.url }}{% endcapture %}
 {{ excerpt_plus_more_link | textilize }}
-
-{% comment %}
-{% if item.excerpt %}
-    {% capture excerpt_plus_more_link %}{{ item.excerpt }} &nbsp; "(morelink)more":{{ item.url }}{% endcapture %}
-    {{ excerpt_plus_more_link | textilize }}
-{% else %}
-    <a class="morelink" href="{{ item.url }}">more</a>
-{% endif %}
-{% endcomment %}
 </article>

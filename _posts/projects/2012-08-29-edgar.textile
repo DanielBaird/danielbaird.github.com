@@ -6,18 +6,18 @@ tags: ['SDM|species distribution modelling', 'Climate Change|dealing with the fu
 timeperiod: 2012
 url: http://tropicaldatahub.org/goto/edgar
 ---
-Edgar shows ecological niches for Australian birds, now and in the globally-warmed future.  It also lets bird watchers correct observations of bird species (thereby improving the modelling of birds' niches).
+Edgar shows ecological niches for Australian birds, now and in the globally-warmed future.  It also lets bird watchers correct observations of bird species (thereby improving the modelling of birds' niches).  The entire UI centres around a fullscreen "OpenLayers":http://openlayers.org/ map.
 
-Edgar started in 2012 at the eResearch Centre at JCU.  The project needed to do four things:
+Edgar started in 2012 at the eResearch Centre at JCU.  The project aimed at doing four things:
 
 * source and show australian bird observations on a web map
 * let visitors "vet" those observations (in the sense of detecting and marking the incorrect ones)
 * determine the species' preferred climate conditions, using the cleaned up set of observations and information about Australia's existing climate
 * determine where the species' preferred climate niche will be in the future, using climate models to project future climate, and matching that to species' preferences.
 
-Our partly-tame academics "Jeremy VanDerWal":http://www.jjvanderwal.com/ and "Lauren Hodgson":https://github.com/LaurenHodgson provided the modelling algorithms, "The Amazing Rob":http://robertpyke.com/ did server stuff and arranged for the modelling to happen on-demand, and "Tom":https://github.com/tomdalling handled the data side.  I did most of the user interface, which has a few interesting bits:
+Our partly-tame academics "Jeremy VanDerWal":http://www.jjvanderwal.com/ and "Lauren Hodgson":https://github.com/LaurenHodgson provided the modelling algorithms, "The Amazing Rob":http://robertpyke.com/ did server stuff and arranged for the modelling to happen on-demand, and "Tom Dalling":https://github.com/tomdalling handled the data side.  I did most of the user interface, which has a few interesting bits:
 * crowdsourcing of the observation cleaning bit
 * showing clustered observations in a way that behaved sanely when zooming
 * stretching the map across the whole screen (sure, it's been done before, but it was fun doing it with OpenLayers and making it not suck).
 
-It's called Edgar because it was about ravens (as well as every other bird in Australia), and the project code was @AP03@.  EdgarAPO3 ~ Edgar A. Poe, geddit?
+It's called Edgar because of something Tom suggested.. it's about ravens (as well as every other bird in Australia), and the project code was @AP03@.  So, "Edgar APO3" is kinda like "Edgar A. Poe" in "leetspeak":https://en.wikipedia.org/wiki/Leet, see?  Perhaps it's not completely convincing, but still better than yet another laboured acronym :)

@@ -2,5 +2,33 @@
 layout: default
 flavour: article
 ---
-{% assign article = page %}
-{% include article_full %}
+<article class="article">
+    <header>
+        <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+    </header>
+    <div class="columns thickthin">
+
+        <section class="maincontent">
+{{ content }}
+        </section>
+
+        <section class="metainfo">
+            <section class="info">
+                <h1>This article</h1>
+                by Daniel Baird first appeared here on <span class="morsel">{{ page.date | date: "%d %B" }}</span> {{ page.date | date: "%Y" }}.
+            </section>
+            {% if page.tags.size > 0 %}
+                <section class="tags">
+                    <h1>Topics</h1>
+                        <ul class="topiclist">
+                        {% for topic in page.tags %}
+                            {% assign fullname = topic %}{% include split_name %}
+                            <li><a href="{{ site.baseurl }}topics/#{{ shortname }}" class="topic" title="{{ longname }}">{{ shortname }}</a></li>
+                        {% endfor %}
+                </section>
+            {% endif %}
+        </section>
+    </div>
+</article>
+
+

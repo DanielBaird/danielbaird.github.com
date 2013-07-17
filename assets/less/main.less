@@ -20,12 +20,12 @@
 //@import 'tbs/navbar';
 
 
-@media-wide-max: 860px;
-@media-wide-min: 700px;
+@media-wide-max: 940px;
 
+@media-wide-min: 750px;
 @media-medium-max: (@media-wide-min - 1px);
-@media-medium-min: 500px;
 
+@media-medium-min: 500px;
 @media-narrow-max: (@media-medium-min - 1px);
 
 @size-pagehead-wide:  1000%;
@@ -157,6 +157,32 @@ a.topic {
 	a { color: inherit; }
 }
 
+.mono {
+	background: #eee;
+	.border-radius(2px);
+}
+
+pre {
+	@prepad: 0.66em;
+	.mono();
+	margin: @prepad -@prepad;
+	padding: (@prepad * 2) @prepad;
+
+	margin: @prepad -@prepad;
+	padding: @prepad;
+}
+
+code {
+	.mono();
+	margin: 0.1em;
+	padding: 0.1em 0.2em;
+}
+
+pre code {
+	margin: 0;
+	padding: 0;
+}
+
 // -- general layout -------------------------------------------
 
 body {
@@ -167,10 +193,22 @@ body {
 	// the box within which the entire page content lives
 	max-width: @media-wide-max;
 	margin: 0 auto;
-	line-height: 1.7;
+	line-height: 1.66;
+}
+
+li {
+	line-height: 1.66;
+}
+
+pre {
+	line-height: 1.4;
 }
 
 @media (min-width: @media-wide-min) {
+	.page { font-size: 133%; }
+}
+
+@media (min-width: @media-medium-min) and (max-width: @media-medium-max) {
 	.page { font-size: 115%; }
 }
 

@@ -14,7 +14,7 @@ Report Assembler replaces @$$variable@ in your document with a value, and will w
 
 {% highlight javascript %}
 {
-    "ZombieSpeedMPH": 4.5
+    "ZombieSpeedMpS": 4.5
     "IncubationDays": 2
 }
 {% endhighlight %}
@@ -22,8 +22,8 @@ Report Assembler replaces @$$variable@ in your document with a value, and will w
 You can write a report template like this:
 
 {% highlight javascript %}
-Your local zombie variety moves at $$ZombieSpeedMPH
-mph.  If you get bitten, you will turn into a zombie
+Your local zombie variety moves at $$ZombieSpeedMpS
+metres per second.  If you get bitten, you will turn into a zombie
 after $$IncubationDays [[IncubationDays != 1]]days.
 [[IncubationDays == 1]]day.
 {% endhighlight %}

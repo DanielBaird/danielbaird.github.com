@@ -157,19 +157,40 @@ a.topic {
 	a { color: inherit; }
 }
 
+@monosizeadjust: 90%;
 .mono {
 	background: #eee;
 	.border-radius(2px);
+	font-size: @monosizeadjust;
+	font-family: @monoFontFamily;
 }
 
+@prepad: 0.66em;
 pre {
-	@prepad: 0.66em;
 	.mono();
 	margin: @prepad -@prepad;
 	padding: (@prepad * 2) @prepad;
 
 	margin: @prepad -@prepad;
 	padding: @prepad;
+}
+
+.codesample {
+	.source h1, .output h1 {
+		font-size: (@monosizeadjust * 0.9);
+		font-weight: normal;
+		line-height: 1.66;
+		content: '\025bf \00a0 \00a0 result';
+		margin: (-1/0.9 * @prepad);
+		padding: 0 @prepad;
+		display: block;
+		background: #aaa;
+		color: #fff;
+	}
+	.source h1 {
+		content: '\025bf \00a0 \00a0 source';
+		margin-top: (1/0.9 * @prepad);
+	}
 }
 
 code {
@@ -181,6 +202,21 @@ code {
 pre code {
 	margin: 0;
 	padding: 0;
+}
+
+.maincontent {
+	table {
+		text-align: center;
+		margin: 1em 0;
+		border-collapse: collapse;
+		border: 3px double #ccc;
+	}
+	td, tr {
+		padding: 0.33em 0.66em;
+	}
+	td {
+		border: 1px solid #ccc;
+	}
 }
 
 // -- general layout -------------------------------------------
@@ -201,7 +237,7 @@ li {
 }
 
 pre {
-	line-height: 1.4;
+	line-height: 1.33;
 }
 
 @media (min-width: @media-wide-min) {

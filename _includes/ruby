@@ -1,0 +1,25 @@
+{% comment %} ------------------------------------------------------------
+
+assign into some variables, and include this file to get a nice code
+block with output etc.
+ruby_source: the code to show
+ruby_result: the result of the code being run
+
+--------------------------------------------------------- {% endcomment %}
+<div class="codesample">
+<section class="source">
+<h1>Ruby code</h1>
+{% highlight ruby %}
+{{ ruby_source }}
+{% endhighlight %}
+</section>
+{% if ruby_result | size > 0 %}
+<section class="output">
+<h1>Result</h1>
+{% highlight sh %}
+{{ ruby_result }}
+{% assign ruby_result = "" %}
+{% endhighlight %}
+</section>
+{% endif %}
+</div>

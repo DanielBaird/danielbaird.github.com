@@ -6,7 +6,6 @@ tags: ['Javascript|the JavaScript / ECMAScript programming language']
 timeperiod: late 2012
 projecturl: https://github.com/DanielBaird/Report-Assembler
 sourceurl: https://github.com/DanielBaird/Report-Assembler
-summary: "This little JavaScript library takes JSON data and a carefully written source document, and merges them into a finished report.  I started this so I could get CliMAS Reports finished as quickly as possible."
 ---
 This is little JavaScript library that takes JSON data and a carefully written source document, and merges them into a result document.  It's aimed at making prose descriptions of scientific data.  I started this so I could get CliMAS Reports finished as quickly as possible.
 

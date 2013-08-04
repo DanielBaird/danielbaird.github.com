@@ -1,0 +1,353 @@
+---
+layout: article
+category: articles
+tags: ['Ruby|the Ruby programming language']
+title: 'Ruby walkthrough: bingo cards, part 2'
+seriestitle: Bingo cards Ruby walkthrough
+seriesprev: articles/2013-07-19-ruby-bingo-part-one
+seriesnext:
+---
+
+For my wife's last baby shower, I used Ruby to make cards for a bingo game.  This is a walkthrough of that process, which might be interesting if you're new to Ruby.  In this second part, I take the code we wrote in the "first part":{% post_url articles/2013-07-19-ruby-bingo-part-one %} and turn it into a useful class.
+
+h2. Wrapping it up in a class
+
+As soon as you need more than one of something, it's generally worth making a class for it.  I want lots of bingo cards, so now I'll take the code from part one that makes one card, and use it to make a bingo card class.
+
+Here's what a Ruby class looks like:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ..methods here..
+end
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+If you make an @initialize@ method in your class, Ruby will run that to set up new instances of your class.  So that's the perfect place for the random-number-picking Ruby code from part one.
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+
+  def initialize
+    @card = []
+    5.times do
+      row = []
+      5.times do
+        row << rand(25)
+      end
+      @card << row
+    end
+  end
+
+end
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+I've made one change to the number-picking code: I'm using @@card@ instead of just @card@.  Using an @@@ in front of a variable like @@card@ means the variable will stay around inside a class instance, instead of disappearing at the end of the current method.
+
+That'll make more sense after this next bit.
+
+The other code we wrote in part 1 was the printing part.  Here it is pasted into our BingoCard class:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ------------------------------------
+  def initialize
+    @card = []
+    5.times do
+      row = []
+      5.times do
+        row << rand(25)
+      end
+      @card << row
+    end
+  end
+  # ------------------------------------
+  def print_card
+    @card.each do |row|
+      row.each do |square|
+        print square.to_s.center 5
+      end
+      puts
+    end
+  end
+  # ------------------------------------
+end
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+I've made one change here as well: instead of giving the method a card to print (@a_card@), I'm just printing @@card@.  @@card@ belongs to this object, and each method inside the object gets to see that same variable.  That's why we used @@card@ in the @initialise@ method -- so we can refer to it here.  Keeping track of "inner" variables like @@card@ is one of the reasons objects are useful.
+
+Also, I've added some commented lines of dashes between the class methods.  That's not required by Ruby or anything, it's just a weird quirk I picked up ages ago.  Feel free to just leave a blank line or two.
+
+h2. Classes are templates for making actual things
+
+Okay so now I've written a class, we can make objects that "have" that class.  Like this:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ...
+end
+
+my_card = BingoCard.new  # make a new BingoCard
+my_card.print_card     # print it
+{% endcapture %}{% capture ruby_result --------------------------- %}
+ 11    1    8    3    2
+ 23    9   18    3   18
+  3   10    7    7   14
+ 21    5   18    4   13
+  8    2   19   22   15
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+Now we've re-created the results of part 1, but all neatly wrapped up in a class.  Now it's easy to make and print out several cards:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ...
+end
+
+my_card = BingoCard.new
+your_card = BingoCard.new
+another_card = BingoCard.new
+
+puts "Mine:"
+my_card.print_card
+
+puts "Yours:"
+your_card.print_card
+
+puts "Theirs:"
+another_card.print_card
+{% endcapture %}{% capture ruby_result --------------------------- %}
+Mine:
+ 15   13   20   23   13
+  8    4   19   17   18
+  3    5   11   17   16
+  8    4    1   13   20
+ 19   14   10   20   13
+Yours:
+ 10    5   17   23    3
+ 15   15    0    3    5
+ 14    3    6   10    3
+ 15    3    0   12   14
+  1   11    6    1   12
+Theirs:
+ 18   15   17    7    3
+ 14   21   23   14    6
+ 14    9    3    8    7
+  1   20    3    8   10
+ 24   14   12   20    8
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@, so I'll rename the @print_card@ method to just @show@ (I can't easily use @print@ because of the existing @print@ method).
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ------------------------------------
+  def initialize
+    # ...
+  end
+  # ------------------------------------
+  def show
+    @card.each do |row|
+      row.each do |square|
+        print square.to_s.center 5
+      end
+      puts
+    end
+  end
+  # ------------------------------------
+end
+
+my_card = BingoCard.new
+your_card = BingoCard.new
+another_card = BingoCard.new
+
+puts "Mine:"
+my_card.show
+
+puts "Yours:"
+your_card.show
+
+puts "Theirs:"
+another_card.show
+{% endcapture %}{% capture ruby_result --------------------------- %}
+Mine:
+  4   13   16    2   24
+ 15    4   21   20   17
+  8    4    3   20   19
+ 16    5    3    2   24
+  1    2   16   21    6
+Yours:
+ 24   16   17   14   16
+  7   11   10   11   20
+ 18    7   10    5    2
+ 12   12    7    8    8
+ 11   23    1    6    4
+Theirs:
+ 22    3    8   11   17
+ 12   21   24    2    9
+ 16   10   19   23   18
+  9   17    1   11   23
+ 11    7   15   22    1
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+h2. Use words not numbers
+
+Alright, where are we?  Reviewing my feature list from part 1, I can see a few problems with our output:
+* Sometimes the same number shows up twice (or thrice, or, um.. quice?);
+* There might be draws, where multiple boards win with the same five things;
+* The boards have numbers instead of cute baby-related photos.
+
+Bingo cards that look pretty, with all baby pictures on, is a good job for HTML.  We can just put image URLs into a HTML table -- so we should probably use image URLs instead of numbers.  Next I'll change the code to put strings (that could be filenames or URLs or whatever) into the squares instead of numbers, and deal with the HTML layout later.
+
+Here's an array of strings in Ruby:
+
+{% capture ruby_source ------------------------------------------- %}
+items = ['baby','rattle','teddy']
+puts items
+{% endcapture %}{% capture ruby_result --------------------------- %}
+baby
+rattle
+teddy
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+I'll modify the @initialize@ method to take an array, and use the items in the array to populate the card's squares.
+
+{% capture ruby_source ------------------------------------------- %}
+  def initialize items
+    @card = []
+    5.times do
+      row = []
+      5.times do
+        row << items[rand items.length]
+      end
+      @card << row
+    end
+  end
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+<aside class="note language ruby" title="optional parentheses">
+I've left off the parentheses in the @initialize@ method definition.  If you're familiar with other languages you might be more comfortable putting them in:
+
+{% capture ruby_source ------------------------------------------- %}
+  def initialize(items)
+   # ...
+  end
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+If my text editor didn't do colour highlighting, I would probably type in parentheses more often.
+</aside>
+
+So now when you call @BingoCard.new@, you have to give it an array of strings.  Even though you're calling @new@, the arguments you give it make their way through to your @initialize@ method, and in my @initialize@ method, when I add a square to a row, I'm picking a random item from the array.
+
+Use it like this:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ...
+end
+
+my_card = BingoCard.new ['a','b','c']
+puts "Mine:"
+my_card.show
+{% endcapture %}{% capture ruby_result --------------------------- %}
+Mine:
+  b    c    a    c    b
+  b    a    c    b    c
+  c    c    c    a    c
+  c    c    b    a    a
+  c    c    a    b    b
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+Yep that's working.  But we need at least 25 things, which is, like, sooooo muuuch typing.  So here's something fancier:
+
+{% capture ruby_source ------------------------------------------- %}
+class BingoCard
+  # ...
+end
+
+my_card = BingoCard.new [*'a'..'z']
+puts "Mine:"
+my_card.show
+{% endcapture %}{% capture ruby_result --------------------------- %}
+Mine:
+  o    c    p    w    s
+  u    v    c    k    d
+  y    m    z    i    q
+  q    m    r    v    i
+  y    r    w    h    y
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+See the @[*'a'..'z']@?  There's three interesting things here.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at @1@ and goes to @10@.  @'a'..'z'@ is a range that goes from @a@ to @z@.
+
+Secondly, if you put an asterisk @*@ in front of something, Ruby will try to make that thing an array.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
+
+If you haven't seen splat before, this might be a bit confusing.  For now, just trust me: if you splat a range, you get a separated out list of all the values in that range.
+
+Alright, so we're passing in a list of strings and using those for the values of our bingo card squares.  But they're still being repeated.  Let's fix that now.
+
+Here's where a random item is picked out of the item list:
+
+{% capture ruby_source ------------------------------------------- %}
+        row << items[rand items.length]
+{% endcapture %}{% capture ruby_result --------------------------- %}
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+That line picks a random number up to the length of the array, and gets the thing at that position.  If we also removed the thing from the list, it wouldn't be in the list for next time.
+
+Ruby usually makes things easy for you, and in this case, the @Array@ class has exactly the method we want -- @delete_at@, which deletes an item from the array while also returns the deleted item.  So we can drop in a @delete_at@ like this:
+
+{% capture ruby_source ------------------------------------------- %}
+        row << items.delete_at(rand items.length)
+{% endcapture %}{% capture ruby_result --------------------------- %}
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+Run that a few times to see if you get any repeated items.  No?  Awesome.  Remember the three features I listed in the "Framing the problem" section of part 1?  One was **No repeats**, and we've just achieved it.  We've also just added a small bug -- if that concerns you, maybe you should hurry along to part 3.
+
+h2. Extra credit
+
+Nervous that a single letter isn't enough?  Try making your own item list, like this:
+
+{% capture ruby_source ------------------------------------------- %}
+my_card = BingoCard.new [*'abc'..'def']
+{% endcapture %}{% capture ruby_result --------------------------- %}
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+Or like this:
+
+{% capture ruby_source ------------------------------------------- %}
+item_list = [
+  'dummy',
+  'blanket',
+  'easter bunny',
+  # ..think up more, until you have 25!
+]
+my_card = BingoCard.new item_list
+puts "Mine:"
+my_card.show
+{% endcapture %}{% capture ruby_result --------------------------- %}
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+You might need to change your show method, which currently assumes squares will be up to 5 letters across.  See if you can fix it:
+
+{% capture ruby_source ------------------------------------------- %}
+  def show
+    @card.each do |row|
+      row.each do |square|
+        print square.to_s.center 5
+      end
+      puts
+    end
+  end
+{% endcapture %}{% capture ruby_result --------------------------- %}
+{% endcapture ---------------------------------- %}{% include ruby %}
+
+
+
+
+
+
+
+
+
+
+
+

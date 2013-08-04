@@ -175,39 +175,40 @@ pre {
 	padding: @prepad;
 }
 
-.codesample {
-	.source h1, .output h1 {
-		font-size: (@monosizeadjust * 0.9);
-		font-weight: normal;
-		line-height: 1.66;
-		content: '\025bf \00a0 \00a0 result';
-		margin: (-1/0.9 * @prepad);
-		padding: 0 @prepad;
-		display: block;
-		background: #aaa;
-		color: #fff;
-	}
-	.source h1 {
-		content: '\025bf \00a0 \00a0 source';
-		margin-top: (1/0.9 * @prepad);
-	}
-}
-
 code {
 	.mono();
 	margin: 0.1em;
+
 	padding: 0.1em 0.2em;
 }
 
 pre code {
+	background: inherit;
 	margin: 0;
 	padding: 0;
+}
+
+.codesample {
+	.source h1, .output h1 {
+		.highlit;
+		.groupheading;
+
+		// sort of grey out the highlit / groupheading colours
+		background: #ddd;
+		color: darken(@highlight, 5%);
+
+		font-size: (@monosizeadjust * 0.8);
+		margin: (-1/0.8 * @prepad);
+	}
+	.source h1 {
+		margin-top: (1/0.8 * @prepad);
+	}
 }
 
 .maincontent {
 	table {
 		text-align: center;
-		margin: 1em 0;
+		margin: 1em auto;
 		border-collapse: collapse;
 		border: 3px double #ccc;
 	}
@@ -217,7 +218,38 @@ pre code {
 	td {
 		border: 1px solid #ccc;
 	}
+	aside {
+		line-height: 1.5;
+		position: relative;
+		font-size: 90%;
+		font-style: italic;
+		padding: 1em 1em 1em 2.25em;
+		margin: 1em 0;
+		border: 1px solid lighten(@highlight, 30%);
+		border-width: 1px 0;
+		min-height: 2em;
+
+		code, pre, i, em {
+			font-style: normal;
+		}
+	}
+	aside:before {
+		content: 'i';
+		font-family: serif;
+		font-weight: bold;
+		position: absolute;
+		top: 1.125em;
+		left: 0.25em;
+		width: 1.5em;
+		height: 1.5em;
+		line-height: 1.5em;
+		text-align: center;
+		background: lighten(@highlight, 20%);
+		.border-radius(50%);
+		color: #fff;
+	}
 }
+
 
 // -- general layout -------------------------------------------
 

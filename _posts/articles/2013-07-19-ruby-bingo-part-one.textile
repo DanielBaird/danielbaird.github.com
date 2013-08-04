@@ -3,13 +3,16 @@ layout: article
 category: articles
 tags: ['Ruby|the Ruby programming language']
 title: 'Ruby walkthrough: bingo cards, part 1'
+seriestitle: Bingo cards Ruby walkthrough
+seriesprev:
+seriesnext:
 ---
 
 For my wife's last baby shower, I used Ruby to make cards for a bingo game.  This is a walkthrough of that process, which might be interesting if you're new to Ruby.  In this first part, I'll frame the problem, and work out a reasonable data structure.
 
 h2. The background
 
-In 2012 my wife was pregnant with our third child, and my 11 year old daughter wanted to plan the baby shower. One of the games she planned was "Baby Bingo" -- bingo, where the squares are baby-related pictures.  She asked me to help prepare the bingo cards, a task which seems algorithmic and slightly maths-y.  Quick! To a text editor!
+In 2012 my wife was pregnant with our third child, and my 11 year old daughter wanted to plan the baby shower. One of the games she planned was "Baby Bingo", by which she meant bingo where the squares are baby-related pictures.  She asked me to help prepare the bingo cards, a task which seems algorithmic and slightly maths-y.  Quick! To a text editor!
 
 h3. What's bingo?
 
@@ -31,6 +34,10 @@ h3. Why write this article?
 
 It's possible to learn a programming language or tool by working through tutorials and trying stuff out on your own.  But I reckon it also helps to watch someone else do the thing you're trying to learn.  It helps you to pick up little idioms that often don't get covered by tutorials.  So, I've documented what I did to muddle through this project, and hopefully that can help someone just learning Ruby.
 
+<aside class="note language ruby" title="getting Ruby">
+  I've used Ruby 2.0 for this walkthrough.  Check your Ruby version by running <span class="morsel">@ruby --version@</span> at a command line.  I won't describe installing or upgrading Ruby here, but you can find instructions at "ruby-lang.org":http://www.ruby-lang.org/en/downloads/ or just search for the name of your operating system and "install Ruby 2".
+</aside>
+
 h2. Framing the problem
 
 So let's use Ruby to make some bingo cards.  Here are the features I want in my bingo card maker:
@@ -41,7 +48,7 @@ So let's use Ruby to make some bingo cards.  Here are the features I want in my 
 
 **Images, not numbers.**  The bingo squares should be pictures of things like babies, bottles, rattles etc. rather than numbers.
 
-**Printable**  Obviously the output needs to be something we can print out.
+**Printable.**  Obviously the output needs to be something we can print out.
 
 Let's get started.  Initially I'll ignore all of those things I just mentioned, but I'll fix each one up eventually.
 
@@ -59,9 +66,31 @@ end                    # ..end of the 5-times loop
 
 puts card              # print the card
 {% endcapture %}{% capture ruby_result --------------------------- %}
-output here
-TODO
-output here
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 Hmm, a long single column of numbers.  Maybe that's right, but it's quite hard to tell.
@@ -87,9 +116,11 @@ end
 
 print_card card
 {% endcapture %}{% capture ruby_result --------------------------- %}
-output here
-TODO
-output here
+12345
+12345
+12345
+12345
+12345
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 That looks nicer, and confirms our card structure is okay.  It would look even cooler with random numbers though, right?
@@ -110,22 +141,24 @@ That looks nicer, and confirms our card structure is okay.  It would look even c
 
   print_card card
 {% endcapture %}{% capture ruby_result --------------------------- %}
-output here
-TODO
-output here
+1618342
+21922114
+171410719
+242362416
+15619421
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-<aside class="note language ruby">
-  Ruby only requires brackets around method arguments when it would be ambiguous to leave them out.  In this code, @row << (rand(25))@, @row << (rand 25)@ and @row << rand(25)@ all work, but @row << rand 25@ doesn't.
+<aside class="note language ruby" title="optional parentheses">
+  You can put parentheses around method arguments like @rand(25)@, but Ruby lets you leave them off whenever it's unambiguous.  In this code @row << rand(25)@, @row << (rand 25)@ and @row << (rand(25))@ all work, but @row << rand 25@ doesn't.
 </aside>
 
-So now that we have some two-digit numbers, our output looks jumbled up.
+So that looks crazy&hellip; what's happening is that we're getting some two-digit numbers, so our output looks jumbled up.
 
-Even nicer output
------------------
+h2. Maybe nicer output THIS time
 
 It's easy to add a space after each number:
 
+{% capture ruby_source ------------------------------------------- %}
 def print_card a_card
   a_card.each do |row|
     row.each do |square|
@@ -134,37 +167,74 @@ def print_card a_card
     puts
   end
 end
+{% endcapture ---------------------------------- %}{% include ruby %}
 
-..except that doesn't work -- you'll see a `String can't be coerced into Fixnum` error.  That's because Ruby sees you're trying to add a string to a number, which doesn't make sense.  Ruby will let you do  all sorts of useful maths-y things with strings, like `puts ("Na" * 2 + " ") * 8 + "Batman!"`, but here Ruby wants you to be clear about what you mean by "adding" a string and a number.
+&hellip;except that doesn't work -- you'll see a @String can't be coerced into Fixnum@ error.  That's because Ruby sees you're trying to add a string to a number, which doesn't make sense.  Ruby will let you do  all sorts of useful maths-y things with strings, like @puts ("Na" * 2 + " ") * 8 + "Batman!"@, but here Ruby wants you to be clear about what you mean by "adding" a string and a number.
 
-In this case you want to join them together as strings.  So use the `to_s` method to turn the number into a string:
+In this case you want to join them together as strings.  So use the @to_s@ method to turn the number into a string:
 
-        print square.to_s + " "
+{% capture ruby_source ------------------------------------------- %}
+def print_card a_card
+  a_card.each do |row|
+    row.each do |square|
+      print square.to_s + " "
+    end
+    puts
+  end
+end
+{% endcapture %}{% capture ruby_result --------------------------- %}
+1 4 11 12 19
+5 8 17 2 11
+16 12 3 23 19
+9 11 4 17 0
+3 14 19 19 17
+{% endcapture ---------------------------------- %}{% include ruby %}
 
-..and that works, kind of.  It's all irregular though.  What we really want is for each number to take up a certain width, irrespective of how many digits it takes.  Ruby strings have a `center` method that does the trick:
+..and that works, kind of.  It's all irregular though.  What we really want is for each number to take up a certain width, irrespective of how many digits it takes.  Ruby strings have a @center@ method that does the trick:
 
-        print square.to_s.center 5
+{% capture ruby_source ------------------------------------------- %}
+def print_card a_card
+  a_card.each do |row|
+    row.each do |square|
+      print square.to_s.center 5
+    end
+    puts
+  end
+end
+{% endcapture %}{% capture ruby_result --------------------------- %}
+ 20    1   11    6   18
+  0    8   21   23   11
+ 22   17   19   11   14
+ 22   17   20    1   13
+  2    7    6   19   20
+{% endcapture ---------------------------------- %}{% include ruby %}
 
-<aside class="note language ruby">
+<aside class="note language ruby" title="chaining Ruby methods">
 Ruby lets you chain methods together, where you call a method directly on the result of an earlier method.  So instead of writing code like this:
 
-  my_number = 360
-  my_number_as_string = my_number.to_s
-  puts my_number_as_string.center(5)
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
+my_number = 360
+my_number_as_string = my_number.to_s
+puts my_number_as_string.center(5)
+{% endcapture ---------------------------------- %}{% include ruby %}
 
 You can write this:
 
-  my_number = 360
-  puts my_number.to_s.center(5)
+{% capture ruby_source ------------------------------------------- %}
+my_number = 360
+puts my_number.to_s.center(5)
+{% endcapture ---------------------------------- %}{% include ruby %}
 
 Or even this:
 
-  puts 360.to_s.center(5)
+{% capture ruby_source ------------------------------------------- %}
+puts 360.to_s.center(5)
+{% endcapture ---------------------------------- %}{% include ruby %}
 
-Chaining methods can look a bit confusing, but used in the right places, it can rid your code of unnecessary temporary variables.
+Chaining methods lets you get rid of unnecessary temporary variables.
 </aside>
 
-Bam! Awesome.  We're miles away from meeting the features I want, but I'm confident the data structure is working, so it's time to go make dinner.  In Part 2 I'll use a Ruby class to wrap up all this functionality.
+Bam! Awesome.  Your numbers are random, run it a few times to see them changing.  We're miles away from meeting the features I want, but I'm confident the data structure is working, so it's time to go make dinner.  In Part 2 I'll use a Ruby class to wrap up all this functionality.
 
 
 

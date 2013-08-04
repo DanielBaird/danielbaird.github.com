@@ -4,16 +4,17 @@ assign into some variables, and include this file to get a nice code
 block with output etc.
 ruby_source: the code to show
 ruby_result: the result of the code being run
+ruby_terse:  if true, hide the heading
 
 --------------------------------------------------------- {% endcomment %}
 <div class="codesample">
 <section class="source">
-<h1>Ruby code</h1>
+{% if ruby_terse != true %}<h1>Ruby code</h1>{% endif %}
 {% highlight ruby %}
 {{ ruby_source }}
 {% endhighlight %}
 </section>
-{% if ruby_result | size > 0 %}
+{% if ruby_result.size > 0 %}
 <section class="output">
 <h1>Result</h1>
 {% highlight sh %}

@@ -12,13 +12,15 @@ For my wife's last baby shower, I used Ruby to make cards for a bingo game.  Thi
 
 h2. Wrapping it up in a class
 
-As soon as you need more than one of something, it's generally worth making a class for it.  I want lots of bingo cards, so now I'll take the code from part one that makes one card, and use it to make a bingo card class.
+As soon as you need more than one of something, it's generally worth making a class for it.
+
+Just like in pretty much every other programming language that has classes, a Ruby class is a kind of template that objects can be based on.  I want lots of bingo cards, so now I'll take the code from part one that makes one card, use it to make a @BingoCard@ class, and then I can make lots of bingo cards.
 
 Here's what a Ruby class looks like:
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
-  # ..methods here..
+  # ..methods defined here..
 end
 {% endcapture ---------------------------------- %}{% include ruby %}
 
@@ -41,11 +43,11 @@ class BingoCard
 end
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-I've made one change to the number-picking code: I'm using @@card@ instead of just @card@.  Using an @@@ in front of a variable like @@card@ means the variable will stay around inside a class instance, instead of disappearing at the end of the current method.
+I've made one tiny change to the code from part one: I'm using @@card@ instead of just @card@.  Using an @@@ in front of a variable like @@card@ makes it an instance variable, meaning the variable will continue to exist inside the object, instead of disappearing at the end of the current method.
 
 That'll make more sense after this next bit.
 
-The other code we wrote in part 1 was the printing part.  Here it is pasted into our BingoCard class:
+The other code we wrote in part 1 was the printing part.  Here it is pasted into our @BingoCard@ class:
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -75,7 +77,7 @@ end
 
 I've made one change here as well: instead of giving the method a card to print (@a_card@), I'm just printing @@card@.  @@card@ belongs to this object, and each method inside the object gets to see that same variable.  That's why we used @@card@ in the @initialise@ method -- so we can refer to it here.  Keeping track of "inner" variables like @@card@ is one of the reasons objects are useful.
 
-Also, I've added some commented lines of dashes between the class methods.  That's not required by Ruby or anything, it's just a weird quirk I picked up ages ago.  Feel free to just leave a blank line or two.
+Also, I've added some commented lines of dashes between the class methods.  That's not required by Ruby or anything, it's just a weird quirk I picked up ages ago.  Feel free to just leave a blank line or two if you prefer that.
 
 h2. Classes are templates for making actual things
 
@@ -87,7 +89,7 @@ class BingoCard
 end
 
 my_card = BingoCard.new  # make a new BingoCard
-my_card.print_card     # print it
+my_card.print_card       # print it
 {% endcapture %}{% capture ruby_result --------------------------- %}
  11    1    8    3    2
  23    9   18    3   18
@@ -96,7 +98,7 @@ my_card.print_card     # print it
   8    2   19   22   15
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Now we've re-created the results of part 1, but all neatly wrapped up in a class.  Now it's easy to make and print out several cards:
+Now we've re-created the results of part 1, but all neatly wrapped up in a class.  Compared to part one, though, it's now easy to make and print out several cards:
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -278,9 +280,13 @@ Mine:
 
 See the @[*'a'..'z']@?  There's three interesting things here.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at @1@ and goes to @10@.  @'a'..'z'@ is a range that goes from @a@ to @z@.
 
-Secondly, if you put an asterisk @*@ in front of something, Ruby will try to make that thing an array.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
+Secondly, you can put an asterisk @*@ in front of a @Range@ to turn it into a list.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
 
-If you haven't seen splat before, this might be a bit confusing.  For now, just trust me: if you splat a range, you get a separated out list of all the values in that range.
+If you haven't seen splat before, this might be a bit confusing.  For now, just trust me: if you splat a range and wrap the whole thing in square brackets, you get an array of all the values in that range.
+
+<aside class="note language ruby" title="splat">
+  Most Ruby programmers only use splat to handle method arguments, where it's great for writing methods that take varying
+</aside>
 
 Alright, so we're passing in a list of strings and using those for the values of our bingo card squares.  But they're still being repeated.  Let's fix that now.
 

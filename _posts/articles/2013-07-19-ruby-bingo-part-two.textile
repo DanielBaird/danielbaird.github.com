@@ -138,7 +138,7 @@ Theirs:
  24   14   12   20    8
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@, and your Ruby code should be beautiful and graceful, like leaping gazelles silhouetted against the sunset as a light breeze stirs the long grass of the veldt.  So, I'll rename the @print_card@ method to just @show@ (I can't easily use @print@ because of the existing @print@ method).
+Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@.  Ruby code should be beautiful and graceful, like leaping gazelles silhouetted against the sunset as a light breeze stirs the long grass of the veldt.  So, I'll rename the @print_card@ method to just @show@ (I avoided using @print@ because Ruby has an existing @print@ method).
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -194,11 +194,11 @@ Theirs:
 h2. Use words not numbers
 
 Alright, where are we?  Reviewing my feature list from part 1, I can see a few problems with our output:
-* Sometimes the same number shows up twice (or thrice, or, um.. quice?);
+* Sometimes the same number shows up twice (or thrice, or, um.. quice or something?);
 * There might be draws, where multiple boards win with the same five things;
 * The boards have numbers instead of cute baby-related photos.
 
-Bingo cards that look pretty, with all baby pictures on, is a good job for HTML.  We can just put image URLs into a HTML table -- so we should probably use image URLs instead of numbers.  Next I'll change the code to put strings (that could be filenames or URLs or whatever) into the squares instead of numbers, and deal with the HTML layout later.
+Bingo cards that look pretty, with all baby pictures on, is a good job for HTML.  We can just put image tags with different img URLs into a HTML table -- so this card maker thingy should probably deal with image URLs instead of numbers.  Next, I'll change the code to put strings (that could be filenames or URLs or whatever) into the squares instead of numbers.  We can deal with the HTML layout later.
 
 Here's an array of strings in Ruby:
 
@@ -235,10 +235,10 @@ I've left off the parentheses in the @initialize@ method definition.  If you're 
   end
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-If my text editor didn't do colour highlighting, I would probably type in parentheses more often.
+In my opinion colour highlighting makes the parens unnecessary.  If my text editor didn't automagically colour in my code, I would probably use parentheses in Ruby a lot more often.
 </aside>
 
-So now when you call @BingoCard.new@, you have to give it an array of strings.  Even though you're calling @new@, the arguments you give it make their way through to your @initialize@ method, and in my @initialize@ method, when I add a square to a row, I'm picking a random item from the array.
+So now when you call @BingoCard.new@, you have to give it an array of strings.  Even though you're calling @new@, the arguments you give it make their way through to your @initialize@ method. In my @initialize@ method, when I add a square to a row, I'm picking a random item from the array.
 
 Use it like this:
 
@@ -278,14 +278,14 @@ Mine:
   y    r    w    h    y
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-See the @[*'a'..'z']@?  There's three interesting things here.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at @1@ and goes to @10@.  @'a'..'z'@ is a range that goes from @a@ to @z@.
+See the @[*'a'..'z']@?  There's a few interesting things here.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at @1@ and goes to @10@.  @'a'..'z'@ is a range that goes from @a@ to @z@.
 
 Secondly, you can put an asterisk @*@ in front of a @Range@ to turn it into a list.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
 
 If you haven't seen splat before, this might be a bit confusing.  For now, just trust me: if you splat a range and wrap the whole thing in square brackets, you get an array of all the values in that range.
 
 <aside class="note language ruby" title="splat">
-  Most Ruby programmers only use splat to handle method arguments, where it's great for writing methods that take varying
+  Many Ruby programmers only use splat for writing methods with variable numbers of arguments.  Splat lets you get some arguments like normal, and suck all the rest into an array so you can loop through them.  Remember splat when you want to write a method like that.
 </aside>
 
 Alright, so we're passing in a list of strings and using those for the values of our bingo card squares.  But they're still being repeated.  Let's fix that now.
@@ -298,7 +298,7 @@ Here's where a random item is picked out of the item list:
 
 That line picks a random number up to the length of the array, and gets the thing at that position.  If we also removed the thing from the list, it wouldn't be in the list for next time.
 
-Ruby usually makes things easy for you, and in this case, the @Array@ class has exactly the method we want -- @delete_at@, which deletes an item from the array while also returns the deleted item.  So we can drop in a @delete_at@ like this:
+Like a perfect girlfriend, Ruby wants you to be happy, and in this case, the @Array@ class aready has exactly the method we want: @delete_at@, which deletes an item from the array while also returning the deleted item.  So we can drop in a @delete_at@ like this:
 
 {% capture ruby_source ------------- %}{% assign ruby_terse = true %}
         row << items.delete_at(rand items.length)

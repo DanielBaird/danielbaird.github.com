@@ -6,7 +6,7 @@ tags: ['SDM|species distribution modelling', 'Climate Change|dealing with the fu
 timeperiod: 2012
 url: http://tropicaldatahub.org/goto/edgar
 ---
-Edgar shows ecological niches for Australian birds, now and in the globally-warmed future.  It also lets bird watchers correct observations of bird species (thereby improving the modelling of birds' niches).  The entire UI centres around a fullscreen "OpenLayers":http://openlayers.org/ map.
+Edgar shows ecological niches for Australian birds, now and in the globally-warmed future.  It also lets bird watchers correct observations of bird species (thereby improving the modelling of birds' niches).  The UI is based around a fullscreen "OpenLayers":http://openlayers.org/ map.
 
 Edgar started in 2012 at the eResearch Centre at JCU.  The project aimed at doing four things:
 

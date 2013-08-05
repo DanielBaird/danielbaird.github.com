@@ -93,7 +93,7 @@ puts card              # print the card
 5
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Hmm, a long single column of numbers.  Maybe that's right, but it's quite hard to tell.
+Hmm, a long single column of numbers.  Maybe that's right&hellip; it's quite hard to tell.
 
 h2. Nicer output
 
@@ -152,7 +152,7 @@ That looks nicer, and confirms our card structure is okay.  It would look even c
   You can put parentheses around method arguments like @rand(25)@, but Ruby lets you leave them off whenever it's unambiguous.  In this code @row << rand(25)@, @row << (rand 25)@ and @row << (rand(25))@ all work, but @row << rand 25@ doesn't.
 </aside>
 
-So that looks crazy&hellip; what's happening is that we're getting some two-digit numbers, so our output looks jumbled up.
+Whoah, that looks crazy.  We're getting some two-digit numbers, so our output looks jumbled up.
 
 h2. Maybe nicer output THIS time
 
@@ -220,14 +220,14 @@ puts my_number_as_string.center(5)
 
 You can write this:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
 my_number = 360
 puts my_number.to_s.center(5)
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 Or even this:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
 puts 360.to_s.center(5)
 {% endcapture ---------------------------------- %}{% include ruby %}
 

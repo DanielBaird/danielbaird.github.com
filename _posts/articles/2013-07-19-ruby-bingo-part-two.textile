@@ -18,7 +18,7 @@ Just like in pretty much every other programming language that has classes, a Ru
 
 Here's what a Ruby class looks like:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
 class BingoCard
   # ..methods defined here..
 end
@@ -98,7 +98,7 @@ my_card.print_card       # print it
   8    2   19   22   15
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Now we've re-created the results of part 1, but all neatly wrapped up in a class.  Compared to part one, though, it's now easy to make and print out several cards:
+Now we've re-created the results of part 1, but all neatly wrapped up in a class.  Compared to part one, though, it's now super easy to make and print out several cards:
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -138,7 +138,7 @@ Theirs:
  24   14   12   20    8
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@, so I'll rename the @print_card@ method to just @show@ (I can't easily use @print@ because of the existing @print@ method).
+Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@, and your Ruby code should be beautiful and graceful, like leaping gazelles silhouetted against the sunset as a light breeze stirs the long grass of the veldt.  So, I'll rename the @print_card@ method to just @show@ (I can't easily use @print@ because of the existing @print@ method).
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -229,7 +229,7 @@ I'll modify the @initialize@ method to take an array, and use the items in the a
 <aside class="note language ruby" title="optional parentheses">
 I've left off the parentheses in the @initialize@ method definition.  If you're familiar with other languages you might be more comfortable putting them in:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
   def initialize(items)
    # ...
   end
@@ -292,18 +292,16 @@ Alright, so we're passing in a list of strings and using those for the values of
 
 Here's where a random item is picked out of the item list:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
         row << items[rand items.length]
-{% endcapture %}{% capture ruby_result --------------------------- %}
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 That line picks a random number up to the length of the array, and gets the thing at that position.  If we also removed the thing from the list, it wouldn't be in the list for next time.
 
 Ruby usually makes things easy for you, and in this case, the @Array@ class has exactly the method we want -- @delete_at@, which deletes an item from the array while also returns the deleted item.  So we can drop in a @delete_at@ like this:
 
-{% capture ruby_source ------------------------------------------- %}
+{% capture ruby_source ------------- %}{% assign ruby_terse = true %}
         row << items.delete_at(rand items.length)
-{% endcapture %}{% capture ruby_result --------------------------- %}
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 Run that a few times to see if you get any repeated items.  No?  Awesome.  Remember the three features I listed in the "Framing the problem" section of part 1?  One was **No repeats**, and we've just achieved it.  We've also just added a small bug -- if that concerns you, maybe you should hurry along to part 3.
@@ -329,7 +327,6 @@ item_list = [
 my_card = BingoCard.new item_list
 puts "Mine:"
 my_card.show
-{% endcapture %}{% capture ruby_result --------------------------- %}
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 You might need to change your show method, which currently assumes squares will be up to 5 letters across.  See if you can fix it:
@@ -343,7 +340,6 @@ You might need to change your show method, which currently assumes squares will 
       puts
     end
   end
-{% endcapture %}{% capture ruby_result --------------------------- %}
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 

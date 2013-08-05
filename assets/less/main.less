@@ -48,8 +48,8 @@ h1, h2, h3, h4 {
 	letter-spacing: -0.05em;
 	// links in headings should be the heading colour
 	a { color: inherit !important; }
-	// sensible line height
-	line-height: 1.0;
+	// short line height
+	line-height: 0.933;
 }
 
 // don't linebreak inside important phrases
@@ -162,7 +162,6 @@ a.topic {
 @monosizeadjust: 90%;
 .mono {
 	background: #eee;
-	.border-radius(2px);
 	font-size: @monosizeadjust;
 	font-family: @monoFontFamily;
 }
@@ -179,6 +178,7 @@ pre {
 
 code {
 	.mono();
+	.border-radius(3px);
 	margin: 0.1em;
 
 	padding: 0.1em 0.2em;

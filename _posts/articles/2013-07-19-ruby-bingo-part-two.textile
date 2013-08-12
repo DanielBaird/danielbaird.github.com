@@ -14,7 +14,7 @@ h2. Wrapping it up in a class
 
 As soon as you need more than one of something, it's generally worth making a class for it.
 
-Just like in pretty much every other programming language that has classes, a Ruby class is a kind of template that objects can be based on.  I want lots of bingo cards, so now I'll take the code from part one that makes one card, use it to make a @BingoCard@ class, and then I can make lots of bingo cards.
+Like most programming languages that have classes, a Ruby class is a kind of template that objects can be based on.  That's great for making lots of things.  I'll need many bingo cards, so I'll take the code from part one, put it into a @BingoCard@ class, and then I can make lots of bingo cards.
 
 Here's what a Ruby class looks like:
 
@@ -138,7 +138,7 @@ Theirs:
  24   14   12   20    8
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@.  Ruby code should be beautiful and graceful, like leaping gazelles silhouetted against the sunset as a light breeze stirs the long grass of the veldt.  So, I'll rename the @print_card@ method to just @show@ (I avoided using @print@ because Ruby has an existing @print@ method).
+Notice that each card has its own version of the @@cards@ data structure.  Yay objects.  Also notice that it's slightly awkward to say @my_card.print_card@.  Ruby code should be beautiful and graceful, like leaping gazelles silhouetted against the sunset as a light breeze stirs the long grass of the veldt.  So, I'll rename the @print_card@ method to just @show@.
 
 {% capture ruby_source ------------------------------------------- %}
 class BingoCard
@@ -198,7 +198,7 @@ Alright, where are we?  Reviewing my feature list from part 1, I can see a few p
 * There might be draws, where multiple boards win with the same five things;
 * The boards have numbers instead of cute baby-related photos.
 
-Bingo cards that look pretty, with all baby pictures on, is a good job for HTML.  We can just put image tags with different img URLs into a HTML table -- so this card maker thingy should probably deal with image URLs instead of numbers.  Next, I'll change the code to put strings (that could be filenames or URLs or whatever) into the squares instead of numbers.  We can deal with the HTML layout later.
+Bingo cards that look pretty, with all baby pictures on, is a good job for HTML.  We can just put image tags with different img URLs into a HTML table -- so this card maker thingy should probably deal with image URLs instead of numbers.  Next, I'll take a step towards that by changing the code to put strings (that could be filenames or URLs or whatever) into the squares instead of numbers.  We'll deal with the HTML layout later.
 
 Here's an array of strings in Ruby:
 
@@ -278,9 +278,9 @@ Mine:
   y    r    w    h    y
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-See the @[*'a'..'z']@?  There's a few interesting things here.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at @1@ and goes to @10@.  @'a'..'z'@ is a range that goes from @a@ to @z@.
+See the @[*'a'..'z']@?  That's a bit interesting, and I'm going to not-quite-explain it in two parts.  Firstly, Ruby understands _ranges_.  @1..10@ is a range that starts at 1 and goes to 10.  @'a'..'z'@ is a range that goes from letter a to letter z.
 
-Secondly, you can put an asterisk @*@ in front of a @Range@ to turn it into a list.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
+Secondly, you can put an asterisk @*@ in front of a Ruby range to turn it into a list.  When it's used this way an asterisk is called a 'splat', and it's pretty weird.
 
 If you haven't seen splat before, this might be a bit confusing.  For now, just trust me: if you splat a range and wrap the whole thing in square brackets, you get an array of all the values in that range.
 
@@ -298,13 +298,13 @@ Here's where a random item is picked out of the item list:
 
 That line picks a random number up to the length of the array, and gets the thing at that position.  If we also removed the thing from the list, it wouldn't be in the list for next time.
 
-Like a perfect girlfriend, Ruby wants you to be happy, and in this case, the @Array@ class aready has exactly the method we want: @delete_at@, which deletes an item from the array while also returning the deleted item.  So we can drop in a @delete_at@ like this:
+Just like a perfect girlfriend, Ruby wants you to be happy.  In this case, Ruby's @Array@ class aready has exactly the method we want: @delete_at@, which deletes an item from the array while also returning the deleted item.  So we can drop in a @delete_at@ like this:
 
 {% capture ruby_source ------------- %}{% assign ruby_terse = true %}
         row << items.delete_at(rand items.length)
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-Run that a few times to see if you get any repeated items.  No?  Awesome.  Remember the three features I listed in the "Framing the problem" section of part 1?  One was **No repeats**, and we've just achieved it.  We've also just added a small bug -- if that concerns you, maybe you should hurry along to part 3.
+Run the program a few times to see if you get any repeated items.  No?  Awesome.  Remember the features I listed in the "Framing the problem" section of part 1?  One was **No repeats**, and we've just achieved it.  We've also added a small, subtle bug -- if you can't see it yourself, you'll need to wait for part 3 before I explain it.
 
 h2. Extra credit
 
@@ -312,7 +312,6 @@ Nervous that a single letter isn't enough?  Try making your own item list, like 
 
 {% capture ruby_source ------------------------------------------- %}
 my_card = BingoCard.new [*'abc'..'def']
-{% endcapture %}{% capture ruby_result --------------------------- %}
 {% endcapture ---------------------------------- %}{% include ruby %}
 
 Or like this:
@@ -322,14 +321,14 @@ item_list = [
   'dummy',
   'blanket',
   'easter bunny',
-  # ..think up more, until you have 25!
+  # ..think up more, until you have at least 25!
 ]
 my_card = BingoCard.new item_list
 puts "Mine:"
 my_card.show
 {% endcapture ---------------------------------- %}{% include ruby %}
 
-You might need to change your show method, which currently assumes squares will be up to 5 letters across.  See if you can fix it:
+You might need to change your show method, which currently assumes squares will be up to 5 letters across.  Here's the current version -- see if you can fix it:
 
 {% capture ruby_source ------------------------------------------- %}
   def show

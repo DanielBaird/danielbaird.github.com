@@ -9,7 +9,7 @@ ruby_terse:  if true, hide the heading
 --------------------------------------------------------- {% endcomment %}
 <div class="codesample">
 <section class="source">
-{% if ruby_terse != true %}<h1>Ruby code</h1>{% endif %}{% assign ruby_terse = false %}
+{% if ruby_terse != true %}<h1>Source code</h1>{% endif %}{% assign ruby_terse = false %}
 {% highlight ruby %}
 {{ ruby_source }}
 {% endhighlight %}

@@ -12,13 +12,14 @@ layout: none
 <body>
 
 <style>
-    html, body { padding: 0; margin: 0; }
+    html, body { padding: 0; margin: 0; font-family: sans-serif; }
+    .clocks p { text-align: center; }
     .clocks {
         text-align: center;
     }
     .clockarea {
         display: inline-block;
-        padding: 0.3cm;
+        padding: 0.8cm 0.3cm 0.3cm;
     }
     .clockface {
         position: relative;
@@ -68,14 +69,14 @@ layout: none
         -moz-border-radius: 50%;
         -webkit-border-radius: 1.4cm;
         border-radius: 50%;
-        background: rgba(255,0,0, 0.1);
+        /*background: rgba(255,0,0, 0.1);*/
     }
     .minutehand {
         display: block;
         width: 1.35cm;
         height: 1.45cm;
         border-right: 0.1cm solid #000;
-        background: rgba(0,255,0, 0.1);
+        /*background: rgba(0,255,0, 0.1);*/
     }
     .hourface {
         position: absolute;
@@ -179,7 +180,6 @@ layout: none
     .control > p {
         max-width: 15em;
     }
-    .Xfancyform * { background: rgba(0,0,0, 0.2); }
     /* -- print layout ----------------------------------------- */
     @media print {
         .clocksettings { display: none; }
@@ -196,19 +196,20 @@ layout: none
 </style>
 
 <div class="heading">
-    <h1>Clock Faces</h1>
-    <p>for personal use only &mdash; visit {{ site.url }} for info &amp; to make your own</p>
+    <p><strong>Clock Faces</strong> for personal use only &mdash; visit {{ site.url }} for info &amp; to make your own</p>
 </div>
 <div class="clocksettings fancyform">
     <div class="controlgroup">
         <h2>Settings</h2>
-        <div class="control">
+<!--
+         <div class="control">
             <h3>Presets</h3>
             <button id="easy">Beginner</button>
             <button id="intermediate">Intermediate</button>
             <button id="expert">Expert</button>
         </div>
-        <div class="control">
+ -->
+         <div class="control">
             <h3>Minute hand:</h3>
             <label><input type="radio" name="minutehand" value="60"> on the hour only</label>
             <label><input type="radio" name="minutehand" value="15"> quarter hours (:00, :15, :30 and :45)</label>
@@ -220,20 +221,22 @@ layout: none
             <label><input type="radio" name="hourhand" value="real"> between hours like a real clock</label>
             <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> not too close to the next hour</label>
         </div>
+<!--
         <div class="control">
             <h3>Numbers:</h3>
             <label><input type="radio" name="numbers" value="all"> all numbers 1&ndash;12</label>
             <label><input type="radio" name="numbers" value="some"> just 12, 3, 6 and 9</label>
             <label><input type="radio" name="numbers" value="none" checked="checked"> no numbers</label>
         </div>
+ -->
         <div class="control">
             <h3>Made for printing!</h3>
-            <p>To turn this page into a work sheet, just print it!  The 16 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
+            <p>To turn this page into a work sheet, just print it!  The 12 clocks fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
         </div>
     </div>
     <div class="controlgroup">
         <div class="control">
-            <button id="make">make clocks</button>
+            <button id="make">make another set of clocks</button>
         </div>
     </div>
 </div>

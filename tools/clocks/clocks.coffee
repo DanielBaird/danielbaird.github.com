@@ -3,8 +3,8 @@ pick_one = (list) ->
     list[Math.floor(Math.random() * list.length)]
 
 $ ->
-
-    $('#make').click (event)->
+    update = ()->
+        $('#clocks').empty().append '<p><b><i>Instructions:</i> Work out the time each clock is showing.  Write it in the space below each clock.</b></p>'
 
         min_step = parseInt($('.clocksettings input[name="minutehand"]:checked').val(), 10)
         hour_hand_accuracy = $('.clocksettings input[name="hourhand"]:checked').val()
@@ -16,7 +16,7 @@ $ ->
         possible_hours = for hour in [0..11]
             hour
 
-        clocks = for clock in [0..15]
+        clocks = for clock in [0..11]
             minute = pick_one possible_minutes
             minute_rotation = minute * 6
 
@@ -47,5 +47,9 @@ $ ->
             clockhtml += '<div class="answer">:</div>'
             clockhtml += '</div>'
 
-        $('#clocks').empty().append $(clocks.join "")
+        $('#clocks').append $(clocks.join "")
         event.stopPropagation()
+
+    $('input').change (event)-> update()
+    $('#make').click  (event)-> update()
+    update()

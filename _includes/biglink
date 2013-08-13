@@ -1,0 +1,11 @@
+{% comment %} ------------------------------------------------------------
+
+assign into some variables, and include this file to get a big link.
+biglink_text: the text to use as the link
+biglink_localurl: the url to link to, if the link is site-local
+biglink_remoteurl: the url to link to, if the link isn't on this site
+
+--------------------------------------------------------- {% endcomment %}
+<div class="biglink">
+<a href="{% if biglink_localurl.size > 0 %}{{ site.base_url }}{{ biglink_localurl }}{% else %}{{ biglink_remoteurl }}{% endif %}">{{ biglink_text }}</a>
+</div>{% assign biglink_localurl = "" %}{% assign biglink_remoteurl = "" %}

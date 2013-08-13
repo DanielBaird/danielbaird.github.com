@@ -1,0 +1,18 @@
+---
+layout: project
+category: project
+tags: ['Kids Ed|Education for kids']
+title: 'Clock Face Generator'
+---
+
+This tool makes printable pages of random clock faces, to help kids learn to tell the time.  Settings let you change the difficulty as your kids get better at it.
+
+{% assign biglink_text = "Clock Face Generator" %}
+{% assign biglink_localurl = "/tools/clocks" %}
+{% include biglink %}
+
+h2. Print a worksheet
+
+1. Go to "Clock Face Generator page":{{ site.baseurl }}/tools/clocks.
+2. Press <kbd>Ctrl</kbd> + <kbd>P</kbd>.
+

@@ -41,6 +41,7 @@ flavour: home
 
     <section class="projects">
         <h1>Recent Projects</h1>
+        {% assign print_count = "" %}{% comment %}AWFUL KLUDGE{% endcomment %}
         {% for item in site.posts offset:1 %}
             {% if item.category == "projects" %}
                 {% assign printed = print_count.size %}

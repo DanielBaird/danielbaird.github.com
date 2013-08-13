@@ -95,6 +95,23 @@ a.topic {
 	}
 }
 
+.biglink a {
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	font-size: 110%;
+	margin: 1em 2em;
+	padding: 0.5em 2em;
+	text-decoration: none;
+	.border-radius(0.5em);
+	background: lighten(@highlight, 46%);
+	transition: 0.33s;
+	&:hover {
+		background: lighten(@highlight, 40%);
+		text-decoration: underline;
+	}
+}
+
 .highlit {
 	// #gradient > .horizontal(lighten(@highlight, 38%), lighten(@highlight, 48%));
 	background-color: lighten(@highlight, 46%);
@@ -188,6 +205,18 @@ pre code {
 	background: inherit;
 	margin: 0;
 	padding: 0;
+}
+
+kbd {
+	font-family: @monoFontFamily;
+	font-family: @sansFontFamily;
+	font-size: @monosizeadjust;
+	display: inline-block;
+	padding: 0.11em 0.44em;
+	background: #ddd;
+	.box-shadow(~"inset 0 -1px 1px #fff, inset 0 0 3px #fff, inset 0 0 5px #fff");
+	border: 1px solid #999;
+	.border-radius(0.22em);
 }
 
 .codesample {

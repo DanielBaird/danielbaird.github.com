@@ -14,5 +14,9 @@ This tool makes printable pages of random clock faces, to help kids learn to tel
 h2. Print a worksheet
 
 1. Go to "Clock Face Generator page":{{ site.baseurl }}/tools/clocks.
-2. Press <kbd>Ctrl</kbd> + <kbd>P</kbd>.
+2. Press <kbd>Ctrl</kbd> + <kbd>P</kbd> (or <kbd>Cmd</kbd> + <kbd>P</kbd> on a Mac).
+3. Collect worksheet from your printer.
 
+h2. Settings
+
+TODO

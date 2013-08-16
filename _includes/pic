@@ -1,0 +1,12 @@
+{% comment %} ------------------------------------------------------------
+
+assign into some variables, and include this file to get a nice image
+pic_name:    the filename of the picture
+pic_desc:    a description of the image
+pic_caption: a caption to add, if specified
+
+--------------------------------------------------------- {% endcomment %}
+
+<div class="image">
+<img src="{{ site.baseurl }}assets/images/{{ pic_name }}">
+</div>

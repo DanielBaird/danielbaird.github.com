@@ -14,9 +14,53 @@ This tool makes printable pages of random clock faces, to help kids learn to tel
 h2. Print a worksheet
 
 1. Go to "Clock Face Generator page":{{ site.baseurl }}/tools/clocks.
-2. Press <kbd>Ctrl</kbd> + <kbd>P</kbd> (or <kbd>Cmd</kbd> + <kbd>P</kbd> on a Mac).
+2. Press <kbd>Ctrl</kbd> + <kbd>P</kbd> (or if you're on a Mac, <kbd>&#8984;</kbd> + <kbd>P</kbd>).
 3. Collect worksheet from your printer.
 
-h2. Settings
+h2. More Information
 
-TODO
+Here's the top of the Clock Face Generator page:
+
+{% assign pic_name = "clock-face-generator-full.png" %}{% include pic %}
+
+There are 12 clock faces on the page, each one showing a randomly generated time (only the first six are shown in the image above).  There are a few settings; each time you change one, all of the clocks on the page will immediately update to suit the new setting with another random times.
+
+h3. Options for the minute hand
+
+The three settings for the minute hand let you choose how the minutes will be picked.
+
+The first option, **on the hour only**, is for beginners, and means every clock will show a time that is precisely something-o'clock.
+
+The second option, **quarter hours**, means every clock will show a time that is either on the hour, a quarter past, half past, or a quarter to.  This setting is good for children just learning the major divisions of the minute dial.
+
+The third option, **five minutes**, lets the clock minutes be any multiple of five minutes -- twenty-five past, ten to, etc.
+
+h3. Options for the hour hand
+
+This setting also has three options.
+
+The first option, **always dead on the hour**, means the hour hand will always point directly at the hour part of the time.  So whether the time shown is 10 o'clock, 10:30, or 10:45, the hour hand will always point directly at the ten mark.  Even though this isn't how a real clock works, when my kids were learning to tell the time a lot of their school handouts showed the time this way.  To me it seemed wrong, and was my original motivation for writing this tool.  But the option's here if you want it.
+
+The second option **between the hours like a real clock** is just that -- the hour hand will be shown between the 'current' hour mark and the next, proportional to the minutes number exactly like a real clock.
+
+The third option, **not too close**, is my favourite.  For most minute numbers it's just like a real clock, but when there are only five or ten minutes left in the hour, the hour hand will not point quite as closely to the 'next' hour mark as it should.  This will hopefully help learners to avoid getting confused when the rather thick line of the hour hand appears to point at the next hour mark.
+
+h3. Printing
+
+I've set the page up to print correctly as it is.  Any "modern web browser":browsehappy.org will print the page without the blue settings section, and the clock faces are carefully sized so the twelve of them fit nicely onto standard A4 and Letter paper sizes in three rows of four.
+
+You can print multiple copies of the page to have the same clock faces for everyone, or if you want lots of different sets of clocks you can print the page once, click the 'make another set' button, print the page again, etc.
+
+h3. Repeats
+
+I haven't tried to avoid repeats, so sometimes you will get two identical clocks on the same page, or even right next to each other.  If the kids point it out, tell them it was a test :)
+
+h3. Licencing
+
+This web tool and its output are free for personal use.  If you want to use this tool or its output in your paid job, or you want to distribute it or an altered version of it, you must get my permission first.  "Email me":{{ site.baseurl }} and let me know what you're intending.
+
+You can't copy this web tool, make a derivative tool, or make this or some altered version available on any other website without my permission.
+
+h3. More features
+
+Let me know if you use this, and how it goes.  If you have ideas for additional features, I'd love to hear them, too.  "Contact me here":{{ site.baseurl }}about.

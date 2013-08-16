@@ -7,5 +7,5 @@ biglink_remoteurl: the url to link to, if the link isn't on this site
 
 --------------------------------------------------------- {% endcomment %}
 <div class="biglink">
-<a href="{% if biglink_localurl.size > 0 %}{{ site.base_url }}{{ biglink_localurl }}{% else %}{{ biglink_remoteurl }}{% endif %}">{{ biglink_text }}</a>
+<a href="{% if biglink_localurl.size > 0 %}{{ site.baseurl }}{{ biglink_localurl }}{% else %}{{ biglink_remoteurl }}{% endif %}">{{ biglink_text }}</a>
 </div>{% assign biglink_localurl = "" %}{% assign biglink_remoteurl = "" %}

@@ -2,10 +2,7 @@
 layout: article
 category: articles
 tags: ['Ruby|the Ruby programming language']
-title: 'Ruby walkthrough: bingo cards, part 1'
-seriestitle: Bingo cards Ruby walkthrough
-seriesprev:
-seriesnext:
+title: 'Ruby bingo cards - part 1'
 ---
 
 For my wife's last baby shower, I used Ruby to make cards for a bingo game.  This is a walkthrough of that process, which might be interesting if you're new to Ruby.  In this first part, I'll frame the problem, and work out a reasonable data structure.

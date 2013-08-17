@@ -2,13 +2,14 @@
 layout: article
 category: articles
 tags: ['Ruby|the Ruby programming language']
-title: 'Ruby walkthrough: bingo cards, part 2'
-seriestitle: Bingo cards Ruby walkthrough
-seriesprev: articles/2013-07-19-ruby-bingo-part-one
-seriesnext:
+title: 'Ruby bingo cards - part 2'
 ---
 
 For my wife's last baby shower, I used Ruby to make cards for a bingo game.  This is a walkthrough of that process, which might be interesting if you're new to Ruby.  In this second part, I take the code we wrote in the "first part":{% post_url articles/2013-07-19-ruby-bingo-part-one %} and turn it into a useful class.
+
+h3. DRAFT
+
+This post is Under Review.  You're allowed to read it, but "let me know":{{ site.baseurl }}about if there's something wrong.
 
 h2. Wrapping it up in a class
 

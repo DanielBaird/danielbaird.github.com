@@ -1,6 +1,6 @@
 ---
 layout: project
-category: project
+category: projects
 tags: ['Kids Ed|Education for kids']
 title: 'Clock Face Generator'
 ---
@@ -57,7 +57,7 @@ I haven't tried to avoid repeats, so sometimes you will get two identical clocks
 
 h3. Licencing
 
-This web tool and its output are free for personal use.  If you want to use this tool or its output in your paid job, or you want to distribute it or an altered version of it, you must get my permission first.  "Email me":{{ site.baseurl }} and let me know what you're intending.
+This web tool and its output are free for personal use.  If you want to use this tool or its output in your paid job, or you want to distribute it or an altered version of it, you must get my permission first.  "Email me":{{ site.baseurl }}about and let me know what you're intending.
 
 You can't copy this web tool, make a derivative tool, or make this or some altered version available on any other website without my permission.
 

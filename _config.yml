@@ -1,7 +1,7 @@
 
 site_title: daniel baird dot com
 
-url: http://danielbaird.github.com # or something
+url: http://danielbaird.com # or something
 baseurl: / # or something
 
 excerpt_separator: "\n"

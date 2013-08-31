@@ -1,0 +1,166 @@
+---
+title: Arithmetic Problem Generator
+layout: none
+---
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"/>
+<title>{{ page.title }}</title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<style>
+    html, body { padding: 0; margin: 0; font-family: sans-serif; }
+    .problems p { text-align: center; }
+    .problems {
+        text-align: center;
+    }
+    .problemarea {
+        text-align: right;
+        display: inline-block;
+        padding: 0.8cm 0.3cm 0.3cm;
+    }
+    .problems .number {
+        font-size: 0.75cm;
+        margin: 0 0 0.5cm;
+        padding: 0 0.25cm;
+    }
+
+    .problems .first.number {
+        padding-left: 1em;
+    }
+
+    .problems .operator,
+    .problems .digit {
+        display: inline-block;
+        width: 0.75em;
+        height: 1em;
+        text-align: center;
+    }
+
+    .problems .operator {
+        float: left;
+    }
+
+    .number.answer {
+        height: 1.5em;
+        border: 0.05cm solid #000;
+        border-width: 0.05cm 0;
+
+    }
+    /* -- page ------------------------------------------------- */
+    .heading {
+        text-align: center;
+    }
+    .heading h1 {
+        font-size: 150%;
+        margin: 0;
+        padding: 0.25em auto;
+    }
+    .heading p {
+        font-size: 80%;
+    }
+    /* -- form layout ------------------------------------------ */
+    .fancyform {
+        color: #037;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        margin: 0.5em;
+        background: #bdf;
+    }
+    .controlgroup {
+        margin: 0.5em;
+        padding: 0 0 0.5em;
+        background: rgba(255,255,255, 0.5);
+        border-radius: 0.5em;
+        text-align: center;
+    }
+    .controlgroup h2 {
+        font-size: inherit;
+        margin: 0 0 0.5em;
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0,51,153, 0.1);
+    }
+    .control {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0.5em 1em;
+        text-align: left;
+    }
+    .control h3 {
+        font-size: inherit;
+        margin: 0 0 0.75em;
+        padding: 0.5em 0.1em;
+        border-bottom: 1px solid rgba(0,51,153, 0.1);
+    }
+    .control button {
+        font-size: inherit;
+        font-family: inherit;
+        padding: 0.25em 1em;
+    }
+    .control > button {
+        display: block;
+        width: 100%;
+        margin: 0.25em 0;
+    }
+    .control > label {
+        display: block;
+        margin: 0.1em 0;
+        padding: 0.1em;
+    }
+    .control > p {
+        margin: 0.1em 0;
+        padding: 0.1em;
+        max-width: 15em;
+    }
+    /* -- print layout ----------------------------------------- */
+    @media print {
+        .problemsettings { display: none; }
+        @page :first {
+            margin: 5cm;
+            text-align: center;
+        }
+    }
+    @page :first {
+        margin: 2cm;
+        text-align: center;
+    }
+
+</style>
+
+<div class="heading">
+    <p><strong>Arithmetic Problems</strong> for personal use only &mdash; visit <a href="{{ site.baseurl }}projects/maths">danielbaird.com/projects/maths</a> for info &amp; to make your own</p>
+</div>
+<div class="settings fancyform">
+    <div class="controlgroup">
+        <h2>Settings</h2>
+         <div class="control">
+            <h3>Options:</h3>
+            <label><input type="checkbox" name="avoidzeros" checked="checked"> avoid zeros in the second number</label>
+        </div>
+        <div class="control">
+            <h3>Hour hand:</h3>
+            <label><input type="radio" name="hourhand" value="fake"> always dead-on the hour</label>
+            <label><input type="radio" name="hourhand" value="real"> between hours like a real problem</label>
+            <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> not too close to the next hour</label>
+        </div>
+        <div class="control">
+            <h3>Made for printing!</h3>
+            <p>To turn this page into a work sheet, just print it!  The 12 problems fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
+        </div>
+    </div>
+    <div class="controlgroup">
+        <div class="control">
+            <button id="make">make another set of problems</button>
+        </div>
+    </div>
+</div>
+
+<div id="problems" class="problems"></div>
+
+<script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script>
+<script src="./maths.js"></script>
+</body>
+</html>

@@ -20,12 +20,14 @@ layout: none
     .problemarea {
         text-align: right;
         display: inline-block;
-        padding: 0.8cm 0.3cm 0.3cm;
+        padding: 0.75cm 0.5cm 0.25cm;
     }
     .problems .number {
+        font-family: monospace;
         font-size: 0.75cm;
-        margin: 0 0 0.5cm;
-        padding: 0 0.25cm;
+        line-height: 0.9;
+        margin: 0 0 0.25cm;
+        padding: 0 0.1cm;
     }
 
     .problems .first.number {
@@ -44,8 +46,9 @@ layout: none
         float: left;
     }
 
-    .number.answer {
-        height: 1.5em;
+    .problems .number.answer {
+        height: 1cm;
+        margin-top: 0.4cm;
         border: 0.05cm solid #000;
         border-width: 0.05cm 0;
 
@@ -57,7 +60,7 @@ layout: none
     .heading h1 {
         font-size: 150%;
         margin: 0;
-        padding: 0.25em auto;
+        padding: 0.25em 0;
     }
     .heading p {
         font-size: 80%;
@@ -88,12 +91,24 @@ layout: none
         vertical-align: top;
         margin: 0.5em 1em;
         text-align: left;
+        padding-left: 1.5em;
     }
     .control h3 {
         font-size: inherit;
-        margin: 0 0 0.75em;
+        margin: 0 0 0.75em -1.5em;
         padding: 0.5em 0.1em;
         border-bottom: 1px solid rgba(0,51,153, 0.1);
+    }
+    .control h4 {
+        font-size: inherit;
+        font-weight: normal;
+        font-style: italic;
+        padding: 0.1em;
+        margin: 0.1em 0 0.1em -1.5em;
+        padding: 1em 0.1em 0.1em;
+    }
+    .control h4:first-of-type {
+        padding-top: 0.1em;
     }
     .control button {
         font-size: inherit;
@@ -117,7 +132,7 @@ layout: none
     }
     /* -- print layout ----------------------------------------- */
     @media print {
-        .problemsettings { display: none; }
+        .settings { display: none; }
         @page :first {
             margin: 5cm;
             text-align: center;
@@ -136,19 +151,59 @@ layout: none
 <div class="settings fancyform">
     <div class="controlgroup">
         <h2>Settings</h2>
-         <div class="control">
-            <h3>Options:</h3>
-            <label><input type="checkbox" name="avoidzeros" checked="checked"> avoid zeros in the second number</label>
+         <div class="control ops">
+            <h3>Operations to include</h3>
+            <label><input type="checkbox" name="ops-add" checked="checked"> additon</label>
+            <label><input type="checkbox" name="ops-sub" checked="checked"> subtraction</label>
         </div>
+         <div class="control ops-add">
+            <h3>Addition options</h3>
+
+            <h4>First addend:</h4>
+            <label>
+                Exactly <select name="add-topdigits">
+                    <option value="1">1 digit</option>
+                    <option value="2">2 digits</option>
+                    <option value="3">3 digits</option>
+                    <option value="6">6 digits</option>
+                </select> long
+            </label>
+
+            <h4>Second addend:</h4>
+            <label><input type="checkbox" name="add-bottomavoidzero" checked="checked"> avoid digit 0</label>
+            <label><input type="checkbox" name="add-bottompositive" checked="checked"> always +ve (never zero)</label>
+        </div>
+         <div class="control ops-sub">
+            <h3>Subtraction options</h3>
+
+            <label><input type="checkbox" name="sub-nozeros" checked="checked"> never choose zero</label>
+
+            <h4>Minuend:</h4>
+            <label>
+                <select name="add-topdigits">
+                    <option value="1">single digit</option>
+                    <option value="2">2 digits</option>
+                    <option value="3">3 digit</option>
+                    <option value="3-6">3 to 6 digits</option>
+                </select>
+                long
+            </label>
+
+            <h4>Subtrahend:</h4>
+            <label><input type="checkbox" name="sub-avoidzerodigits" checked="checked"> avoid zeroes</label>
+        </div>
+
+        <!--
         <div class="control">
             <h3>Hour hand:</h3>
             <label><input type="radio" name="hourhand" value="fake"> always dead-on the hour</label>
             <label><input type="radio" name="hourhand" value="real"> between hours like a real problem</label>
             <label><input type="radio" name="hourhand" value="exaggerated" checked="checked"> not too close to the next hour</label>
         </div>
+        -->
         <div class="control">
             <h3>Made for printing!</h3>
-            <p>To turn this page into a work sheet, just print it!  The 12 problems fit nicely onto A4 or Letter sized pages, and this bit at the top won't show up.</p>
+            <p>To turn this page into a work sheet, just print it!  The problems fit nicely onto A4 or Letter sized pages (maybe, once I get the thing finished..), and this bit at the top won't show up.</p>
         </div>
     </div>
     <div class="controlgroup">

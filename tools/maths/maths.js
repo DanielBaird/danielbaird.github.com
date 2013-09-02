@@ -18,49 +18,76 @@
 
   $(function() {
     var update;
+    $('.control.ops');
     update = function() {
-      var avoid_zeros, digit, digitlengths, digits, first_digit, first_digits, length, less_zeros_digits, operation, operations, problem, problemhtml, problems, second_digit, second_digits;
+      var add_bottom_avoid_zero, add_bottom_positive, add_digitlengths, add_lengths, digit, digits, first_digit, first_digits, include_add, include_sub, length, less_zeros_digits, no_nines_digits, no_zeros_digits, no_zeros_no_nines_digits, operation, operations, problem, problemhtml, problems, second_digit, second_digits;
       $('#problems').empty().append('<p><b><i>Instructions:</i> Work out the answer for each problem and write it in the space below.</b></p>');
-      avoid_zeros = $('.settings input[name="avoidzeros"]').prop('checked');
-      console.log(avoid_zeros);
+      include_add = $('.settings input[name="ops-add"]').prop('checked');
+      include_sub = $('.settings input[name="ops-sub"]').prop('checked');
+      add_lengths = $('.settings select[name="add-topdigits"]').val();
+      add_bottom_avoid_zero = $('.settings input[name="add-bottomavoidzero"]').prop('checked');
+      add_bottom_positive = $('.settings input[name="add-bottompositive"]').prop('checked');
+      operations = [];
+      if (include_add) {
+        operations.push('+');
+      }
+      if (include_sub) {
+        operations.push('-');
+      }
+      add_digitlengths = [parseInt(add_lengths, 10)];
       digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      less_zeros_digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      operations = ['+', '-', '*'];
-      operations = ['+'];
-      digitlengths = [3, 4, 5];
+      no_nines_digits = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      no_zeros_digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      no_zeros_no_nines_digits = [1, 2, 3, 4, 5, 6, 7, 8];
+      less_zeros_digits = [0].concat([1, 2, 3, 4, 5, 6, 7, 8, 9]).concat([1, 2, 3, 4, 5, 6, 7, 8, 9]).concat([1, 2, 3, 4, 5, 6, 7, 8, 9]).concat([1, 2, 3, 4, 5, 6, 7, 8, 9]);
       problems = (function() {
         var _i, _results;
         _results = [];
         for (problem = _i = 0; _i <= 4; problem = ++_i) {
           operation = pick_one(operations);
-          length = pick_one(digitlengths);
-          first_digits = (function() {
-            var _j, _results1;
-            _results1 = [];
-            for (digit = _j = 1; 1 <= length ? _j <= length : _j >= length; digit = 1 <= length ? ++_j : --_j) {
-              _results1.push(pick_one(digits));
-            }
-            return _results1;
-          })();
-          trim_leading_zeros(first_digits);
-          second_digits = (function() {
-            var _j, _len, _results1;
-            _results1 = [];
-            for (_j = 0, _len = first_digits.length; _j < _len; _j++) {
-              first_digit = first_digits[_j];
-              second_digit = 10;
-              while (second_digit + first_digit >= 10) {
-                if (avoid_zeros) {
-                  second_digit = pick_one(less_zeros_digits);
+          if (operation === '+') {
+            length = pick_one(add_digitlengths);
+            first_digits = (function() {
+              var _j, _ref, _results1;
+              _results1 = [];
+              for (digit = _j = 0, _ref = length - 1; 0 <= _ref ? _j <= _ref : _j >= _ref; digit = 0 <= _ref ? ++_j : --_j) {
+                if (digit === (length - 1) && add_bottom_positive) {
+                  _results1.push(pick_one(no_zeros_no_nines_digits));
+                } else if (digit === 0) {
+                  _results1.push(pick_one(no_zeros_digits));
                 } else {
-                  second_digit = pick_one(digits);
+                  _results1.push(pick_one(digits));
                 }
               }
-              _results1.push(second_digit);
-            }
-            return _results1;
-          })();
-          trim_leading_zeros(second_digits);
+              return _results1;
+            })();
+            second_digits = (function() {
+              var _j, _ref, _results1;
+              _results1 = [];
+              for (digit = _j = 0, _ref = length - 1; 0 <= _ref ? _j <= _ref : _j >= _ref; digit = 0 <= _ref ? ++_j : --_j) {
+                first_digit = first_digits[digit];
+                second_digit = 10;
+                while (second_digit + first_digit >= 10) {
+                  if (digit === (length - 1) && add_bottom_positive) {
+                    second_digit = pick_one(no_zeros_digits);
+                  } else if (add_bottom_avoid_zero) {
+                    second_digit = pick_one(less_zeros_digits);
+                  } else {
+                    second_digit = pick_one(digits);
+                  }
+                }
+                _results1.push(second_digit);
+              }
+              return _results1;
+            })();
+            trim_leading_zeros(first_digits);
+            trim_leading_zeros(second_digits);
+          } else if (operation === '-') {
+            first_digits = [9, 9, 9];
+            second_digits = [1, 1, 1];
+          } else {
+            alert("Didn't recognise operation " + operation + ".");
+          }
           problemhtml = '<div class="problemarea">';
           problemhtml += '<div class="first number">';
           problemhtml += '<span class="digit">' + (first_digits.join('</span><span class="digit">')) + '</span>';

@@ -93,6 +93,9 @@ layout: none
         text-align: left;
         padding-left: 1.5em;
     }
+    .control.disabled {
+        opacity: 0.5;
+    }
     .control h3 {
         font-size: inherit;
         margin: 0 0 0.75em -1.5em;
@@ -143,6 +146,8 @@ layout: none
         text-align: center;
     }
 
+    .test { border: 1px solid red;}
+
 </style>
 
 <div class="heading">
@@ -153,7 +158,7 @@ layout: none
         <h2>Settings</h2>
          <div class="control ops">
             <h3>Operations to include</h3>
-            <label><input type="checkbox" name="ops-add" checked="checked"> additon</label>
+            <label><input type="checkbox" name="ops-add" checked="checked"> addition</label>
             <label><input type="checkbox" name="ops-sub" checked="checked"> subtraction</label>
         </div>
          <div class="control ops-add">

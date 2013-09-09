@@ -11,7 +11,18 @@ trim_leading_zeros = (digits) ->
 
 $ ->
     # connect the operation checkboxes to each operation's settings
-    $('.control.ops')
+    $('.control.ops input').change (e)->
+        $group = $('.control.' + $(e.srcElement).attr 'name')
+        $groupControls = $group.find('select').add $group.find('input')
+        if e.srcElement.checked
+            $groupControls.prop 'disabled', false
+            $group.removeClass 'disabled'
+        else
+            $groupControls.prop 'disabled', true
+            $group.addClass 'disabled'
+
+    # uncheck subtract til it's working
+    $('[name="ops-sub"]').click()
 
     update = ()->
         $('#problems').empty().append '<p><b><i>Instructions:</i> Work out the answer for each problem and write it in the space below.</b></p>'
@@ -84,7 +95,8 @@ $ ->
                 second_digits = [1,1,1]
                 # ...
             else
-                alert "Didn't recognise operation #{operation}."
+                alert "Didn't recognise operation '#{operation}'."
+                break
 
             problemhtml  = '<div class="problemarea">'
             problemhtml += '<div class="first number">'

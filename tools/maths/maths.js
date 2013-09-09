@@ -18,7 +18,19 @@
 
   $(function() {
     var update;
-    $('.control.ops');
+    $('.control.ops input').change(function(e) {
+      var $group, $groupControls;
+      $group = $('.control.' + $(e.srcElement).attr('name'));
+      $groupControls = $group.find('select').add($group.find('input'));
+      if (e.srcElement.checked) {
+        $groupControls.prop('disabled', false);
+        return $group.removeClass('disabled');
+      } else {
+        $groupControls.prop('disabled', true);
+        return $group.addClass('disabled');
+      }
+    });
+    $('[name="ops-sub"]').click();
     update = function() {
       var add_bottom_avoid_zero, add_bottom_positive, add_digitlengths, add_lengths, digit, digits, first_digit, first_digits, include_add, include_sub, length, less_zeros_digits, no_nines_digits, no_zeros_digits, no_zeros_no_nines_digits, operation, operations, problem, problemhtml, problems, second_digit, second_digits;
       $('#problems').empty().append('<p><b><i>Instructions:</i> Work out the answer for each problem and write it in the space below.</b></p>');
@@ -86,7 +98,8 @@
             first_digits = [9, 9, 9];
             second_digits = [1, 1, 1];
           } else {
-            alert("Didn't recognise operation " + operation + ".");
+            alert("Didn't recognise operation '" + operation + "'.");
+            break;
           }
           problemhtml = '<div class="problemarea">';
           problemhtml += '<div class="first number">';

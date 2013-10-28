@@ -1,0 +1,213 @@
+---
+title: Hatching
+layout: none
+---
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"/>
+<title>{{ page.title }}</title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<style>
+    html, body { padding: 0; margin: 0; font-family: sans-serif; }
+    .problems p { text-align: center; }
+    .problems {
+        text-align: center;
+    }
+    .problemarea {
+        text-align: right;
+        display: inline-block;
+        padding: 0.75cm 0.5cm 0.25cm;
+    }
+    .problems .number {
+        font-family: monospace;
+        font-size: 0.75cm;
+        line-height: 0.9;
+        margin: 0 0 0.25cm;
+        padding: 0 0.1cm;
+    }
+
+    .problems .first.number {
+        padding-left: 1em;
+    }
+
+    .problems .operator,
+    .problems .digit {
+        display: inline-block;
+        width: 0.75em;
+        height: 1em;
+        text-align: center;
+    }
+
+    .problems .operator {
+        float: left;
+    }
+
+    .problems .number.answer {
+        height: 1cm;
+        margin-top: 0.4cm;
+        border: 0.05cm solid #000;
+        border-width: 0.05cm 0;
+
+    }
+    /* -- page ------------------------------------------------- */
+    .heading {
+        text-align: center;
+    }
+    .heading h1 {
+        font-size: 150%;
+        margin: 0;
+        padding: 0.25em 0;
+    }
+    .heading p {
+        font-size: 80%;
+    }
+    /* -- form layout ------------------------------------------ */
+    .fancyform {
+        color: #037;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        margin: 0.5em;
+        background: #bdf;
+    }
+    .controlgroup {
+        margin: 0.5em;
+        padding: 0 0 0.5em;
+        background: rgba(255,255,255, 0.5);
+        border-radius: 0.5em;
+        text-align: center;
+    }
+    .controlgroup h2 {
+        font-size: inherit;
+        margin: 0 0 0.5em;
+        padding: 0.5em;
+        border-bottom: 1px solid rgba(0,51,153, 0.1);
+    }
+    .control {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0.5em 1em;
+        text-align: left;
+        padding-left: 1.5em;
+    }
+    .control.disabled {
+        opacity: 0.5;
+    }
+    .control h3 {
+        font-size: inherit;
+        margin: 0 0 0.75em -1.5em;
+        padding: 0.5em 0.1em;
+        border-bottom: 1px solid rgba(0,51,153, 0.1);
+    }
+    .control h4 {
+        font-size: inherit;
+        font-weight: normal;
+        font-style: italic;
+        padding: 0.1em;
+        margin: 0.1em 0 0.1em -1.5em;
+        padding: 1em 0.1em 0.1em;
+    }
+    .control h4:first-of-type {
+        padding-top: 0.1em;
+    }
+    .control button {
+        font-size: inherit;
+        font-family: inherit;
+        padding: 0.25em 1em;
+    }
+    .control > button {
+        display: block;
+        width: 100%;
+        margin: 0.25em 0;
+    }
+    .control > label {
+        display: block;
+        margin: 0.1em 0;
+        padding: 0.1em;
+    }
+    .control > p {
+        margin: 0.1em 0;
+        padding: 0.1em;
+        max-width: 15em;
+    }
+    /* -- print layout ----------------------------------------- */
+    @media print {
+        .settings { display: none; }
+        @page :first {
+            margin: 5cm;
+            text-align: center;
+        }
+    }
+    @page :first {
+        margin: 2cm;
+        text-align: center;
+    }
+
+    .test { border: 1px solid red;}
+
+</style>
+
+<div class="heading">
+    <p><strong>Hatching</strong> for personal use only &mdash; visit <a href="{{ site.baseurl }}projects/hatching">danielbaird.com/projects/hatching</a> for info</p>
+</div>
+<div class="settings fancyform">
+    <div class="controlgroup">
+        <h2>Settings</h2>
+         <div class="control ops">
+            <h3>Operations to include</h3>
+            <label><input type="checkbox" name="ops-add" checked="checked"> addition</label>
+            <label><input type="checkbox" name="ops-sub" checked="checked"> subtraction</label>
+        </div>
+         <div class="control ops-add">
+            <h3>Addition options</h3>
+
+            <h4>First addend:</h4>
+            <label>
+                Exactly <select name="add-topdigits">
+                    <option value="1">1 digit</option>
+                    <option value="2">2 digits</option>
+                    <option value="3">3 digits</option>
+                    <option value="6">6 digits</option>
+                </select> long
+            </label>
+
+            <h4>Second addend:</h4>
+            <label><input type="checkbox" name="add-bottomavoidzero" checked="checked"> avoid digit 0</label>
+            <label><input type="checkbox" name="add-bottompositive" checked="checked"> always +ve (never zero)</label>
+        </div>
+         <div class="control ops-sub">
+            <h3>Subtraction options</h3>
+
+            <label><input type="checkbox" name="sub-nozeros" checked="checked"> never choose zero</label>
+
+            <h4>Minuend:</h4>
+            <label>
+                <select name="add-topdigits">
+                    <option value="1">single digit</option>
+                    <option value="2">2 digits</option>
+                    <option value="3">3 digit</option>
+                    <option value="3-6">3 to 6 digits</option>
+                </select>
+                long
+            </label>
+
+            <h4>Subtrahend:</h4>
+            <label><input type="checkbox" name="sub-avoidzerodigits" checked="checked"> avoid zeroes</label>
+        </div>
+    </div>
+    <div class="controlgroup">
+        <div class="control">
+            <button id="make">make another set of problems</button>
+        </div>
+    </div>
+</div>
+
+<div id="problems" class="problems"></div>
+
+<script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script>
+<script src="./hatching.js"></script>
+</body>
+</html>

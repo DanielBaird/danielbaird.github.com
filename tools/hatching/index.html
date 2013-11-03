@@ -8,206 +8,236 @@ layout: none
 <meta http-equiv="Content-Type" content="text/html"/>
 <title>{{ page.title }}</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+<style>
+    html, body { padding: 1em 3em; margin: 0; font-family: sans-serif; }
+    #form .form-element {
+        padding: 0.5em 0;
+    }
+    #form .form-element label {
+        display: inline-block;
+        width: 8em;
+        text-align: right;
+        padding: 0.1em 1em;
+    }
+    #form .form-element input {
+        font-size: inherit;
+        font-family: inherit;
+        padding: 0.1em 0.5em;
+        margin: 0 0.5em;
+        width: 6em;
+    }
+    #form .form-element .var-note {
+        font-size: 90%;
+        color: #930;
+        display: inline-block;
+        padding: 0.1em 0.5em;
+    }
+</style>
 </head>
 <body>
 
-<style>
-    html, body { padding: 0; margin: 0; font-family: sans-serif; }
-    .problems p { text-align: center; }
-    .problems {
-        text-align: center;
-    }
-    .problemarea {
-        text-align: right;
-        display: inline-block;
-        padding: 0.75cm 0.5cm 0.25cm;
-    }
-    .problems .number {
-        font-family: monospace;
-        font-size: 0.75cm;
-        line-height: 0.9;
-        margin: 0 0 0.25cm;
-        padding: 0 0.1cm;
-    }
+<div id="form"></div>
+<div id="result"></div>
 
-    .problems .first.number {
-        padding-left: 1em;
-    }
 
-    .problems .operator,
-    .problems .digit {
-        display: inline-block;
-        width: 0.75em;
-        height: 1em;
-        text-align: center;
-    }
+<!-- decent folk put their javascript at the bottom -->
+<!-- <script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script> -->
+<script>
+    var sq = function(x) { return Math.pow(x,2); }
+    var cu = function(x) { return Math.pow(x,3); }
+    var p4 = function(x) { return Math.pow(x,4); }
+    var pow = function(x,y) { return Math.pow(x,y); }
+    var elemId = function(id) { return document.getElementById(id); }
+    var data = {
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        vars: [{
+            name: 'salinity', abbr: 'ss',
+            units: '&#x2030;',
+            defaultVal: 31,
+            warnMin: 22, warnMax: 40,
+            warnMsg: 'Entered salinity value is outside the range for this model (22 - 40 &#x2030;). Use results with caution.',
+            failMin: 12, failMax: 50,
+            failMsg: 'Entered salinity value is unreasonable.'
+        },{
+            name: 'temperature', abbr: 'tt',
+            units: '&#x2103;',
+            defaultVal: 28,
+            warnMin: 22, warnMax: 34,
+            warnMsg: 'Entered temperature value is outside the range for this model (22 - 34 &#x2103;).  Use results with caution.',
+            failMin: 12, failMax: 44,
+            failMsg: 'Entered temperature value is unreasonable.'
+        }],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        calcs: [{
+                name: 'hatching success', units: '%',
+                terms: [
+                    '1',                'ss',               'tt',
+                    'ss * tt',          'ss * sq(tt)',      'sq(ss) * tt',
+                    'sq(ss) * sq(tt)',  'sq(ss)',           'sq(tt)'
+                ], coefficients: [
+                    -5.016e+00,         2.891e-01,          2.120e+01,
+                    -1.633e+00,         9.572e-02,          2.983e-02,
+                    -1.761e-03,         -4.862e-03,         -1.207e+00
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'infection success', units: '%',
+                terms: [
+                    '1',
+                    'ss',               'tt',
+                    'ss * tt',          'sq(ss) * sq(tt)',
+                    'sq(ss)',           'sq(tt)',
+                    'cu(ss)',           'cu(tt)',
+                    'p4(ss)',           'p4(tt)'
+                ], coefficients: [
+                    1.66e+04,
+                    -2.292e+03,         -1.184e+01,
+                    5.388e-01,          -2.258e-04,
+                    1.172e+02,          1.796e-01,
+                    -2.637e+00,         2.198e-02
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to last hatch', units: 'days?',
+                terms: [
+                    '1',
+                    'ss',               'tt',
+                    'sq(ss)',           'sq(tt)',
+                    'sq(ss) * tt',      'ss * sq(tt)',
+                    'cu(ss)',           'cu(tt)',
+                    'cu(ss) * sq(tt)',  'sq(ss) * cu(tt)',
+                    'p4(ss) * p4(tt)',
+                    'p4(ss) * tt',      'ss * p4(tt)',
+                    'p4(ss)',           'p4(tt)',
+                    'pow(ss,tt)'
+                ], coefficients: [
+                    3.218e+04,
+                    -4.574e+01,         1.839e+01,
+                    2.403,              -2.12e-01,
+                    3.975e-02,          1.073e-02,
+                    -5.527e-02,         2.823e-03,
+                    -2.436e-06,         -4.647e-06,
+                    -6.875e-06,
+                    1.173e-06,          2.965e-11,
+                    -4.702e-04,         -4.473e-05,
+                    1.632
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to earliest sexual maturity', units: 'days?',
+                terms: [
+                    '1',
+                    'ss',               'tt',
+                    'ss * tt',          'cu(ss)',
+                    'cu(tt)',           'sq(ss) * sq(tt)',
+                    'pow(ss,tt)'
+                ], coefficients: [
+                    4.906e+01,
+                    -1.419,             -3.488e-03,
+                    -2.280e-02,         5.845e-04,
+                    4.619e-06,          9.246e-06,
+                    -8.897e-62
+            ]}
+        ]
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    };
 
-    .problems .operator {
-        float: left;
+    // for now just push form content and output into the body tag
+    var form = elemId('form');
+    var output = elemId('result');
+    // --------------------------------------------------------------
+    var buildForm = function() {
+        var html = '';
+        data.vars.forEach( function(theVar) {
+            html += '<div class="form-element">';
+            html += '<label for="var-' + theVar.abbr + '">' + theVar.name + '</label>';
+            html += '<input type="number" ' +
+                    'id="var-' + theVar.abbr + '" ' +
+                    'name="var-' + theVar.abbr + '" ' +
+                    'value="' + theVar.defaultVal + '" ' +
+                    'onchange="calculate();"/>'
+            html += theVar.units;
+            html += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
+            html += '</div>';
+        });
+        /*
+        html += '<div class="form-element">';
+        html += '<label></label>';
+        html += '<input type="submit" onclick="calculate(); return false;" value="calculate">';
+        html += '</div>';
+        */
+        form.innerHTML += html;
+        calculate();
     }
+    // --------------------------------------------------------------
+    var getInputs = function() {
+        // collect inputs and check them for validity
+        varValues = {};
+        valuesOkay = true;
+        data.vars.forEach( function(theVar) {
+            var elem = elemId('var-' + theVar.abbr);
+            if (elem) {
+                var value = elem.value;
+                if (value) {
+                    value = parseFloat(value, 10); // todo: radix here or no?
+                    if (!isNaN(value)) {
+                        // okay it's a parseable value.
+                        // now check its range.
+                        if (value < theVar.failMin || value > theVar.failMax) {
+                            // outside of the non-fail range.. fail out.
+                            elemId('var-note-' + theVar.abbr).innerHTML = theVar.failMsg;
+                            valuesOkay = false;
+                        } else {
+                            // inside the non-fail range.
+                            if (value < theVar.warnMin || value > theVar.warnMax) {
+                                // outside the tested range..
+                                elemId('var-note-' + theVar.abbr).innerHTML = theVar.warnMsg;
+                            }
+                            varValues[theVar.abbr] = value;
+                        }
+                    }
+                } else { valuesOkay = false }
+            } else { valuesOkay = false }
+        });
 
-    .problems .number.answer {
-        height: 1cm;
-        margin-top: 0.4cm;
-        border: 0.05cm solid #000;
-        border-width: 0.05cm 0;
+        if (valuesOkay) return varValues;
+        return null;
 
     }
-    /* -- page ------------------------------------------------- */
-    .heading {
-        text-align: center;
-    }
-    .heading h1 {
-        font-size: 150%;
-        margin: 0;
-        padding: 0.25em 0;
-    }
-    .heading p {
-        font-size: 80%;
-    }
-    /* -- form layout ------------------------------------------ */
-    .fancyform {
-        color: #037;
-        border: 1px solid #ccc;
-        border-radius: 1em;
-        margin: 0.5em;
-        background: #bdf;
-    }
-    .controlgroup {
-        margin: 0.5em;
-        padding: 0 0 0.5em;
-        background: rgba(255,255,255, 0.5);
-        border-radius: 0.5em;
-        text-align: center;
-    }
-    .controlgroup h2 {
-        font-size: inherit;
-        margin: 0 0 0.5em;
-        padding: 0.5em;
-        border-bottom: 1px solid rgba(0,51,153, 0.1);
-    }
-    .control {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0.5em 1em;
-        text-align: left;
-        padding-left: 1.5em;
-    }
-    .control.disabled {
-        opacity: 0.5;
-    }
-    .control h3 {
-        font-size: inherit;
-        margin: 0 0 0.75em -1.5em;
-        padding: 0.5em 0.1em;
-        border-bottom: 1px solid rgba(0,51,153, 0.1);
-    }
-    .control h4 {
-        font-size: inherit;
-        font-weight: normal;
-        font-style: italic;
-        padding: 0.1em;
-        margin: 0.1em 0 0.1em -1.5em;
-        padding: 1em 0.1em 0.1em;
-    }
-    .control h4:first-of-type {
-        padding-top: 0.1em;
-    }
-    .control button {
-        font-size: inherit;
-        font-family: inherit;
-        padding: 0.25em 1em;
-    }
-    .control > button {
-        display: block;
-        width: 100%;
-        margin: 0.25em 0;
-    }
-    .control > label {
-        display: block;
-        margin: 0.1em 0;
-        padding: 0.1em;
-    }
-    .control > p {
-        margin: 0.1em 0;
-        padding: 0.1em;
-        max-width: 15em;
-    }
-    /* -- print layout ----------------------------------------- */
-    @media print {
-        .settings { display: none; }
-        @page :first {
-            margin: 5cm;
-            text-align: center;
+    // --------------------------------------------------------------
+    var calculate = function() {
+
+        output.innerHTML = '';
+
+        var varValues = getInputs();
+
+        if (!varValues) {
+            output.innerHTML += '<p>Input values not valid.</p>';
+        } else {
+            console.log(varValues);
+
+            data.calcs.forEach( function(calc) {
+
+                // we'll loop downward through the terms
+                var term = calc.terms.length;
+                // ..and sum them into this var.
+                var sum = 0;
+
+                // loop through the terms, working each one out and adding them up
+                while (term--) {
+                    // loop through vars replace each one in the expression
+                    var expression = calc.terms[term];
+                    data.vars.forEach( function(theVar) {
+                        expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
+                    });
+                    // now evaluate the expression and multiply by the coefficient
+                    console.log('term ' + term + ' is ' + calc.coefficients[term] + ' * ' + expression );
+                    var thisTerm = calc.coefficients[term] * eval(expression);
+                    sum += thisTerm;
+                }
+
+                output.innerHTML += '<p>' + calc.name + ': ' + sum.toFixed(2) + ' ' + calc.units + '</p>';
+            });
         }
     }
-    @page :first {
-        margin: 2cm;
-        text-align: center;
-    }
+    // --------------------------------------------------------------
 
-    .test { border: 1px solid red;}
+    buildForm();
 
-</style>
-
-<div class="heading">
-    <p><strong>Hatching</strong> for personal use only &mdash; visit <a href="{{ site.baseurl }}projects/hatching">danielbaird.com/projects/hatching</a> for info</p>
-</div>
-<div class="settings fancyform">
-    <div class="controlgroup">
-        <h2>Settings</h2>
-         <div class="control ops">
-            <h3>Operations to include</h3>
-            <label><input type="checkbox" name="ops-add" checked="checked"> addition</label>
-            <label><input type="checkbox" name="ops-sub" checked="checked"> subtraction</label>
-        </div>
-         <div class="control ops-add">
-            <h3>Addition options</h3>
-
-            <h4>First addend:</h4>
-            <label>
-                Exactly <select name="add-topdigits">
-                    <option value="1">1 digit</option>
-                    <option value="2">2 digits</option>
-                    <option value="3">3 digits</option>
-                    <option value="6">6 digits</option>
-                </select> long
-            </label>
-
-            <h4>Second addend:</h4>
-            <label><input type="checkbox" name="add-bottomavoidzero" checked="checked"> avoid digit 0</label>
-            <label><input type="checkbox" name="add-bottompositive" checked="checked"> always +ve (never zero)</label>
-        </div>
-         <div class="control ops-sub">
-            <h3>Subtraction options</h3>
-
-            <label><input type="checkbox" name="sub-nozeros" checked="checked"> never choose zero</label>
-
-            <h4>Minuend:</h4>
-            <label>
-                <select name="add-topdigits">
-                    <option value="1">single digit</option>
-                    <option value="2">2 digits</option>
-                    <option value="3">3 digit</option>
-                    <option value="3-6">3 to 6 digits</option>
-                </select>
-                long
-            </label>
-
-            <h4>Subtrahend:</h4>
-            <label><input type="checkbox" name="sub-avoidzerodigits" checked="checked"> avoid zeroes</label>
-        </div>
-    </div>
-    <div class="controlgroup">
-        <div class="control">
-            <button id="make">make another set of problems</button>
-        </div>
-    </div>
-</div>
-
-<div id="problems" class="problems"></div>
-
-<script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script>
-<script src="./hatching.js"></script>
+</script>
 </body>
 </html>

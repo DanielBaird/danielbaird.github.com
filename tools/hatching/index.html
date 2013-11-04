@@ -71,22 +71,22 @@ layout: none
         calcs: [{
                 name: 'hatching success', units: '%',
                 terms: [
-                    '1',                'ss',               'tt',
-                    'ss * tt',          'ss * sq(tt)',      'sq(ss) * tt',
-                    'sq(ss) * sq(tt)',  'sq(ss)',           'sq(tt)'
+                    '1',                'tt',               'ss',
+                    'tt * ss',          'tt * sq(ss)',      'sq(tt) * ss',
+                    'sq(tt) * sq(ss)',  'sq(tt)',           'sq(ss)'
                 ], coefficients: [
                     -5.016e+00,         2.891e-01,          2.120e+01,
                     -1.633e+00,         9.572e-02,          2.983e-02,
                     -1.761e-03,         -4.862e-03,         -1.207e+00
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'infection success', units: '%',
+                name: 'infection succett', units: '%',
                 terms: [
                     '1',
-                    'ss',               'tt',
-                    'ss * tt',          'sq(ss) * sq(tt)',
-                    'sq(ss)',           'sq(tt)',
-                    'cu(ss)',           'cu(tt)',
-                    'p4(ss)',           'p4(tt)'
+                    'tt',               'ss',
+                    'tt * ss',          'sq(tt) * sq(ss)',
+                    'sq(tt)',           'sq(ss)',
+                    'cu(tt)',           'cu(ss)',
+                    'p4(tt)',           'p4(ss)'
                 ], coefficients: [
                     1.66e+04,
                     -2.292e+03,         -1.184e+01,
@@ -97,15 +97,15 @@ layout: none
                 name: 'time to last hatch', units: 'days?',
                 terms: [
                     '1',
-                    'ss',               'tt',
-                    'sq(ss)',           'sq(tt)',
-                    'sq(ss) * tt',      'ss * sq(tt)',
-                    'cu(ss)',           'cu(tt)',
-                    'cu(ss) * sq(tt)',  'sq(ss) * cu(tt)',
-                    'p4(ss) * p4(tt)',
-                    'p4(ss) * tt',      'ss * p4(tt)',
-                    'p4(ss)',           'p4(tt)',
-                    'pow(ss,tt)'
+                    'tt',               'ss',
+                    'sq(tt)',           'sq(ss)',
+                    'sq(tt) * ss',      'tt * sq(ss)',
+                    'cu(tt)',           'cu(ss)',
+                    'cu(tt) * sq(ss)',  'sq(tt) * cu(ss)',
+                    'p4(tt) * p4(ss)',
+                    'p4(tt) * ss',      'tt * p4(ss)',
+                    'p4(tt)',           'p4(ss)',
+                    'pow(tt,ss)'
                 ], coefficients: [
                     3.218e+04,
                     -4.574e+01,         1.839e+01,
@@ -121,10 +121,10 @@ layout: none
                 name: 'time to earliest sexual maturity', units: 'days?',
                 terms: [
                     '1',
-                    'ss',               'tt',
-                    'ss * tt',          'cu(ss)',
-                    'cu(tt)',           'sq(ss) * sq(tt)',
-                    'pow(ss,tt)'
+                    'tt',               'ss',
+                    'tt * ss',          'cu(tt)',
+                    'cu(ss)',           'sq(tt) * sq(ss)',
+                    'pow(tt,ss)'
                 ], coefficients: [
                     4.906e+01,
                     -1.419,             -3.488e-03,
@@ -170,6 +170,8 @@ layout: none
         valuesOkay = true;
         data.vars.forEach( function(theVar) {
             var elem = elemId('var-' + theVar.abbr);
+            // clear the warning spot
+            elemId('var-note-' + theVar.abbr).innerHTML = '';
             if (elem) {
                 var value = elem.value;
                 if (value) {

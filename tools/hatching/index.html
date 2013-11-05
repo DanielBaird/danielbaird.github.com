@@ -28,6 +28,20 @@
         display: inline-block;
         padding: 0.1em 0.5em;
     }
+    .debug {
+        font-family: monospace;
+        font-size: 90%;
+        line-height: 1.0;
+    }
+    .debug.show button, .debug.hide table { display: none; }
+    .debug table {
+        margin-bottom: 4em;
+    }
+    .debug td, .debug th {
+        text-align: right;
+        padding: 0 0.5em;
+        margin: 0;
+    }
 </style>
 </head>
 <body>
@@ -66,72 +80,110 @@
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         calcs: [{
-                name: 'hatching success', units: '%',
-                rounding: 1,
-                terms: [
-                    '1',                'tt',               'ss',
-                    'tt * ss',          'tt * sq(ss)',      'sq(tt) * ss',
-                    'sq(tt) * sq(ss)',  'sq(tt)',           'sq(ss)'
-                ], coefficients: [
-                    -5.016e+00,         2.891e-01,          2.120e+01,
-                    -1.633e+00,         9.572e-02,          2.983e-02,
-                    -1.761e-03,         -4.862e-03,         -1.207e+00
-            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'infection success', units: '%',
-                rounding: 1,
+                name: 'hatching success', abbr: 'hatchrate', units: '%',
+                rounding: 1, lowcap: 1, highcap: 99,
                 terms: [
                     '1',
-                    'tt',               'ss',
+                    'tt',
+                    'ss',
                     'tt * ss',
-                    'sq(tt)',           'sq(ss)',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'tt * sq(ss)',
+                    'sq(tt) * ss',
+                    'sq(tt) * sq(ss)'
+                ], coefficients: [
+                     5.016,
+                     2.891e+01,
+                     2.120e+01,
+                    -1.633,
+                    -4.862e-03,
+                    -1.207,
+                     9.572e-02,
+                     2.983e-02,
+                    -1.761e-03
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'infection success', abbr: 'infectrate', units: '%',
+                rounding: 1, lowcap: 1, highcap: 99,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt)',
+                    'sq(ss)',
                     'sq(tt) * sq(ss)',
-                    'cu(tt)',           'p4(tt)'
+                    'cu(tt)',
+                    'p4(tt)'
                 ], coefficients: [
-                    1.66e+04,
-                    -2.292e+03,         -1.184e+01,
-                    5.388e-01,
-                    1.172e+02,          1.796e-01,
+                     1.66e+04,
+                    -2.292e+03,
+                    -1.184e+01,
+                     5.388e-01,
+                     1.172e+02,
+                     1.796e-01,
                     -2.258e-04,
-                    -2.637,             2.198e-02
+                    -2.637,
+                     2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to last hatch', units: 'days',
-                rounding: 1,
+                name: 'time to last hatch', abbr: 'hatchtime', units: 'days',
+                rounding: 1, lowcap: 1, highcap: 15,
                 terms: [
                     '1',
-                    'tt',               'ss',
-                    'sq(tt)',           'sq(ss)',
-                    'sq(tt) * ss',      'tt * sq(ss)',
-                    'cu(tt)',           'cu(ss)',
-                    'cu(tt) * sq(ss)',  'sq(tt) * cu(ss)',
-                    'p4(tt) * p4(ss)',
-                    'p4(tt) * ss',      'tt * p4(ss)',
-                    'p4(tt)',           'p4(ss)',
-                    'tt * ss'
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'tt * sq(ss)',
+                    'sq(tt) * ss',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'cu(tt) * sq(ss)',
+                    'sq(tt) * cu(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'p4(tt) * ss',
+                    'tt * p4(ss)',
+                    'p4(tt) * p4(ss)'
                 ], coefficients: [
-                    3.218e+02,
-                    -4.574e+01,         1.839e+01,
-                    2.403,              -2.12e-01,
-                    3.975e-02,          1.073e-02,
-                    -5.527e-02,         2.823e-03,
-                    -2.436e-06,         -4.647e-06,
-                    2.965e-11,
-                    -6.875e-06,         1.173e-06,
-                    4.702e-04,          -4.473e-05,
-                    -1.632
+                     3.218e+02,
+                    -4.574e+01,
+                     1.839e+01,
+                    -1.632,
+                     2.403,
+                    -2.120e-01,
+                     1.073e-02,
+                     3.975e-02,
+                    -5.527e-02,
+                     2.823e-03,
+                    -2.436e-06,
+                    -4.647e-06,
+                     4.702e-04,
+                    -4.473e-05,
+                    -6.875e-06,
+                     1.173e-06,
+                     2.965e-11
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity', units: 'days',
-                rounding: 0,
+                name: 'time to earliest sexual maturity', abbr: 'maturity', units: 'days',
+                rounding: 0, lowcap: 1, highcap: 5,
                 terms: [
                     '1',
-                    'tt',               'ss',
-                    'tt * ss',          'cu(tt)',
-                    'cu(ss)',           'sq(tt) * sq(ss)',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
                     'pow(tt,ss)'
                 ], coefficients: [
-                    4.906e+01,
-                    -1.419,             -3.488e-03,
-                    -2.280e-02,         5.845e-04,
-                    4.619e-06,          9.246e-06,
+                     4.906e+01,
+                    -1.419,
+                    -3.488e-03,
+                    -2.280e-02,
+                     9.246e-06,
+                     5.845e-04,
+                     5.319e-04,
                     -8.897e-62
             ]}
         ]
@@ -151,6 +203,7 @@
                     'id="var-' + theVar.abbr + '" ' +
                     'name="var-' + theVar.abbr + '" ' +
                     'value="' + theVar.defaultVal + '" ' +
+                    'onkeyup="calculate();" ' +
                     'onchange="calculate();"/>'
             html += theVar.units;
             html += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
@@ -177,7 +230,7 @@
             if (elem) {
                 var value = elem.value;
                 if (value) {
-                    value = parseFloat(value, 10); // todo: radix here or no?
+                    value = parseFloat(value);
                     if (!isNaN(value)) {
                         // okay it's a parseable value.
                         // now check its range.
@@ -209,29 +262,55 @@
 
         var varValues = getInputs();
 
+        // data.calcs = data.calcs.slice(0,1);
+
         if (!varValues) {
             output.innerHTML += '<p>Input values not valid.</p>';
         } else {
             data.calcs.forEach( function(calc) {
 
-                // we'll loop downward through the terms
-                var term = calc.terms.length;
-                // ..and sum them into this var.
-                var sum = 0;
+                if (calc.terms.length != calc.coefficients.length) {
+                    output.innerHTML += '<p>' + calc.name + ' has mismatched terms and coefficients.</p>';
+                } else {
+                    // we'll loop downward through the terms
+                    var term = calc.terms.length;
+                    // ..and sum them into this var.
+                    var sum = 0;
 
-                // loop through the terms, working each one out and adding them up
-                while (term--) {
-                    // loop through vars replace each one in the expression
-                    var expression = calc.terms[term];
-                    data.vars.forEach( function(theVar) {
-                        expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
-                    });
-                    // now evaluate the expression and multiply by the coefficient
-                    var thisTerm = calc.coefficients[term] * eval(expression);
-                    sum += thisTerm;
+                    // loop through the terms, working each one out and adding them up
+                    while (term--) {
+                        // loop through vars replace each one in the expression
+                        var expression = calc.terms[term];
+                        data.vars.forEach( function(theVar) {
+                            expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
+                        });
+                        // now evaluate the expression and multiply by the coefficient
+                        var thisTerm = calc.coefficients[term] * eval(expression);
+                        console.log(calc.terms[term] + '   ->    ' + expression + '    ->    * ' + calc.coefficients[term] + '   =>   ' + thisTerm);
+                        sum += thisTerm;
+                    }
+
+                    // apply the rounding and capping
+                    var sumStr = sum.toFixed(calc.rounding);
+                    if (calc.lowcap && sum < calc.lowcap) {
+                        sumStr = '< ' + calc.lowcap;
+                    } else if (calc.highcap && sum > calc.highcap) {
+                        sumStr = '> ' + calc.highcap;
+                    }
+                    output.innerHTML += '<p>' + calc.name + ': ' + sumStr + ' ' + calc.units + '</p>';
+
+                    // debug: show terms and coefficients.
+                    var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
+                    table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
+                    table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
+                    table += '<tr><th>Term</th><th>Coefficient</th></tr>';
+                    for (var t = 0; t < calc.terms.length; t++) {
+                        table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
+                    }
+                    table += '</table>';
+                    output.innerHTML += table;
                 }
 
-                output.innerHTML += '<p>' + calc.name + ': ' + sum.toFixed(calc.rounding) + ' ' + calc.units + '</p>';
             });
         }
     }

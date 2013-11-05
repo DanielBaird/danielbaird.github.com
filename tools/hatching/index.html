@@ -81,7 +81,7 @@
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         calcs: [{
                 name: 'hatching success', abbr: 'hatchrate', units: '%',
-                rounding: 1,
+                rounding: 1, lowcap: 1, highcap: 99,
                 terms: [
                     '1',
                     'tt',
@@ -104,7 +104,7 @@
                     -1.761e-03
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'infection success', abbr: 'infectrate', units: '%',
-                rounding: 1,
+                rounding: 1, lowcap: 1, highcap: 99,
                 terms: [
                     '1',
                     'tt',
@@ -127,7 +127,7 @@
                      2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'time to last hatch', abbr: 'hatchtime', units: 'days',
-                rounding: 1,
+                rounding: 1, lowcap: 1, highcap: 15,
                 terms: [
                     '1',
                     'tt',
@@ -166,7 +166,7 @@
                      2.965e-11
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'time to earliest sexual maturity', abbr: 'maturity', units: 'days',
-                rounding: 1,
+                rounding: 1, lowcap: 1, highcap: 5,
                 terms: [
                     '1',
                     'tt',
@@ -203,6 +203,7 @@
                     'id="var-' + theVar.abbr + '" ' +
                     'name="var-' + theVar.abbr + '" ' +
                     'value="' + theVar.defaultVal + '" ' +
+                    'onkeyup="calculate();" ' +
                     'onchange="calculate();"/>'
             html += theVar.units;
             html += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
@@ -229,7 +230,7 @@
             if (elem) {
                 var value = elem.value;
                 if (value) {
-                    value = parseFloat(value, 10); // todo: radix here or no?
+                    value = parseFloat(value);
                     if (!isNaN(value)) {
                         // okay it's a parseable value.
                         // now check its range.
@@ -289,14 +290,22 @@
                         sum += thisTerm;
                     }
 
-                    output.innerHTML += '<p>' + calc.name + ': ' + sum.toFixed(calc.rounding) + ' ' + calc.units + '</p>';
+                    // apply the rounding and capping
+                    var sumStr = sum.toFixed(calc.rounding);
+                    if (sum < calc.lowcap) {
+                        sumStr = '<' + calc.lowcap;
+                    } else if (sum > calc.highcap) {
+                        sumStr = '>' + calc.highcap;
+                    }
+                    output.innerHTML += '<p>' + calc.name + ': ' + sumStr + ' ' + calc.units + '</p>';
 
                     // debug: show terms and coefficients.
                     var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
                     table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
+                    table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
                     table += '<tr><th>Term</th><th>Coefficient</th></tr>';
                     for (var t = 0; t < calc.terms.length; t++) {
-                        table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t] + '</td></tr>';
+                        table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
                     }
                     table += '</table>';
                     output.innerHTML += table;

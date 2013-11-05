@@ -1,12 +1,8 @@
----
-title: Hatching
-layout: none
----
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"/>
-<title>{{ page.title }}</title>
+<title>Parasite Hatching Calculator</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 <style>
     html, body { padding: 1em 3em; margin: 0; font-family: sans-serif; }
@@ -71,6 +67,7 @@ layout: none
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         calcs: [{
                 name: 'hatching success', units: '%',
+                rounding: 1,
                 terms: [
                     '1',                'tt',               'ss',
                     'tt * ss',          'tt * sq(ss)',      'sq(tt) * ss',
@@ -81,6 +78,7 @@ layout: none
                     -1.761e-03,         -4.862e-03,         -1.207e+00
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'infection success', units: '%',
+                rounding: 1,
                 terms: [
                     '1',
                     'tt',               'ss',
@@ -97,6 +95,7 @@ layout: none
                     -2.637,             2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'time to last hatch', units: 'days',
+                rounding: 1,
                 terms: [
                     '1',
                     'tt',               'ss',
@@ -109,18 +108,19 @@ layout: none
                     'p4(tt)',           'p4(ss)',
                     'tt * ss'
                 ], coefficients: [
-                    3.218e+04,
+                    3.218e+02,
                     -4.574e+01,         1.839e+01,
                     2.403,              -2.12e-01,
                     3.975e-02,          1.073e-02,
                     -5.527e-02,         2.823e-03,
                     -2.436e-06,         -4.647e-06,
-                    -6.875e-06,
-                    1.173e-06,          2.965e-11,
-                    -4.702e-04,         -4.473e-05,
+                    2.965e-11,
+                    -6.875e-06,         1.173e-06,
+                    4.702e-04,          -4.473e-05,
                     -1.632
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
                 name: 'time to earliest sexual maturity', units: 'days',
+                rounding: 1,
                 terms: [
                     '1',
                     'tt',               'ss',
@@ -231,7 +231,7 @@ layout: none
                     sum += thisTerm;
                 }
 
-                output.innerHTML += '<p>' + calc.name + ': ' + sum.toFixed(2) + ' ' + calc.units + '</p>';
+                output.innerHTML += '<p>' + calc.name + ': ' + sum.toFixed(calc.rounding) + ' ' + calc.units + '</p>';
             });
         }
     }

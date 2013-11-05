@@ -212,8 +212,6 @@ layout: none
         if (!varValues) {
             output.innerHTML += '<p>Input values not valid.</p>';
         } else {
-            console.log(varValues);
-
             data.calcs.forEach( function(calc) {
 
                 // we'll loop downward through the terms
@@ -229,7 +227,6 @@ layout: none
                         expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
                     });
                     // now evaluate the expression and multiply by the coefficient
-                    console.log('term ' + term + ' is ' + calc.coefficients[term] + ' * ' + expression );
                     var thisTerm = calc.coefficients[term] * eval(expression);
                     sum += thisTerm;
                 }

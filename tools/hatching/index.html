@@ -292,10 +292,10 @@
 
                     // apply the rounding and capping
                     var sumStr = sum.toFixed(calc.rounding);
-                    if (sum < calc.lowcap) {
-                        sumStr = '<' + calc.lowcap;
-                    } else if (sum > calc.highcap) {
-                        sumStr = '>' + calc.highcap;
+                    if (calc.lowcap && sum < calc.lowcap) {
+                        sumStr = '< ' + calc.lowcap;
+                    } else if (calc.highcap && sum > calc.highcap) {
+                        sumStr = '> ' + calc.highcap;
                     }
                     output.innerHTML += '<p>' + calc.name + ': ' + sumStr + ' ' + calc.units + '</p>';
 

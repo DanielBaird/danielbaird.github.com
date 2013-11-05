@@ -54,18 +54,18 @@ layout: none
         vars: [{
             name: 'salinity', abbr: 'ss',
             units: '&#x2030;',
-            defaultVal: 31,
+            defaultVal: 35,
             warnMin: 22, warnMax: 40,
             warnMsg: 'Entered salinity value is outside the range for this model (22 - 40 &#x2030;). Use results with caution.',
-            failMin: 12, failMax: 50,
+            failMin: 15, failMax: 45,
             failMsg: 'Entered salinity value is unreasonable.'
         },{
             name: 'temperature', abbr: 'tt',
             units: '&#x2103;',
-            defaultVal: 28,
+            defaultVal: 26,
             warnMin: 22, warnMax: 34,
             warnMsg: 'Entered temperature value is outside the range for this model (22 - 34 &#x2103;).  Use results with caution.',
-            failMin: 12, failMax: 44,
+            failMin: 16, failMax: 40,
             failMsg: 'Entered temperature value is unreasonable.'
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -80,22 +80,23 @@ layout: none
                     -1.633e+00,         9.572e-02,          2.983e-02,
                     -1.761e-03,         -4.862e-03,         -1.207e+00
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'infection succett', units: '%',
+                name: 'infection success', units: '%',
                 terms: [
                     '1',
                     'tt',               'ss',
-                    'tt * ss',          'sq(tt) * sq(ss)',
+                    'tt * ss',
                     'sq(tt)',           'sq(ss)',
-                    'cu(tt)',           'cu(ss)',
-                    'p4(tt)',           'p4(ss)'
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',           'p4(tt)'
                 ], coefficients: [
                     1.66e+04,
                     -2.292e+03,         -1.184e+01,
-                    5.388e-01,          -2.258e-04,
+                    5.388e-01,
                     1.172e+02,          1.796e-01,
-                    -2.637e+00,         2.198e-02
+                    -2.258e-04,
+                    -2.637,             2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to last hatch', units: 'days?',
+                name: 'time to last hatch', units: 'days',
                 terms: [
                     '1',
                     'tt',               'ss',
@@ -106,7 +107,7 @@ layout: none
                     'p4(tt) * p4(ss)',
                     'p4(tt) * ss',      'tt * p4(ss)',
                     'p4(tt)',           'p4(ss)',
-                    'pow(tt,ss)'
+                    'tt * ss'
                 ], coefficients: [
                     3.218e+04,
                     -4.574e+01,         1.839e+01,
@@ -117,9 +118,9 @@ layout: none
                     -6.875e-06,
                     1.173e-06,          2.965e-11,
                     -4.702e-04,         -4.473e-05,
-                    1.632
+                    -1.632
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity', units: 'days?',
+                name: 'time to earliest sexual maturity', units: 'days',
                 terms: [
                     '1',
                     'tt',               'ss',

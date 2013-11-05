@@ -258,6 +258,8 @@
     // --------------------------------------------------------------
     var calculate = function() {
 
+        var debug = false;
+
         output.innerHTML = '';
 
         var varValues = getInputs();
@@ -297,18 +299,20 @@
                     } else if (calc.highcap && sum > calc.highcap) {
                         sumStr = '> ' + calc.highcap;
                     }
-                    output.innerHTML += '<p>' + calc.name + ': ' + sumStr + ' ' + calc.units + '</p>';
+                    output.innerHTML += '<p>' + calc.name + ': <span title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + ' ' + calc.units + '</span></p>';
 
                     // debug: show terms and coefficients.
-                    var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
-                    table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
-                    table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
-                    table += '<tr><th>Term</th><th>Coefficient</th></tr>';
-                    for (var t = 0; t < calc.terms.length; t++) {
-                        table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
+                    if (debug) {
+                        var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
+                        table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
+                        table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
+                        table += '<tr><th>Term</th><th>Coefficient</th></tr>';
+                        for (var t = 0; t < calc.terms.length; t++) {
+                            table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
+                        }
+                        table += '</table>';
+                        output.innerHTML += table;
                     }
-                    table += '</table>';
-                    output.innerHTML += table;
                 }
 
             });

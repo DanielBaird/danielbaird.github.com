@@ -165,7 +165,7 @@
                      1.173e-06,
                      2.965e-11
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity', abbr: 'maturity', units: 'days',
+                name: 'time to earliest sexual maturity (old)', abbr: 'maturity1', units: 'days',
                 rounding: 1, lowcap: 5, highcap: 14,
                 terms: [
                     '1',
@@ -187,6 +187,50 @@
                      1.118e-5,
                      2.120e-60,
                     -1.136e-53
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to earliest sexual maturity A', abbr: 'maturity2', units: 'days',
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'pow(tt,ss)',
+                    'pow(ss,tt)'
+                ], coefficients: [
+                     9.365e+1,
+                    -3.288,
+                    -1.440,
+                     4.781e-2,
+                    -1.400e-5,
+                     2.686e-5,
+                     4.080e-6,
+                     5.549e-62,
+                    -9.296e-55
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to earliest sexual maturity B', abbr: 'maturity3', units: 'days',
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'pow(tt,ss)',
+                ], coefficients: [
+                     9.533e+1,
+                    -3.581,
+                    -1.024,
+                     1.456e-2,
+                    -4.087e-6,
+                     1.347e-3,
+                     1.891e-4,
+                    -1.059e-61
             ]}
         ]
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

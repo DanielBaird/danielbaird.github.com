@@ -51,7 +51,13 @@
         margin: 1em;
         text-align: center;
         background: rgba(0,0,0, 0.1);
-        background: linear-gradient(to right, rgba(0,0,0, 0.1) 0%,rgba(0,0,0, 0.2) 50%,rgba(0,0,0, 0.1) 100%);
+        background: linear-gradient(
+            to right,
+            rgba(0,32,128, 0.25) 0%,
+            rgba(0,32,128, 0.1) 40%,
+            rgba(0,32,128, 0.1) 60%,
+            rgba(0,32,128, 0.25) 100%
+        );
     }
     .calcresult .name {
         min-height: 3.5em;
@@ -59,23 +65,24 @@
         display: block;
         padding: 0.5em 0 0 0;
         border-bottom: 1px solid #ccc;
-        background: rgba(255,255,255, 0.5);
-        background: radial-gradient(ellipse farthest-side at bottom, rgba(255,255,255, 0.9) 25%, rgba(255,255,255, 0) 100%);
+        background: rgba(0,32,128, 0.15);
+        background: radial-gradient(ellipse farthest-side at bottom, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
     }
     .calcresult .value {
         display: block;
         font-family: 'Helvetica Neue';
         font-weight: 100;
         font-size: 400%;
-        padding: 0.1em 0;
+        padding: 0.2em 0;
     }
     .calcresult .units {
         color: rgba(0,0,0, 0.5);
         border-top: 1px solid #ccc;
+        padding-top: 0.45em;
         display: block;
         font-weight: 900;
-        background: rgba(255,255,255, 0.5);
-        background: radial-gradient(ellipse farthest-side at top, rgba(255,255,255, 0.9) 25%, rgba(255,255,255, 0) 100%);
+        background: rgba(0,32,128, 0.15);
+        background: radial-gradient(ellipse farthest-side at top, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
 
     }
 </style>
@@ -163,7 +170,7 @@
                     -2.637,
                      2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'last hatch (old)', abbr: 'hatchtimeold', units: 'days',
+                name: 'time to last hatch (old)', abbr: 'hatchtimeold', units: 'days',
                 rounding: 1, lowcap: 4, highcap: 10,
                 terms: [
                     '1',
@@ -202,7 +209,7 @@
                      1.173e-06,
                      2.965e-11
              ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'last hatch', abbr: 'hatchtime', units: 'days',
+                name: 'time to last hatch', abbr: 'hatchtime', units: 'days',
                 rounding: 1, lowcap: 4, highcap: 10,
                 terms: [
                     '1',
@@ -312,13 +319,13 @@
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         conclusions: [{
                 condition: 'hatchtime > maturity',
-                content: 'hatchtime is $$hatchtime which is bigger than $$maturity'
+                content: '2nd treatment 24 hours before $maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
             },{
-                condition: 'hatchtime == maturity',
-                content: 'hatchtime is $$hatchtime which is the same as $$maturity'
+                condition: 'hatchtime == maturity || (hatchtime < maturity && (hatchtime + 2) >= maturity)',
+                content: '2nd treatment 24hrs before $$maturity; 3rd treatment 24 hours after parasites are gone, or something.'
             },{
-                condition: 'hatchtime < maturity',
-                content: 'hatchtime is $$hatchtime which is smaller than $$maturity'
+                condition: '(hatchtime + 2) < maturity',
+                content: '2nd treatment 24hrs before $$maturity and 24 hours after $$hatchtime'
         }]
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     };

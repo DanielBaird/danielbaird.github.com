@@ -42,6 +42,42 @@
         padding: 0 0.5em;
         margin: 0;
     }
+    .calcresult {
+        font-size: 80%;
+        display: inline-block;
+        width: 8em;
+        border: 1px solid #ccc;
+        padding: 1em;
+        margin: 1em;
+        text-align: center;
+        background: rgba(0,0,0, 0.1);
+        background: linear-gradient(to right, rgba(0,0,0, 0.1) 0%,rgba(0,0,0, 0.2) 50%,rgba(0,0,0, 0.1) 100%);
+    }
+    .calcresult .name {
+        min-height: 3.5em;
+        font-weight: bold;
+        display: block;
+        padding: 0.5em 0 0 0;
+        border-bottom: 1px solid #ccc;
+        background: rgba(255,255,255, 0.5);
+        background: radial-gradient(ellipse farthest-side at bottom, rgba(255,255,255, 0.9) 25%, rgba(255,255,255, 0) 100%);
+    }
+    .calcresult .value {
+        display: block;
+        font-family: 'Helvetica Neue';
+        font-weight: 100;
+        font-size: 400%;
+        padding: 0.1em 0;
+    }
+    .calcresult .units {
+        color: rgba(0,0,0, 0.5);
+        border-top: 1px solid #ccc;
+        display: block;
+        font-weight: 900;
+        background: rgba(255,255,255, 0.5);
+        background: radial-gradient(ellipse farthest-side at top, rgba(255,255,255, 0.9) 25%, rgba(255,255,255, 0) 100%);
+
+    }
 </style>
 </head>
 <body>
@@ -59,6 +95,7 @@
     var p4 = function(x) { return Math.pow(x,4); }
     var pow = function(x,y) { return Math.pow(x,y); }
     var elemId = function(id) { return document.getElementById(id); }
+    var round = function(x,places) { var tens = Math.pow(10,places); return (round(x * tens)/tens); }
     var data = {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         vars: [{
@@ -126,7 +163,7 @@
                     -2.637,
                      2.198e-02
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to last hatch (old)', abbr: 'hatchtime1', units: 'days',
+                name: 'last hatch (old)', abbr: 'hatchtimeold', units: 'days',
                 rounding: 1, lowcap: 4, highcap: 10,
                 terms: [
                     '1',
@@ -165,7 +202,7 @@
                      1.173e-06,
                      2.965e-11
              ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to last hatch A', abbr: 'hatchtime2', units: 'days',
+                name: 'last hatch', abbr: 'hatchtime', units: 'days',
                 rounding: 1, lowcap: 4, highcap: 10,
                 terms: [
                     '1',
@@ -204,7 +241,7 @@
                     -1.977e-4,
                     -2.783
            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity (old)', abbr: 'maturity1', units: 'days',
+                name: 'earliest sexual maturity (old)', abbr: 'maturity', units: 'days',
                 rounding: 1, lowcap: 5, highcap: 14,
                 terms: [
                     '1',
@@ -227,7 +264,7 @@
                      2.120e-60,
                     -1.136e-53
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity A', abbr: 'maturity2', units: 'days',
+                name: 'earliest sexual maturity A', abbr: 'maturityA', units: 'days',
                 rounding: 1, lowcap: 5, highcap: 14,
                 terms: [
                     '1',
@@ -250,7 +287,7 @@
                      5.549e-62,
                     -9.296e-55
             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
-                name: 'time to earliest sexual maturity B', abbr: 'maturity3', units: 'days',
+                name: 'earliest sexual maturity B', abbr: 'maturityB', units: 'days',
                 rounding: 1, lowcap: 5, highcap: 14,
                 terms: [
                     '1',
@@ -271,7 +308,18 @@
                      1.891e-4,
                     -1.059e-61
             ]}
-        ]
+        ],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        conclusions: [{
+                condition: 'hatchtime > maturity',
+                content: 'hatchtime is $$hatchtime which is bigger than $$maturity'
+            },{
+                condition: 'hatchtime == maturity',
+                content: 'hatchtime is $$hatchtime which is the same as $$maturity'
+            },{
+                condition: 'hatchtime < maturity',
+                content: 'hatchtime is $$hatchtime which is smaller than $$maturity'
+        }]
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     };
 
@@ -343,7 +391,7 @@
     // --------------------------------------------------------------
     var calculate = function() {
 
-        var debug = true;
+        var debug = false;
 
         output.innerHTML = '';
 
@@ -377,14 +425,25 @@
                         sum += thisTerm;
                     }
 
+                    // remember this value in varValues
+                    varValues[calc.abbr] = parseFloat(sum.toFixed(calc.rounding));
+                    varValues[calc.abbr + '_capped'] = sum;
+                    varValues[calc.abbr + '_precise'] = sum;
+
                     // apply the rounding and capping
                     var sumStr = sum.toFixed(calc.rounding);
                     if (calc.lowcap && sum < calc.lowcap) {
                         sumStr = '< ' + calc.lowcap;
+                        varValues[calc.abbr + '_capped'] = calc.lowcap;
                     } else if (calc.highcap && sum > calc.highcap) {
                         sumStr = '> ' + calc.highcap;
+                        varValues[calc.abbr + '_capped'] = calc.highcap;
                     }
-                    output.innerHTML += '<p>' + calc.name + ': <span title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + ' ' + calc.units + '</span></p>';
+                    var calcResult = '<p class="calcresult"><span class="name">' + calc.name + '</span> ';
+                    calcResult += '<span class="value" title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + '</span>'
+                    calcResult += '<span class="units">' + calc.units + '</span>';
+                    calcResult += '</p>';
+                    output.innerHTML += calcResult;
 
                     // debug: show terms and coefficients.
                     if (debug) {
@@ -400,7 +459,28 @@
                     }
                 }
 
+            }); // end of working out all the calcs.
+
+            // work out the conclusions
+            data.conclusions.forEach( function(conc) {
+                var condition = conc.condition;
+                var content = conc.content;
+                for (var varName in varValues) {
+                    var varValue = varValues[varName];
+                    condition = condition.split(varName).join('(' + varValue + ')');
+                    content = content.split('$$' + varName).join(varValue);
+                };
+                console.log(conc.condition, condition);
+                console.log(conc.content, content);
+
+                if (eval(condition)) {
+                    output.innerHTML += '<p>' + content + '</p>';
+                } else if (debug) {
+                    output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
+                }
             });
+
+            console.log(varValues);
         }
     }
     // --------------------------------------------------------------

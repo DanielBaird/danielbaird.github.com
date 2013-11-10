@@ -316,6 +316,28 @@
                      1.347e-3,
                      1.891e-4,
                     -1.059e-61
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'a hidden calc', abbr: 'hidden1', units: 'days',
+                hidden: true,
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'pow(tt,ss)',
+                ], coefficients: [
+                     9.533e+1,
+                    -3.581,
+                    -1.024,
+                     1.456e-2,
+                    -4.087e-6,
+                     1.347e-3,
+                     1.891e-4,
+                    -1.059e-61
             ]}
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -448,23 +470,25 @@
                         sumStr = '> ' + calc.highcap;
                         varValues[calc.abbr + '_capped'] = calc.highcap;
                     }
-                    var calcResult = '<p class="calcresult"><span class="name">' + calc.name + '</span> ';
-                    calcResult += '<span class="value" title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + '</span>'
-                    calcResult += '<span class="units">' + calc.units + '</span>';
-                    calcResult += '</p>';
-                    output.innerHTML += calcResult;
+                    if (!calc.hidden) {
+                        var calcResult = '<p class="calcresult"><span class="name">' + calc.name + '</span> ';
+                        calcResult += '<span class="value" title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + '</span>'
+                        calcResult += '<span class="units">' + calc.units + '</span>';
+                        calcResult += '</p>';
+                        output.innerHTML += calcResult;
 
-                    // debug: show terms and coefficients.
-                    if (debug) {
-                        var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
-                        table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
-                        table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
-                        table += '<tr><th>Term</th><th>Coefficient</th></tr>';
-                        for (var t = 0; t < calc.terms.length; t++) {
-                            table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
+                        // debug: show terms and coefficients.
+                        if (debug) {
+                            var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
+                            table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
+                            table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
+                            table += '<tr><th>Term</th><th>Coefficient</th></tr>';
+                            for (var t = 0; t < calc.terms.length; t++) {
+                                table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
+                            }
+                            table += '</table>';
+                            output.innerHTML += table;
                         }
-                        table += '</table>';
-                        output.innerHTML += table;
                     }
                 }
 

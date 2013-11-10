@@ -5,7 +5,7 @@
 <title>Parasite Hatching Calculator</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 <style>
-    html, body { padding: 1em 3em; margin: 0; font-family: sans-serif; }
+    html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     #form .form-element {
         padding: 0.5em 0;
     }
@@ -50,13 +50,14 @@
         padding: 1em;
         margin: 1em;
         text-align: center;
-        background: rgba(0,0,0, 0.1);
-        background: linear-gradient(
-            to right,
-            rgba(0,32,128, 0.25) 0%,
-            rgba(0,32,128, 0.1) 40%,
-            rgba(0,32,128, 0.1) 60%,
-            rgba(0,32,128, 0.25) 100%
+        background: rgba(0,32,128, 0.1);
+        background: -moz-linear-gradient(left,
+            rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+            rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
+        );
+        background: linear-gradient(to right,
+            rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+            rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
         );
     }
     .calcresult .name {
@@ -66,11 +67,12 @@
         padding: 0.5em 0 0 0;
         border-bottom: 1px solid #ccc;
         background: rgba(0,32,128, 0.15);
+        background: -moz-radial-gradient(bottom, farthest-side, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
         background: radial-gradient(ellipse farthest-side at bottom, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
     }
     .calcresult .value {
         display: block;
-        font-family: 'Helvetica Neue';
+        font-family: 'Helvetica Neue', sans-serif;
         font-weight: 100;
         font-size: 400%;
         padding: 0.2em 0;
@@ -78,12 +80,12 @@
     .calcresult .units {
         color: rgba(0,0,0, 0.5);
         border-top: 1px solid #ccc;
-        padding-top: 0.45em;
+        padding: 0.33em 0;
         display: block;
         font-weight: 900;
         background: rgba(0,32,128, 0.15);
+        background: -moz-radial-gradient(top, farthest-side, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
         background: radial-gradient(ellipse farthest-side at top, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
-
     }
 </style>
 </head>
@@ -319,13 +321,13 @@
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         conclusions: [{
                 condition: 'hatchtime > maturity',
-                content: '2nd treatment 24 hours before $maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
+                content: '2nd treatment 24 hours before $$maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
             },{
                 condition: 'hatchtime == maturity || (hatchtime < maturity && (hatchtime + 2) >= maturity)',
-                content: '2nd treatment 24hrs before $$maturity; 3rd treatment 24 hours after parasites are gone, or something.'
+                content: '2nd treatment 24hrs before $$maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
             },{
                 condition: '(hatchtime + 2) < maturity',
-                content: '2nd treatment 24hrs before $$maturity and 24 hours after $$hatchtime'
+                content: '2nd treatment 24hrs before $$maturity days and 24 hours after $$hatchtime days.'
         }]
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     };
@@ -428,7 +430,7 @@
                         });
                         // now evaluate the expression and multiply by the coefficient
                         var thisTerm = calc.coefficients[term] * eval(expression);
-                        console.log(calc.terms[term] + '   ->    ' + expression + '    ->    * ' + calc.coefficients[term] + '   =>   ' + thisTerm);
+                        // console.log(calc.terms[term] + '   ->    ' + expression + '    ->    * ' + calc.coefficients[term] + '   =>   ' + thisTerm);
                         sum += thisTerm;
                     }
 
@@ -477,8 +479,8 @@
                     condition = condition.split(varName).join('(' + varValue + ')');
                     content = content.split('$$' + varName).join(varValue);
                 };
-                console.log(conc.condition, condition);
-                console.log(conc.content, content);
+                // console.log(conc.condition, condition);
+                // console.log(conc.content, content);
 
                 if (eval(condition)) {
                     output.innerHTML += '<p>' + content + '</p>';

@@ -11,6 +11,8 @@
     }
     #form .form-element label {
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         width: 8em;
         text-align: right;
         padding: 0.1em 1em;
@@ -26,6 +28,8 @@
         font-size: 90%;
         color: #930;
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         padding: 0.1em 0.5em;
     }
     .debug {
@@ -45,6 +49,8 @@
     .calcresult {
         font-size: 80%;
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         width: 8em;
         border: 1px solid #ccc;
         padding: 1em;

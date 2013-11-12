@@ -11,6 +11,8 @@
     }
     #form .form-element label {
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         width: 8em;
         text-align: right;
         padding: 0.1em 1em;
@@ -26,6 +28,8 @@
         font-size: 90%;
         color: #930;
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         padding: 0.1em 0.5em;
     }
     .debug {
@@ -45,6 +49,8 @@
     .calcresult {
         font-size: 80%;
         display: inline-block;
+        zoom: 1;            /* IE hack */
+        *display: inline;   /* IE hack */
         width: 8em;
         border: 1px solid #ccc;
         padding: 1em;
@@ -99,6 +105,12 @@
 <!-- decent folk put their javascript at the bottom -->
 <!-- <script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script> -->
 <script>
+
+    // sassafrassin IE needs this shim:
+    if (!Array.prototype.forEach) { Array.prototype.forEach = function (fn, scope) {
+        'use strict'; var i, len; for (i = 0, len = this.length; i < len; ++i) { if (i in this) { fn.call(scope, this[i], i, this); } }
+    };}
+
     var sq = function(x) { return Math.pow(x,2); }
     var cu = function(x) { return Math.pow(x,3); }
     var p4 = function(x) { return Math.pow(x,4); }
@@ -342,7 +354,7 @@
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         conclusions: [{
-                condition: 'hatchtime > maturity',
+                condition: 'ss > tt',
                 content: '2nd treatment 24 hours before $$maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
             },{
                 condition: 'hatchtime == maturity || (hatchtime < maturity && (hatchtime + 2) >= maturity)',
@@ -512,8 +524,6 @@
                     output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
                 }
             });
-
-            console.log(varValues);
         }
     }
     // --------------------------------------------------------------

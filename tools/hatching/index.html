@@ -69,8 +69,8 @@
         border: none;
         color: white;
         background: transparent;
-        height: 1em;
-        line-height: 1em;
+        height: 1.2em;
+        line-height: 1.2em;
         text-align: right;
         width: 10em;
         left: 0;
@@ -171,14 +171,6 @@
     var data = {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         vars: [{
-            name: 'salinity', abbr: 'ss',
-            units: '&#x2030;',
-            defaultVal: 35,
-            warnMin: 22, warnMax: 40,
-            warnMsg: 'Entered salinity value is outside the range for this model (22 - 40 &#x2030;). Use results with caution.',
-            failMin: 15, failMax: 45,
-            failMsg: 'Entered salinity value is unreasonable.'
-        },{
             name: 'temperature', abbr: 'tt',
             units: '&#x2103;',
             defaultVal: 26,
@@ -186,6 +178,14 @@
             warnMsg: 'Entered temperature value is outside the range for this model (22 - 34 &#x2103;).  Use results with caution.',
             failMin: 16, failMax: 40,
             failMsg: 'Entered temperature value is unreasonable.'
+        },{
+            name: 'salinity', abbr: 'ss',
+            units: '&#x2030;',
+            defaultVal: 35,
+            warnMin: 22, warnMax: 40,
+            warnMsg: 'Entered salinity value is outside the range for this model (22 - 40 &#x2030;). Use results with caution.',
+            failMin: 15, failMax: 45,
+            failMsg: 'Entered salinity value is unreasonable.'
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         calcs: [{

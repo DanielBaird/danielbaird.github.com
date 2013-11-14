@@ -31,6 +31,10 @@
         form:   'workitform',     // string id, or reference to HTML element
         output: 'workitresult',   // string id, or reference to HTML element
     }
+    var attach = function(element, eventType, handler) {
+        if (element.addEventListener) { element.addEventListener(eventType, handler, false) }
+        else if (element.attachEvent) { element.attachEvent('on' + eventType, handler) };
+    }
 
     return {
         // public funcs =============================================
@@ -56,21 +60,20 @@
         },
         // ----------------------------------------------------------
         buildForm: function() {
-            var html = '';
             data.vars.forEach( function(theVar) {
-                html += '<div class="form-element">';
-                html += '<label for="var-' + theVar.abbr + '">' + theVar.name + '</label>';
-                html += '<input type="number" ' +
+                var html = document.createElement('div');
+                var that = this;
+                html.innerHTML += '<label for="var-' + theVar.abbr + '">' + theVar.name + '</label>';
+                html.innerHTML += '<input type="number" ' +
                         'id="var-' + theVar.abbr + '" ' +
                         'name="var-' + theVar.abbr + '" ' +
-                        'value="' + theVar.defaultVal + '" ' +
-                        'onkeyup="calculate();" ' +
-                        'onchange="calculate();"/>'
-                html += theVar.units;
-                html += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
-                html += '</div>';
-            });
-            this.form.innerHTML += html;
+                        'value="' + theVar.defaultVal + '"/>'
+                html.innerHTML += theVar.units;
+                html.innerHTML += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
+                this.form.appendChild(html);
+                attach(elemId('var-' + theVar.abbr), 'change', function(){ that.calculate(); });
+                attach(elemId('var-' + theVar.abbr), 'keyup',  function(){ that.calculate(); });
+            }, this);
             this.calculate();
         },
         // ----------------------------------------------------------
@@ -120,8 +123,6 @@
                 this.output.innerHTML += '<p>Input values not valid.</p>';
             } else {
 
-//                data.calcs = [data.calcs[0]];
-
                 data.calcs.forEach( function(calc) {
 
                     if (calc.terms.length != calc.coefficients.length) {
@@ -157,8 +158,6 @@
                             sum += thisTerm;
                             termsInfo.unshift(termInfo);
                         }
-
-                        console.log(termsInfo);
 
                         // remember this value in varValues
                         varValues[calc.abbr] = parseFloat(sum.toFixed(calc.rounding));

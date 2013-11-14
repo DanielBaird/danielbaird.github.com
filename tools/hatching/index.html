@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"/>
-<title>Parasite Hatching Calculator</title>
+<title>Test - Parasite Hatching Calculator</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 <style>
     html, body { padding: 1em; margin: 0; font-family: sans-serif; }
@@ -46,15 +46,49 @@
         padding: 0 0.5em;
         margin: 0;
     }
-    .calcresult {
+    .calcwrapper {
+        position: relative;
+        box-sizing: border-box;
         font-size: 80%;
         display: inline-block;
         zoom: 1;            /* IE hack */
         *display: inline;   /* IE hack */
-        width: 8em;
-        border: 1px solid #ccc;
-        padding: 1em;
+        width: 10em;
+        padding: 0;
         margin: 1em;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        transition: all 0.33s;
+    }
+    .calcwrapper button {
+        position: absolute;
+        box-sizing: border-box;
+        opacity: 0.5;
+        font-size: inherit;
+        padding: 0 0.5em 0 0;
+        border: none;
+        color: white;
+        background: transparent;
+        height: 1em;
+        line-height: 1em;
+        text-align: right;
+        width: 10em;
+        left: 0;
+        top: 0;
+    }
+    .calcwrapper button:hover {
+        background: rgba(255,255,255, 0.5);
+    }
+    .calcwrapper.wide { width: 46em; }
+    .calcwrapper.wide button.show { display: none; }
+    .calcwrapper.wide button.hide { display: block; }
+    .calcwrapper      button.show { display: block; }
+    .calcwrapper      button.hide { display: none; }
+    .calcresult {
+        box-sizing: border-box;
+        width: 10em;
+        padding: 1em 0;
+        margin: 0;
         text-align: center;
         background: rgba(0,32,128, 0.1);
         background: -moz-linear-gradient(left,
@@ -93,30 +127,47 @@
         background: -moz-radial-gradient(top, farthest-side, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
         background: radial-gradient(ellipse farthest-side at top, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
     }
+
+    .calcinfo {
+        box-sizing: border-box;
+        position: absolute;
+        left: 10em;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+        width: 36em;
+        padding: 2em 0.5em 2em 1em;
+        margin: 0;
+        background: rgba(0,32,128, 0.1);
+        background: -moz-linear-gradient(left,
+            rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+            rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
+        );
+        background: linear-gradient(to right,
+            rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+            rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
+        );
+    }
+
+    .calcinfo table {
+        font-family: monospace;
+        margin: 0 auto;
+    }
+
 </style>
 </head>
 <body>
 
-<div id="form"></div>
-<div id="result"></div>
+<div id="workitform"></div>
+<div id="workitresult"></div>
 
 <p>See <a href="http://www.jcu.edu.au/mtb/research/projects/JCU_083894.html">this project</a> for more info.</p>
 
 <!-- decent folk put their javascript at the bottom -->
-<!-- <script src="{{ site.baseurl }}assets/js/jquery-1.8.2.min.js"></script> -->
+<script src="workit.js"></script>
 <script>
 
-    // sassafrassin IE needs this shim:
-    if (!Array.prototype.forEach) { Array.prototype.forEach = function (fn, scope) {
-        'use strict'; var i, len; for (i = 0, len = this.length; i < len; ++i) { if (i in this) { fn.call(scope, this[i], i, this); } }
-    };}
-
-    var sq = function(x) { return Math.pow(x,2); }
-    var cu = function(x) { return Math.pow(x,3); }
-    var p4 = function(x) { return Math.pow(x,4); }
-    var pow = function(x,y) { return Math.pow(x,y); }
-    var elemId = function(id) { return document.getElementById(id); }
-    var round = function(x,places) { var tens = Math.pow(10,places); return (round(x * tens)/tens); }
     var data = {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         vars: [{
@@ -366,170 +417,8 @@
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     };
 
-    // for now just push form content and output into the body tag
-    var form = elemId('form');
-    var output = elemId('result');
-    // --------------------------------------------------------------
-    var buildForm = function() {
-        var html = '';
-        data.vars.forEach( function(theVar) {
-            html += '<div class="form-element">';
-            html += '<label for="var-' + theVar.abbr + '">' + theVar.name + '</label>';
-            html += '<input type="number" ' +
-                    'id="var-' + theVar.abbr + '" ' +
-                    'name="var-' + theVar.abbr + '" ' +
-                    'value="' + theVar.defaultVal + '" ' +
-                    'onkeyup="calculate();" ' +
-                    'onchange="calculate();"/>'
-            html += theVar.units;
-            html += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
-            html += '</div>';
-        });
-        /*
-        html += '<div class="form-element">';
-        html += '<label></label>';
-        html += '<input type="submit" onclick="calculate(); return false;" value="calculate">';
-        html += '</div>';
-        */
-        form.innerHTML += html;
-        calculate();
-    }
-    // --------------------------------------------------------------
-    var getInputs = function() {
-        // collect inputs and check them for validity
-        varValues = {};
-        valuesOkay = true;
-        data.vars.forEach( function(theVar) {
-            var elem = elemId('var-' + theVar.abbr);
-            // clear the warning spot
-            elemId('var-note-' + theVar.abbr).innerHTML = '';
-            if (elem) {
-                var value = elem.value;
-                if (value) {
-                    value = parseFloat(value);
-                    if (!isNaN(value)) {
-                        // okay it's a parseable value.
-                        // now check its range.
-                        if (value < theVar.failMin || value > theVar.failMax) {
-                            // outside of the non-fail range.. fail out.
-                            elemId('var-note-' + theVar.abbr).innerHTML = theVar.failMsg;
-                            valuesOkay = false;
-                        } else {
-                            // inside the non-fail range.
-                            if (value < theVar.warnMin || value > theVar.warnMax) {
-                                // outside the tested range..
-                                elemId('var-note-' + theVar.abbr).innerHTML = theVar.warnMsg;
-                            }
-                            varValues[theVar.abbr] = value;
-                        }
-                    }
-                } else { valuesOkay = false }
-            } else { valuesOkay = false }
-        });
-
-        if (valuesOkay) return varValues;
-        return null;
-
-    }
-    // --------------------------------------------------------------
-    var calculate = function() {
-
-        var debug = false;
-
-        output.innerHTML = '';
-
-        var varValues = getInputs();
-
-        // data.calcs = data.calcs.slice(0,1);
-
-        if (!varValues) {
-            output.innerHTML += '<p>Input values not valid.</p>';
-        } else {
-            data.calcs.forEach( function(calc) {
-
-                if (calc.terms.length != calc.coefficients.length) {
-                    output.innerHTML += '<p>' + calc.name + ' has mismatched terms and coefficients.</p>';
-                } else {
-                    // we'll loop downward through the terms
-                    var term = calc.terms.length;
-                    // ..and sum them into this var.
-                    var sum = 0;
-
-                    // loop through the terms, working each one out and adding them up
-                    while (term--) {
-                        // loop through vars replace each one in the expression
-                        var expression = calc.terms[term];
-                        data.vars.forEach( function(theVar) {
-                            expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
-                        });
-                        // now evaluate the expression and multiply by the coefficient
-                        var thisTerm = calc.coefficients[term] * eval(expression);
-                        // console.log(calc.terms[term] + '   ->    ' + expression + '    ->    * ' + calc.coefficients[term] + '   =>   ' + thisTerm);
-                        sum += thisTerm;
-                    }
-
-                    // remember this value in varValues
-                    varValues[calc.abbr] = parseFloat(sum.toFixed(calc.rounding));
-                    varValues[calc.abbr + '_capped'] = sum;
-                    varValues[calc.abbr + '_precise'] = sum;
-
-                    // apply the rounding and capping
-                    var sumStr = sum.toFixed(calc.rounding);
-                    if (calc.lowcap && sum < calc.lowcap) {
-                        sumStr = '< ' + calc.lowcap;
-                        varValues[calc.abbr + '_capped'] = calc.lowcap;
-                    } else if (calc.highcap && sum > calc.highcap) {
-                        sumStr = '> ' + calc.highcap;
-                        varValues[calc.abbr + '_capped'] = calc.highcap;
-                    }
-                    if (!calc.hidden) {
-                        var calcResult = '<p class="calcresult"><span class="name">' + calc.name + '</span> ';
-                        calcResult += '<span class="value" title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + '</span>'
-                        calcResult += '<span class="units">' + calc.units + '</span>';
-                        calcResult += '</p>';
-                        output.innerHTML += calcResult;
-
-                        // debug: show terms and coefficients.
-                        if (debug) {
-                            var table = '<div class="debug hide" id="info-' + calc.abbr + '">';
-                            table += '<button onclick="elemId(\'info-' + calc.abbr + '\').className = \'debug show\';">info</button><table>';
-                            table += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
-                            table += '<tr><th>Term</th><th>Coefficient</th></tr>';
-                            for (var t = 0; t < calc.terms.length; t++) {
-                                table += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
-                            }
-                            table += '</table>';
-                            output.innerHTML += table;
-                        }
-                    }
-                }
-
-            }); // end of working out all the calcs.
-
-            // work out the conclusions
-            data.conclusions.forEach( function(conc) {
-                var condition = conc.condition;
-                var content = conc.content;
-                for (var varName in varValues) {
-                    var varValue = varValues[varName];
-                    condition = condition.split(varName).join('(' + varValue + ')');
-                    content = content.split('$$' + varName).join(varValue);
-                };
-                // console.log(conc.condition, condition);
-                // console.log(conc.content, content);
-
-                if (eval(condition)) {
-                    output.innerHTML += '<p>' + content + '</p>';
-                } else if (debug) {
-                    output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
-                }
-            });
-        }
-    }
-    // --------------------------------------------------------------
-
-    buildForm();
-
+    workit.init(data, { debug: true });
+    workit.buildForm();
 </script>
 </body>
 </html>

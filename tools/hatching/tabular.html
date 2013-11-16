@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" />
+    <title>Test - Parasite Hatching Calculator</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="workit.css" media="screen" />
+</head>
+<body>
+
+<div id="workitform"></div>
+<div id="workitresult"></div>
+
+<p>See <a href="http://www.jcu.edu.au/mtb/research/projects/JCU_083894.html">this project</a> for more info.</p>
+
+<!-- decent folk put their javascript at the bottom -->
+<script src="workit.js"></script>
+<script>
+
+    var data = {
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        inputColumns: [{
+            name: 'temperature', abbr: 'temp',
+            units: '&#x2103;',
+            defaultVal: 26
+        },{
+            name: 'salinity', abbr: 'sal',
+            units: '&#x2030;',
+            defaultVal: 35
+        }],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        outputColumns: [
+            { name: 'Aaa', abbr: 'aa', units: 'a' },
+            { name: 'Bbb', abbr: 'bb', units: 'b' }
+        ],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        columnOrder: [
+            'temp', 'sal', 'aa', 'bb'
+        ],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        table: [
+            '11, 12, 21, 22',
+            '13, 14, 23, 24'
+        ]
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    };
+
+    workit.init(data, { debug: true });
+    workit.buildForm();
+</script>
+</body>
+</html>

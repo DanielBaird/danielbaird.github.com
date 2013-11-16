@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" />
+    <title>Test - Parasite Hatching Calculator</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="workit.css" media="screen" />
+</head>
+<body>
+
+<div id="workitform"></div>
+<div id="workitresult"></div>
+
+<p>See <a href="http://www.jcu.edu.au/mtb/research/projects/JCU_083894.html">this project</a> for more info.</p>
+
+<!-- decent folk put their javascript at the bottom -->
+<script src="workit.js"></script>
+<script>
+
+    var data = {
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        vars: [{
+            name: 'temperature', abbr: 'tt',
+            units: '&#x2103;',
+            defaultVal: 26,
+            warnMin: 22, warnMax: 34,
+            warnMsg: 'Entered temperature value is outside the range for this model (22 - 34 &#x2103;).  Use results with caution.',
+            failMin: 16, failMax: 40,
+            failMsg: 'Entered temperature value is unreasonable.'
+        },{
+            name: 'salinity', abbr: 'ss',
+            units: '&#x2030;',
+            defaultVal: 35,
+            warnMin: 22, warnMax: 40,
+            warnMsg: 'Entered salinity value is outside the range for this model (22 - 40 &#x2030;). Use results with caution.',
+            failMin: 15, failMax: 45,
+            failMsg: 'Entered salinity value is unreasonable.'
+        }],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        calcs: [{
+                name: 'hatching success', abbr: 'hatchrate', units: '%',
+                rounding: 1, lowcap: 5, highcap: 95,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'tt * sq(ss)',
+                    'sq(tt) * ss',
+                    'sq(tt) * sq(ss)'
+                ], coefficients: [
+                    -5.016,
+                     2.891e-01,
+                     2.120e+01,
+                    -1.633,
+                    -4.862e-03,
+                    -1.207,
+                     9.572e-02,
+                     2.983e-02,
+                    -1.761e-03
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'infection success', abbr: 'infectrate', units: '%',
+                rounding: 1, lowcap: 5, highcap: 95,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'p4(tt)'
+                ], coefficients: [
+                     1.66e+04,
+                    -2.292e+03,
+                    -1.184e+01,
+                     5.388e-01,
+                     1.172e+02,
+                     1.796e-01,
+                    -2.258e-04,
+                    -2.637,
+                     2.198e-02
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to last hatch (old)', abbr: 'hatchtimeold', units: 'days',
+                rounding: 1, lowcap: 4, highcap: 10,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'tt * sq(ss)',
+                    'sq(tt) * ss',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'cu(tt) * sq(ss)',
+                    'sq(tt) * cu(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'p4(tt) * ss',
+                    'tt * p4(ss)',
+                    'p4(tt) * p4(ss)'
+                ], coefficients: [
+                     3.218e+02,
+                    -4.574e+01,
+                     1.839e+01,
+                    -1.632,
+                     2.403,
+                    -2.120e-01,
+                     1.073e-02,
+                     3.975e-02,
+                    -5.527e-02,
+                     2.823e-03,
+                    -2.436e-06,
+                    -4.647e-06,
+                     4.702e-04,
+                    -4.473e-05,
+                    -6.875e-06,
+                     1.173e-06,
+                     2.965e-11
+             ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'time to last hatch', abbr: 'hatchtime', units: 'days',
+                rounding: 1, lowcap: 4, highcap: 10,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'sq(tt)',
+                    'sq(ss)',
+                    'sq(tt) * ss',
+                    'tt * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'cu(tt) * sq(ss)',
+                    'sq(tt) * cu(ss)',
+                    'p4(tt) * p4(ss)',
+                    'p4(tt) * ss',
+                    'tt * p4(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'tt * ss'
+                ], coefficients: [
+                     1.735e+2,
+                    -2.716e+1,
+                     3.343e+1,
+                     1.551,
+                    -7.261e-1,
+                     6.409e-2,
+                     3.091e-2,
+                    -3.837e-2,
+                     1.264e-2,
+                    -1.302e-6,
+                    -2.069e-5,
+                     8.992e-11,
+                    -1.094e-5,
+                     6.429e-6,
+                     3.481e-4,
+                    -1.977e-4,
+                    -2.783
+           ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'earliest sexual maturity (old)', abbr: 'maturity', units: 'days',
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'pow(tt,ss)',
+                    'pow(ss,tt)'
+                ], coefficients: [
+                     1.348e+2,
+                    -6.014,
+                    -5.167,
+                     2.859e-1,
+                    -9.287e-5,
+                     2.522e-5,
+                     1.118e-5,
+                     2.120e-60,
+                    -1.136e-53
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'earliest sexual maturity A', abbr: 'maturityA', units: 'days',
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'p4(tt)',
+                    'p4(ss)',
+                    'pow(tt,ss)',
+                    'pow(ss,tt)'
+                ], coefficients: [
+                     9.365e+1,
+                    -3.288,
+                    -1.440,
+                     4.781e-2,
+                    -1.400e-5,
+                     2.686e-5,
+                     4.080e-6,
+                     5.549e-62,
+                    -9.296e-55
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'earliest sexual maturity B', abbr: 'maturityB', units: 'days',
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'pow(tt,ss)',
+                ], coefficients: [
+                     9.533e+1,
+                    -3.581,
+                    -1.024,
+                     1.456e-2,
+                    -4.087e-6,
+                     1.347e-3,
+                     1.891e-4,
+                    -1.059e-61
+            ]},{ // - - - - - - - - - - - - - - - - - - - - - - - - -
+                name: 'a hidden calc', abbr: 'hidden1', units: 'days',
+                hidden: true,
+                rounding: 1, lowcap: 5, highcap: 14,
+                terms: [
+                    '1',
+                    'tt',
+                    'ss',
+                    'tt * ss',
+                    'sq(tt) * sq(ss)',
+                    'cu(tt)',
+                    'cu(ss)',
+                    'pow(tt,ss)',
+                ], coefficients: [
+                     9.533e+1,
+                    -3.581,
+                    -1.024,
+                     1.456e-2,
+                    -4.087e-6,
+                     1.347e-3,
+                     1.891e-4,
+                    -1.059e-61
+            ]}
+        ],
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        conclusions: [{
+                condition: 'ss > tt',
+                content: '2nd treatment 24 hours before $$maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
+            },{
+                condition: 'hatchtime == maturity || (hatchtime < maturity && (hatchtime + 2) >= maturity)',
+                content: '2nd treatment 24hrs before $$maturity days; 3rd treatment 24 hours after parasites are gone, or something.'
+            },{
+                condition: '(hatchtime + 2) < maturity',
+                content: '2nd treatment 24hrs before $$maturity days and 24 hours after $$hatchtime days.'
+        }]
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    };
+
+    workit.init(data, { debug: true });
+    workit.buildForm();
+</script>
+</body>
+</html>

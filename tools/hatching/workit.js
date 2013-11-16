@@ -180,15 +180,31 @@
 
                             // debug: show terms and coefficients.
                             if (this.options.debug) {
+                                // make a list of columns to show
+                                var columns = [];
+                                for (var col in termsInfo[0]) { columns.push(col) }
+                                columns.sort();
+
                                 var info = '';
                                 info += '<button class="show info" onclick="document.getElementById(\'calc-' + calc.abbr + '\').className = \'calcwrapper wide\';">&gt;</button>';
                                 info += '<button class="hide info" onclick="document.getElementById(\'calc-' + calc.abbr + '\').className = \'calcwrapper\';">&lt;</button>';
                                 info += '<div class="calcinfo"><table>';
-                                info += '<tr><td colspan="2">Actual: ' + sum + '</td></tr>';
-                                info += '<tr><th>Term</th><th>Coefficient</th></tr>';
-                                for (var t = 0; t < calc.terms.length; t++) {
-                                    info += '<tr><td>' + calc.terms[t] + '</td><td>' + calc.coefficients[t].toExponential(3) + '</td></tr>';
-                                }
+                                info += '<tr><td colspan="' + columns.length + '">Actual: ' + sum + '</td></tr>';
+                                columns.forEach( function(colName) { info += '<th>' + colName + '</th>'; });
+                                termsInfo.forEach( function(termInfo) {
+                                    info += '<tr>';
+                                    columns.forEach( function(colName) {
+                                        if (typeof termInfo[colName] === 'number') {
+                                            info += '<td style="text-align: right" title="' + termInfo[colName] + '">';
+                                            // info += termInfo[colName].toExponential(5);
+                                            info += termInfo[colName].toFixed(2);
+                                        } else {
+                                            info += '<td>';
+                                            info += termInfo[colName];
+                                        }
+                                        info += '</td>';
+                                    });
+                                });
                                 info += '</table></div>';
                                 calcResult += info;
                             }

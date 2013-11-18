@@ -11,10 +11,12 @@
 <div id="workitform"></div>
 <div id="workitresult"></div>
 
+<p>(work in progress)</p>
+
 <p>See <a href="http://www.jcu.edu.au/mtb/research/projects/JCU_083894.html">this project</a> for more info.</p>
 
 <!-- decent folk put their javascript at the bottom -->
-<script src="workit.js"></script>
+<script src="workit.table.js"></script>
 <script>
 
     var data = {
@@ -22,11 +24,15 @@
         inputColumns: [{
             name: 'temperature', abbr: 'temp',
             units: '&#x2103;',
-            defaultVal: 26
+            defaultVal: 11,
+            failMin: 8, failMax: 15,
+            failMsg: 'Entered temperature value must be in the range 16 to 40.'
         },{
             name: 'salinity', abbr: 'sal',
             units: '&#x2030;',
-            defaultVal: 35
+            defaultVal: 12,
+            failMin: 9, failMax: 16,
+            failMsg: 'Entered salinity value must be in the range 16 to 40.'
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         outputColumns: [
@@ -39,8 +45,12 @@
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         table: [
-            '11, 12, 21, 22',
-            '13, 14, 23, 24'
+            '11, 11, 21, 21',
+//            '11, 12, 21, 22',
+            '11, 13, 21, 23',
+            '12, 11, 22, 21',
+            '12, 12, 22, 22',
+            '12, 13, 22, 23'
         ]
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     };

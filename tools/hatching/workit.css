@@ -42,7 +42,7 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
 .calcwrapper {
     position: relative;
     box-sizing: border-box;
-    font-size: 90%;
+    font-size: 80%;
     display: inline-block;
     zoom: 1;            /* IE hack */
     *display: inline;   /* IE hack */

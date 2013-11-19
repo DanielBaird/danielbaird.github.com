@@ -163,128 +163,18 @@
 
                 }, this);
 
+                // cool now we've got indexes for the best matches.
                 console.log(bestRows);
 
+                bestRows.forEach( function(rowIndex) {
+                    this.data.outputColumns.forEach( function(col) {
+                        var calcResult = '<div id="calc-' + col.abbr + '" class="calcwrapper"><div class="calcresult"><span class="name">' + col.name + '</span> ';
+                        calcResult += '<span class="value">' + this.table[rowIndex][col.abbr] + '</span>'
+                        calcResult += '<span class="units">' + col.units + '</span></div>';
 
-
-
-
-
-
-
-
-
-
-
-                data.calcs.forEach( function(calc) {
-
-                    if (calc.terms.length != calc.coefficients.length) {
-                        output.innerHTML += '<p>' + calc.name + ' has mismatched terms and coefficients.</p>';
-                    } else {
-                        // we'll loop downward through the terms
-                        var term = calc.terms.length;
-                        // ..and sum them into this var.
-                        var sum = 0;
-
-                        // track info about each term
-                        var termsInfo = [];
-
-                        // loop through the terms, working each one out and adding them up
-                        while (term--) {
-                            var termInfo = {};
-
-                            // loop through vars replace each one in the expression
-                            var expression = calc.terms[term];
-                            termInfo.exprInitial = expression;
-
-                            data.vars.forEach( function(theVar) {
-                                expression = expression.replace(theVar.abbr, '('+ varValues[theVar.abbr] +')');
-                            });
-
-                            termInfo.exprReplaced = expression;
-                            termInfo.exprResult = eval(expression);
-                            termInfo.coefficient = calc.coefficients[term];
-
-                            // now evaluate the expression and multiply by the coefficient
-                            var thisTerm = calc.coefficients[term] * eval(expression);
-                            termInfo.result = thisTerm;
-                            sum += thisTerm;
-                            termsInfo.unshift(termInfo);
-                        }
-
-                        // remember this value in varValues
-                        varValues[calc.abbr] = parseFloat(sum.toFixed(calc.rounding));
-                        varValues[calc.abbr + '_capped'] = sum;
-                        varValues[calc.abbr + '_precise'] = sum;
-
-                        // apply the rounding and capping
-                        var sumStr = sum.toFixed(calc.rounding);
-                        if (calc.lowcap && sum < calc.lowcap) {
-                            sumStr = '< ' + calc.lowcap;
-                            varValues[calc.abbr + '_capped'] = calc.lowcap;
-                        } else if (calc.highcap && sum > calc.highcap) {
-                            sumStr = '> ' + calc.highcap;
-                            varValues[calc.abbr + '_capped'] = calc.highcap;
-                        }
-                        if (!calc.hidden) {
-                            var calcResult = '<div id="calc-' + calc.abbr + '" class="calcwrapper"><div class="calcresult"><span class="name">' + calc.name + '</span> ';
-                            calcResult += '<span class="value" title="raw value: ' + sum.toFixed((calc.rounding + 1) * 2) + ' ' + calc.units + '">' + sumStr + '</span>'
-                            calcResult += '<span class="units">' + calc.units + '</span></div>';
-
-                            // debug: show terms and coefficients.
-                            if (this.options.debug) {
-                                // make a list of columns to show
-                                var columns = [];
-                                for (var col in termsInfo[0]) { columns.push(col) }
-                                columns.sort();
-
-                                var info = '';
-                                info += '<button class="show info" onclick="document.getElementById(\'calc-' + calc.abbr + '\').className = \'calcwrapper wide\';">&gt;</button>';
-                                info += '<button class="hide info" onclick="document.getElementById(\'calc-' + calc.abbr + '\').className = \'calcwrapper\';">&lt;</button>';
-                                info += '<div class="calcinfo"><table>';
-                                info += '<tr><td colspan="' + columns.length + '">Actual: ' + sum + '</td></tr>';
-                                columns.forEach( function(colName) { info += '<th>' + colName + '</th>'; });
-                                termsInfo.forEach( function(termInfo) {
-                                    info += '<tr>';
-                                    columns.forEach( function(colName) {
-                                        if (typeof termInfo[colName] === 'number') {
-                                            info += '<td style="text-align: right" title="' + termInfo[colName] + '">';
-                                            // info += termInfo[colName].toExponential(5);
-                                            info += termInfo[colName].toFixed(2);
-                                        } else {
-                                            info += '<td>';
-                                            info += termInfo[colName];
-                                        }
-                                        info += '</td>';
-                                    });
-                                });
-                                info += '</table></div>';
-                                calcResult += info;
-                            }
-                            calcResult += '</div>';
-                            this.output.innerHTML += calcResult;
-                        }
-                    }
-
-                }, this); // end of working out all the calcs.
-
-                // work out the conclusions
-                data.conclusions.forEach( function(conc) {
-                    var condition = conc.condition;
-                    var content = conc.content;
-                    for (var varName in varValues) {
-                        var varValue = varValues[varName];
-                        condition = condition.split(varName).join('(' + varValue + ')');
-                        content = content.split('$$' + varName).join(varValue);
-                    };
-                    // console.log(conc.condition, condition);
-                    // console.log(conc.content, content);
-
-                    if (eval(condition)) {
-                        this.output.innerHTML += '<p>' + content + '</p>';
-                    } else if (this.options.debug) {
-                        this.output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
-                    }
+                        calcResult += '</div>';
+                        this.output.innerHTML += calcResult;
+                    }, this);
                 }, this);
             }
         },

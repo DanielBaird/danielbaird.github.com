@@ -167,14 +167,20 @@
                 console.log(bestRows);
 
                 bestRows.forEach( function(rowIndex) {
+                    var resultSet = '<div class="resultset">';
+                    if (bestRows.length > 1) {
+                        resultSet += '<h1><small>Result set ' + (rowIndex + 1) + ' of ' + bestRows.length + '</small></h1>';
+                    }
                     this.data.outputColumns.forEach( function(col) {
                         var calcResult = '<div id="calc-' + col.abbr + '" class="calcwrapper"><div class="calcresult"><span class="name">' + col.name + '</span> ';
                         calcResult += '<span class="value">' + this.table[rowIndex][col.abbr] + '</span>'
                         calcResult += '<span class="units">' + col.units + '</span></div>';
 
                         calcResult += '</div>';
-                        this.output.innerHTML += calcResult;
+                        resultSet += calcResult;
                     }, this);
+                    resultSet += '</div>';
+                    this.output.innerHTML += resultSet;
                 }, this);
             }
         },

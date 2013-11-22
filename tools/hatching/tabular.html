@@ -51,8 +51,18 @@
             '12, 11, 22, 21',
             '12, 12, 22, 22',
             '12, 13, 22, 23'
-        ]
+        ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        conclusions: [{
+                condition: 'aa > bb',
+                content: 'aa is big.'
+            },{
+                condition: 'aa == bb || (aa < bb && (aa + 2) >= bb)',
+                content: '2nd treatment 24hrs before $$aa days; 3rd treatment 24 hours after parasites are gone, or something.'
+            },{
+                condition: '(aa + 2) < bb',
+                content: '2nd treatment 24hrs before $$bb days and 24 hours after $$aa days.'
+        }]
     };
 
     workit.init(data, { debug: true });

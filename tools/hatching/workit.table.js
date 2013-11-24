@@ -141,13 +141,16 @@
 
                 // work through the input columns finding best matches
                 data.inputColumns.forEach( function(column) {
+
+                    console.log(column, bestRows);
+
                     var truth = varValues[column.abbr];
                     var delta = function(a, b) { return Math.abs(a - b); }
                     var bestDelta = delta(this.table[bestRows[0]][column.abbr], truth);
                     bestRows.forEach( function(rowIndex) {
-                        var candidate = this.table[rowIndex][column.abbr];
-                        if ( delta(truth, candidate) < bestDelta ) {
-                            bestDelta = candidate;
+                        var candidateDelta = delta(truth, this.table[rowIndex][column.abbr]);
+                        if ( candidateDelta < bestDelta ) {
+                            bestDelta = candidateDelta;
                         }
                     }, this);
 
@@ -167,6 +170,9 @@
                 console.log(bestRows);
 
                 bestRows.forEach( function(rowIndex) {
+
+                    // show results
+
                     var resultSet = '<div class="resultset">';
                     if (bestRows.length > 1) {
                         resultSet += '<h1><small>Result set ' + (rowIndex + 1) + ' of ' + bestRows.length + '</small></h1>';
@@ -181,6 +187,28 @@
                     }, this);
                     resultSet += '</div>';
                     this.output.innerHTML += resultSet;
+
+                    // work out the conclusions
+
+                    data.conclusions.forEach( function(conc) {
+                        var condition = conc.condition;
+                        var content = conc.content;
+                        this.data.columnOrder.forEach( function(varName) {
+                            var varValue = this.table[rowIndex][varName];
+                            condition = condition.split(varName).join('(' + varValue + ')');
+                            content = content.split('$$' + varName).join(varValue);
+                        }, this);
+                        // console.log(conc.condition, condition);
+                        // console.log(conc.content, content);
+
+                        if (eval(condition)) {
+                            this.output.innerHTML += '<p>' + content + '</p>';
+                        } else if (this.options.debug) {
+                            this.output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
+                        }
+                    }, this);
+
+
                 }, this);
             }
         },

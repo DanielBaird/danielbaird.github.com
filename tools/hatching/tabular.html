@@ -36,12 +36,12 @@
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         outputColumns: [
-            { name: 'Last hatch', abbr: 'hatch', units: 'days' },
-            { name: 'Larval longevity', abbr: 'larva', units: 'hours' },
-            { name: 'Sexual maturity', abbr: 'maturity', units: 'days' },
-            { name: 'Earliest second treatment', abbr: 'early2nd', units: 'days' },
-            { name: 'Latest second treatment', abbr: 'late2nd', units: 'days' },
-            { name: 'Third treatment', abbr: 'third', units: 'days' }
+            { name: 'Last hatch',                abbr: 'hatch',    units: 'days'  },
+            { name: 'Larval longevity',          abbr: 'larva',    units: 'hours' },
+            { name: 'Sexual maturity',           abbr: 'maturity', units: 'days'  },
+            { name: 'Earliest second treatment', abbr: 'early2nd', units: 'days', hidden: true },
+            { name: 'Latest second treatment',   abbr: 'late2nd',  units: 'days', hidden: true },
+            { name: 'Third treatment',           abbr: 'third',    units: 'days', hidden: true }
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         columnOrder: [
@@ -301,14 +301,20 @@
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         conclusions: [{
-                condition: 'aa > bb',
-                content: 'aa is big.'
+                condition: '!early2nd',
+                content: 'No further treatment is necessary.'
             },{
-                condition: 'aa == bb || (aa < bb && (aa + 2) >= bb)',
-                content: '2nd treatment 24hrs before $$aa days; 3rd treatment 24 hours after parasites are gone, or something.'
+                condition: 'early2nd == late2nd && !third',
+                content: 'Second treatment $$early2nd days after first; no third treatment necessary.'
             },{
-                condition: '(aa + 2) < bb',
-                content: '2nd treatment 24hrs before $$bb days and 24 hours after $$aa days.'
+                condition: 'early2nd == late2nd && third',
+                content: 'Second treatment $$early2nd days after first; third treatment $$third days after first.'
+            },{
+                condition: 'early2nd != late2nd && !third',
+                content: 'Second treatment $$early2nd to $$late2nd days after first; no third treatment necessary.'
+            },{
+                condition: 'early2nd != late2nd && third',
+                content: 'Second treatment $$early2nd to $$late2nd days after first; third treatment $$third days after the first.'
         }]
     };
 

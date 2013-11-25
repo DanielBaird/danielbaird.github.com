@@ -60,7 +60,7 @@
                 var row = {};
                 var values = rowStr.split(/\s*,\s*/);
                 values.forEach( function(value, valueIndex) {
-                    row[data.columnOrder[valueIndex]] = parseInt(value);
+                    row[data.columnOrder[valueIndex]] = (value === '-' ? undefined : parseInt(value));
                 });
                 table.push(row);
             });
@@ -179,11 +179,17 @@
                     }
                     this.data.outputColumns.forEach( function(col) {
                         var calcResult = '<div id="calc-' + col.abbr + '" class="calcwrapper"><div class="calcresult"><span class="name">' + col.name + '</span> ';
-                        calcResult += '<span class="value">' + this.table[rowIndex][col.abbr] + '</span>'
+                        if (this.table[rowIndex][col.abbr] === undefined) {
+                            calcResult += '<span class="value">-</span>'
+                        } else {
+                            calcResult += '<span class="value">' + this.table[rowIndex][col.abbr] + '</span>'
+                        }
                         calcResult += '<span class="units">' + col.units + '</span></div>';
 
                         calcResult += '</div>';
-                        resultSet += calcResult;
+                        if (! col.hidden) {
+                            resultSet += calcResult;
+                        }
                     }, this);
                     resultSet += '</div>';
                     this.output.innerHTML += resultSet;
@@ -198,8 +204,6 @@
                             condition = condition.split(varName).join('(' + varValue + ')');
                             content = content.split('$$' + varName).join(varValue);
                         }, this);
-                        // console.log(conc.condition, condition);
-                        // console.log(conc.content, content);
 
                         if (eval(condition)) {
                             this.output.innerHTML += '<p>' + content + '</p>';

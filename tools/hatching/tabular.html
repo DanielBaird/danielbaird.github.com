@@ -305,16 +305,16 @@
                 content: 'No further treatment is necessary.'
             },{
                 condition: 'early2nd == late2nd && !third',
-                content: 'Second treatment $$early2nd days after first; no third treatment necessary.'
+                content: 'Second treatment <b>$$early2nd days</b> after first; no third treatment necessary.'
             },{
                 condition: 'early2nd == late2nd && third',
-                content: 'Second treatment $$early2nd days after first; third treatment $$third days after first.'
+                content: 'Second treatment <b>$$early2nd days</b> after first; third treatment <b>$$third days</b> after first.'
             },{
                 condition: 'early2nd != late2nd && !third',
-                content: 'Second treatment $$early2nd to $$late2nd days after first; no third treatment necessary.'
+                content: 'Second treatment <b>$$early2nd to $$late2nd days</b> after first; no third treatment necessary.'
             },{
                 condition: 'early2nd != late2nd && third',
-                content: 'Second treatment $$early2nd to $$late2nd days after first; third treatment $$third days after the first.'
+                content: 'Second treatment <b>$$early2nd to $$late2nd days</b> after first; third treatment <b>$$third days</b> after the first.'
         }]
     };
 

@@ -1,8 +1,11 @@
 html, body { padding: 1em; margin: 0; font-family: sans-serif; }
-#form .form-element {
-    padding: 0.5em 0;
+#workitform {
+    padding-bottom: 1em;
 }
-#form .form-element label {
+#workitform .form-element {
+    padding: 0.25em 0;
+}
+#workitform .form-element label {
     display: inline-block;
     zoom: 1;            /* IE hack */
     *display: inline;   /* IE hack */
@@ -10,14 +13,14 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     text-align: right;
     padding: 0.1em 1em;
 }
-#form .form-element input {
+#workitform .form-element input {
     font-size: inherit;
     font-family: inherit;
     padding: 0.1em 0.5em;
     margin: 0 0.5em;
     width: 6em;
 }
-#form .form-element .var-note {
+#workitform .form-element .var-note {
     font-size: 90%;
     color: #930;
     display: inline-block;

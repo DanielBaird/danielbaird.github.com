@@ -73,6 +73,7 @@
         buildForm: function() {
             data.inputColumns.forEach( function(column) {
                 var html = document.createElement('div');
+                html.setAttribute('class', 'form-element');
                 var that = this;
                 html.innerHTML += '<label for="var-' + column.abbr + '">' + column.name + '</label>';
                 html.innerHTML += '<input type="number" ' +

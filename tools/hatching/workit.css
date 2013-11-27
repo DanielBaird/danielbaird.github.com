@@ -173,3 +173,41 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
         rgba(0,32,128, 0)  50%, rgba(0,32,128, 0.075)  100%
     );
 }
+
+.calendar {
+    border-left: 1px solid #ccc;
+    background: #eee;
+    display: inline-block;
+    position: relative;
+    font-size: 400%; /* this is so we can use 1em = 1 day. */
+}
+.calendar .inner {
+    text-align: center;
+    font-size: 25%;
+}
+.calendar .day {
+    display: inline-block;
+    vertical-align: bottom;
+    height: 2em;
+    width: 1em;
+    padding: 0;
+    margin-right: -1px;
+    border: 1px solid #ccc;
+    border-width: 1px 1px 1px 0;
+}
+.calendar .indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 1em; /* will be overridden */
+    display: inline-block;
+    vertical-align: bottom;
+    height: 2em;
+    padding: 0;
+    background: rgba(255,200,200, 0.25);
+}
+
+
+

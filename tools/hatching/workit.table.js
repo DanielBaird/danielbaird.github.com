@@ -207,9 +207,9 @@
                         }, this);
 
                         if (eval(condition)) {
-                            this.output.innerHTML += '<p>' + content + '</p>';
+                            this.output.innerHTML += '<div class="conclusion">' + content + '</div>';
                         } else if (this.options.debug) {
-                            this.output.innerHTML += '<p style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</p>';
+                            this.output.innerHTML += '<div class="conclusion" style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:</span> ' + content + '</div>';
                         }
                     }, this);
 

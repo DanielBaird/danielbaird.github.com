@@ -27,21 +27,23 @@
             defaultVal: 26,
             failMin: 16, failMax: 40,
             failMsg: 'Entered temperature value must be in the range 16 to 40.'
+            , defaultVal: 33
         },{
             name: 'salinity', abbr: 'sal',
             units: '&#x2030;',
             defaultVal: 35,
             failMin: 15, failMax: 45,
             failMsg: 'Entered salinity value must be in the range 15 to 45.'
+            , defaultVal: 22
         }],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         outputColumns: [
-            { name: 'Last hatch',                abbr: 'hatch',    units: 'days'  },
-            { name: 'Larval longevity',          abbr: 'larva',    units: 'hours' },
-            { name: 'Sexual maturity',           abbr: 'maturity', units: 'days'  },
-            { name: 'Earliest second treatment', abbr: 'early2nd', units: 'days', hidden: true },
-            { name: 'Latest second treatment',   abbr: 'late2nd',  units: 'days', hidden: true },
-            { name: 'Third treatment',           abbr: 'third',    units: 'days', hidden: true }
+            { name: 'Last hatch',                abbr: 'hatch',    units: 'days'   },
+            { name: 'Larval longevity',          abbr: 'larva',    units: 'hours', hidden: true },
+            { name: 'Sexual maturity',           abbr: 'maturity', units: 'days'   },
+            { name: 'Earliest second treatment', abbr: 'early2nd', units: 'days',  hidden: true },
+            { name: 'Latest second treatment',   abbr: 'late2nd',  units: 'days',  hidden: true },
+            { name: 'Third treatment',           abbr: 'third',    units: 'days',  hidden: true }
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         columnOrder: [
@@ -301,20 +303,55 @@
         ],
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         conclusions: [{
-                condition: '!early2nd',
-                content: 'No further treatment is necessary.'
-            },{
-                condition: 'early2nd == late2nd && !third',
-                content: 'Second treatment <b>$$early2nd days</b> after first; no third treatment necessary.'
-            },{
-                condition: 'early2nd == late2nd && third',
-                content: 'Second treatment <b>$$early2nd days</b> after first; third treatment <b>$$third days</b> after first.'
-            },{
-                condition: 'early2nd != late2nd && !third',
-                content: 'Second treatment <b>$$early2nd to $$late2nd days</b> after first; no third treatment necessary.'
-            },{
-                condition: 'early2nd != late2nd && third',
-                content: 'Second treatment <b>$$early2nd to $$late2nd days</b> after first; third treatment <b>$$third days</b> after the first.'
+            condition: '!early2nd',
+            content: 'No further treatment is necessary.'
+        },{
+            condition: 'early2nd == late2nd && !third',
+            content:
+                '<p>' +
+                    'Second treatment <b>$$early2nd days</b> after first; ' +
+                    'no third treatment necessary.' +
+                '</p>' +
+                '<div class="calendar">' +
+                '</div>'
+        },{
+            condition: 'early2nd == late2nd && third',
+            content:
+                '<p>' +
+                    'Second treatment <b>$$early2nd days</b> after first; ' +
+                    'third treatment <b>$$third days</b> after first.' +
+                '</p>' +
+                '<div class="calendar">' +
+                '</div>'
+        },{
+            condition: 'early2nd != late2nd && !third',
+            content:
+                '<p>' +
+                    'Second treatment <b>$$early2nd to $$late2nd days</b> after first; ' +
+                    'no third treatment necessary.' +
+                '</p>' +
+                '<div class="calendar">' +
+                    '<div class="indicator" style="width: "><div class="inner">' +
+                    '1st' +
+                    '</div></div>' +
+                    '<div class="indicator" style="left: $$early2ndem; width: $$late2ndem"><div class="inner">' +
+                    '2nd' +
+                    '</div></div>' +
+                    '<div class="day"></div><div class="day"></div><div class="day"></div>' +
+                    '<div class="day"></div><div class="day"></div><div class="day"></div>' +
+                    '<div class="day"></div><div class="day"></div><div class="day"></div>' +
+                    '<div class="day"></div><div class="day"></div><div class="day"></div>' +
+                    '<div class="day"></div><div class="day"></div>' +
+                '</div>'
+        },{
+            condition: 'early2nd != late2nd && third',
+            content:
+                '<p>' +
+                    'Second treatment <b>$$early2nd to $$late2nd days</b> after first; ' +
+                    'third treatment <b>$$third days</b> after the first.' +
+                '</p>' +
+                '<div class="calendar">' +
+                '</div>'
         }]
     };
 

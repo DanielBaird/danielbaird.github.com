@@ -332,18 +332,23 @@
                         }
 
                         // remember this value in this.results
-                        this.results[theVar.abbr] = parseFloat(sum.toFixed(theVar.rounding));
-                        this.results[theVar.abbr + '_capped'] = sum;
-                        this.results[theVar.abbr + '_precise'] = sum;
 
-                        // apply the rounding and capping
+                        if (theVar.rounding === undefined) {
+                            this.results[theVar.abbr] = sum;
+                        } else {
+                            // apply the rounding if it's specified
+                            this.results[theVar.abbr] = parseFloat(sum.toFixed(theVar.rounding));
+                            this.results[theVar.abbr + '_precise'] = sum;
+                        }
+
+                        // apply the capping, if specified
                         var sumStr = sum.toFixed(theVar.rounding);
                         if (theVar.lowcap && sum < theVar.lowcap) {
-                            sumStr = '< ' + theVar.lowcap;
-                            this.results[theVar.abbr + '_capped'] = theVar.lowcap;
+                            sumStr =
+                            this.results[theVar.abbr + '_capped'] = '< ' + theVar.lowcap;
                         } else if (theVar.highcap && sum > theVar.highcap) {
                             sumStr = '> ' + theVar.highcap;
-                            this.results[theVar.abbr + '_capped'] = theVar.highcap;
+                            this.results[theVar.abbr + '_capped'] = '> ' + theVar.highcap;
                         }
                     }
                 }
@@ -356,9 +361,8 @@
 
             this.data.vars.forEach( function(theVar) {
                 if (theVar.source !== 'ask' && !theVar.hidden) {
-//                if (theVar.source !== 'ask') {
 
-                    result = this.results[theVar.abbr];
+                    result = this.results[theVar.abbr + '_capped'] || this.results[theVar.abbr];
                     resultPrecise = this.results[theVar.abbr + '_precise'];
                     resultTermsInfo = this.results[theVar.abbr + '_termsInfo'];
 

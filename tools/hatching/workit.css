@@ -217,7 +217,7 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     background: rgba(255,200,200, 0.75);
 }
 .calendar .indicator.second {
-    margin-left: 0.5em;
+    /*margin-left: 0.5em;*/
 }
 
 

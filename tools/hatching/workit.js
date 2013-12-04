@@ -160,6 +160,7 @@
                         'id="var-' + theVar.abbr + '" ' +
                         'name="var-' + theVar.abbr + '" ' +
                         'value="' + theVar.defaultVal + '"/>';
+                    html.innerHTML += theVar.units;
 
                     // TODO: add max and min?
 

@@ -112,7 +112,7 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     font-weight: bold;
     display: block;
     padding: 0.5em 0 0 0;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
     background: rgba(0,32,128, 0.15);
     background: -moz-radial-gradient(bottom, farthest-side, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
     background: radial-gradient(ellipse farthest-side at bottom, rgba(0,32,128, 0.1) 25%, rgba(0,32,128, 0) 100%);
@@ -126,7 +126,7 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
 }
 .result .units {
     color: rgba(0,0,0, 0.5);
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
     padding: 0.33em 0;
     display: block;
     font-weight: 900;
@@ -166,12 +166,9 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
 
 .calcinfo table td, .calcinfo table th {
     padding: 0.3em 0.75em 0.6em;
-    background: -moz-linear-gradient(top,
-        rgba(0,32,128, 0)  50%, rgba(0,32,128, 0.075)  100%
-    );
-    background: linear-gradient(to bottom,
-        rgba(0,32,128, 0)  50%, rgba(0,32,128, 0.075)  100%
-    );
+    background: rgba(0,32,128, 0.1);
+    background:  -moz-linear-gradient(top, rgba(0,32,128, 0) 50%, rgba(0,32,128, 0.075) 100% );
+    background: linear-gradient(to bottom, rgba(0,32,128, 0) 50%, rgba(0,32,128, 0.075) 100% );
 }
 
 .calendar {
@@ -181,6 +178,8 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     position: relative;
     font-size: 400%; /* this is so we can use 1em = 1 day. */
     white-space: nowrap;
+    left: 50%;
+    margin: 0.2em -7em;
 }
 .calendar .inner {
     text-align: center;
@@ -216,8 +215,25 @@ html, body { padding: 1em; margin: 0; font-family: sans-serif; }
     padding: 0.5em 0;
     background: rgba(255,200,200, 0.75);
 }
-.calendar .indicator.second {
-    /*margin-left: 0.5em;*/
+.recommendation:before {
+    font-size: 80%;
+    float: left;
+    font-weight: bold;
+    padding-right: 1em;
+    content: 'recommendation';
 }
-
+.recommendation {
+    margin: 0.8em;
+    /*text-align: center;*/
+    padding: 1em;
+    background: rgba(0,32,128, 0.1);
+    background: -moz-linear-gradient(left,
+        rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+        rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
+    );
+    background: linear-gradient(to right,
+        rgba(0,32,128, 0.25)  0%, rgba(0,32,128, 0.10)  40%,
+        rgba(0,32,128, 0.10) 60%, rgba(0,32,128, 0.25) 100%
+    );
+}
 

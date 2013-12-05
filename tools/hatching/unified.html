@@ -4,14 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html" />
     <title>Test - Parasite Hatching Calculator</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="workit.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="workit.css" />
 </head>
 <body>
 
 <div id="workitform"></div>
 <div id="workitresult"></div>
-
-<p>(work in progress)</p>
 
 <p>See <a href="http://www.jcu.edu.au/mtb/research/projects/JCU_083894.html">this project</a> for more info.</p>
 
@@ -42,7 +40,7 @@
                 source: 'ask',
                 defaultVal: 26,
                 failMin: 22, failMax: 34,
-                failMsg: 'Entered temperature value must be in the range 16 to 40.'
+                failMsg: 'This tool applies to temperatures in the range 22&#x2103; to 34&#x2103;.'
             },{
                 name: 'salinity',
                 abbr: 'sal',
@@ -50,13 +48,13 @@
                 source: 'ask',
                 defaultVal: 35,
                 failMin: 22, failMax: 40,
-                failMsg: 'Entered salinity value is unreasonable.'
+                failMsg: 'This tool applies to salinity in the range 22&#x2030; to 40&#x2030;.'
             },{
                 name: 'hatching success',
                 abbr: 'hatchrate',
                 units: '%',
                 source: 'calc',
-                rounding: 1,
+                rounding: 0,
                 lowcap: 5, highcap: 95,
                 terms: [
                     '1',
@@ -84,7 +82,7 @@
                 abbr: 'infectrate',
                 units: '%',
                 source: 'calc',
-                rounding: 1,
+                rounding: 0,
                 lowcap: 5, highcap: 95,
                 terms: [
                     '1',
@@ -410,7 +408,7 @@
         },{
             condition: 'early2nd == late2nd && !third',
             content:
-                '<p>' +
+                '<p class="recommendation">' +
                     'Second treatment <b>$$early2nd days</b> after first; ' +
                     'no third treatment necessary.' +
                 '</p>' +
@@ -422,7 +420,7 @@
         },{
             condition: 'early2nd == late2nd && third',
             content:
-                '<p>' +
+                '<p class="recommendation">' +
                     'Second treatment <b>$$early2nd days</b> after first; ' +
                     'third treatment <b>$$third days</b> after first.' +
                 '</p>' +
@@ -435,7 +433,7 @@
         },{
             condition: 'early2nd != late2nd && !third',
             content:
-                '<p>' +
+                '<p class="recommendation">' +
                     'Second treatment <b>$$early2nd to $$late2nd days</b> after first; ' +
                     'no third treatment necessary.' +
                 '</p>' +
@@ -447,7 +445,7 @@
         },{
             condition: 'early2nd != late2nd && third',
             content:
-                '<p>' +
+                '<p class="recommendation">' +
                     'Second treatment <b>$$early2nd to $$late2nd days</b> after first; ' +
                     'third treatment <b>$$third days</b> after the first.' +
                 '</p>' +

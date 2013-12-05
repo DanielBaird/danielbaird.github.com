@@ -37,7 +37,7 @@
             levelsToHide.length = levelsToHide.indexOf(level);
         }
         // return an appropriate logging function
-        if (whereToLogTo === 'none') {
+        if (whereToLogTo === 'none' || (whereToLogTo === 'console' && (!window.console))) {
             // log to none: return a do-nothing function
             return (function() {})
         }
@@ -49,11 +49,11 @@
                     return
                 }
                 if (severity === 'warn') {
-                    console.warn('[workit warn ]', message);
+                    window.console.warn('[workit warn ]', message);
                 } else {
                     // pad severity to min 5 chars long (or longer if necessary)
                     var padded = (severity + "     ").substr(0, Math.max(severity.length, 5));
-                    console.log('[workit ' + padded + ']', message);
+                    window.console.log('[workit ' + padded + ']', message);
                 }
             });
         }

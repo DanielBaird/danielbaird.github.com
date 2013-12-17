@@ -1,0 +1,218 @@
+.content_outer#gallery a{
+	color: #cf9e88;
+	text-decoration: none;
+	border-bottom: none;
+}
+a:focus, a:hover, a:active {
+	text-decoration: underline;
+}
+
+.content_outer# pre {
+	font-size: 1.2em;
+	line-height: 1.2em;
+}
+.content_outer#gallery page {
+	width: 900px;
+	background-color: #fff;
+	margin: 0 auto;
+	text-align: left;
+	border-color: #ddd;
+	border-style: none solid solid;
+	border-width: medium 1px 1px;
+}
+.content_outer#gallery container {
+	padding: 20px;
+}
+.content_outer#gallery ads {
+	clear: both;
+	padding: 12px 0 12px 66px;
+}
+.content_outer#gallery footer {
+	clear: both;
+	color: #777;
+	margin: 0 auto;
+	padding: 20px 0 40px;
+	text-align: center;
+}
+.content_outer#gallery h2.album-date {
+	margin-top: 6px;
+}
+.content_outer#gallery p.album-description {
+	margin-top: 20px;
+}
+.content_outer#gallery div.meta {
+	margin-top: 10px;
+	font-size: 0.8em;
+}
+.content_outer#gallery div.meta ul {
+	margin: 0;
+	padding: 0;
+}
+.content_outer#gallery div.meta li {
+	float: left;
+	padding: 0;
+	margin-right: 10px;
+	width: 240px;
+	list-style: none;
+}
+
+.content_outer#gallery div.content {
+	/* The display of content is enabled by a javascript generated style on the page.
+	   This is so that the slideshow content won't display unless javascript is enabled. */
+	display: none;
+	float:right;
+	width:602px; 
+}
+.content_outer#gallery div.content a, div.navigation a {
+	text-decoration: none;
+	background:transparent url(../images/1x1blue30.png) repeat scroll 0 0;
+	display:block;
+	float:left;
+	margin-right:4px;
+	padding:4px 7px 2px;	
+}
+#gallery.content_outer div.content a {
+	float: none;
+	margin-right: 0px;
+}
+
+.content_outer#gallery div.content  a:focus, 
+.content_outer#gallery div.content  a:hover, 
+.content_outer#gallery div.content  a:active {
+	text-decoration: none;
+	border-bottom: none;
+	background:transparent url(../images/1x1blue50.png) repeat scroll 0 0;		
+}
+.content_outer#gallery div.controls {
+	height: 36px;
+}
+.content_outer#gallery div.controls a {
+	padding: 5px;
+}
+.content_outer#gallery div.controls a.prev,
+.content_outer#gallery div.controls a.next {
+	margin-right: 0px;
+	margin-left: 4px;
+	float: left;
+}
+
+.content_outer#gallery div.ss-controls {
+	float: left;
+}
+.content_outer#gallery div.nav-controls {
+	float: right;
+}
+
+.content_outer#gallery div.loader {
+	background-image: url('images/loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 550px;
+	height: 350px
+}
+.content_outer#gallery div.slideshow {
+	clear: both;
+	text-align:center;
+	padding-top: 0px;
+	background: url(../images/1x1blue30.png)
+}
+.content_outer#gallery div.slideshow span.image-wrapper {
+	float: none;
+	padding-bottom: 12px;
+	padding: 0px;
+}
+.content_outer#gallery div.slideshow a.advance-link {
+	padding: 0px;
+	display: block;
+	background: none;
+}
+.content_outer#gallery div.slideshow img {
+	border: none;
+	/*display: block;*/
+	background: url(../images/1x1blue50.png);
+	padding: 1px;
+}
+.content_outer#gallery div.download {
+	float: right;
+}
+.content_outer#gallery div.embox {
+	clear: both;
+	background: url(../images/1x1blue40.png);
+	padding: 5px;
+}
+.content_outer#gallery div.image-title {
+	font-weight: bold;
+	font-size: 14pxm;
+	text-align: center;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+.content_outer#gallery div.image-desc {
+	line-height: 1.3em;
+	padding-top: 12px;
+}
+.content_outer#gallery div.navigation {
+	/* The navigation style is set by a javascript generated style on the page.
+	   This is so that the javascript specific styles won't be applied unless javascript is enabled. */
+}
+.content_outer#gallery ul.thumbs {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+.content_outer#gallery ul.thumbs li {
+	float: left;
+	padding: 0;
+	margin: 0px 6px 5px 0;
+	list-style: none;
+	text-align: center;
+}
+.content_outer#gallery a.thumb {
+	padding: 1px;
+	display: block;
+	/*border: 1px solid #091023;*/
+	border: none;
+	background:transparent url(../images/1x1blue70.png) repeat scroll 0 0;
+}
+.content_outer#gallery ul.thumbs li.selected a.thumb {
+	background: #ebd0c4;
+}
+.content_outer#gallery a.thumb:focus {
+	outline: none;
+}
+.content_outer#gallery ul.thumbs img {
+	border: none;
+	display: block;
+	padding: 0px;
+}
+.content_outer#gallery div.pagination {
+	clear: both;
+}
+.content_outer#gallery div.navigation div.top {
+	height:36px;
+}
+.content_outer#gallery div.navigation div.bottom {
+	margin-top: 12px;
+	display: none; /*hide the bottom pagination */
+}
+.content_outer#gallery div.pagination a, div.pagination span.current {
+	display: block;
+	float: left;
+	margin-right: 4px;
+	padding: 5px 7px 5px 7px;
+	background: url(../images/1x1blue30.png)
+}
+.content_outer#gallery div.pagination a:hover {
+	background: url(../images/1x1blue50.png);
+	text-decoration: none;
+	color:  #F09BA6;
+	border-bottom: none;
+}
+.content_outer#gallery div.pagination span.current {
+	font-weight: bold;
+	background: #cf9e88;
+	background: url(../images/1x1blue50.png);
+	border-color: #000;
+	color: #fff;
+}

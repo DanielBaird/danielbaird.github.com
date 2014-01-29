@@ -16,7 +16,7 @@ var calendarBase =  '<div class="day"><div class="inner">Day 1</div></div>' +
 var data = {
     vars: [
         {
-            name: 'temperature',
+            name: 'Temperature',
             abbr: 'temp',
             units: '&#x2103;',
             source: 'ask',
@@ -24,7 +24,7 @@ var data = {
             failMin: 22, failMax: 34,
             failMsg: 'This tool applies to temperatures in the range 22&#x2103; to 34&#x2103;.'
         },{
-            name: 'salinity',
+            name: 'Salinity',
             abbr: 'sal',
             units: '&#x2030;',
             source: 'ask',
@@ -32,7 +32,7 @@ var data = {
             failMin: 22, failMax: 40,
             failMsg: 'This tool applies to salinity in the range 22&#x2030; to 40&#x2030;.'
         },{
-            name: 'hatching success',
+            name: 'Hatching Success',
             abbr: 'hatchrate',
             units: '%',
             source: 'calc',
@@ -60,7 +60,7 @@ var data = {
                 -1.761e-03
             ]
         },{
-            name: 'infection success',
+            name: 'Infection Success',
             abbr: 'infectrate',
             units: '%',
             source: 'calc',
@@ -88,41 +88,41 @@ var data = {
                  2.198e-02
             ]
         },{
-            name: 'Last hatch',
+            name: 'Last Hatch',
             abbr: 'hatch',
             units: 'days',
             source: 'table'
         },{
-            name: 'Larval longevity',
+            name: 'Larval Longevity',
             abbr: 'larva',
             units: 'hours',
             source: 'table',
             hidden: true
         },{
-            name: 'Sexual maturity',
+            name: 'Sexual Maturity',
             abbr: 'maturity',
             units: 'days',
             source: 'table'
         },{
-            name: 'Earliest second treatment',
+            name: 'Earliest Second Treatment',
             abbr: 'early2nd',
             units: 'days',
             source: 'table',
             hidden: true
         },{
-            name: 'Latest second treatment',
+            name: 'Latest Second Treatment',
             abbr: 'late2nd',
             units: 'days',
             source: 'table',
             hidden: true
         },{
-            name: 'Second treatment window',
+            name: 'Second Treatment Window',
             abbr: 'interval2nd',
             units: 'days',
             source: 'table',
             hidden: true
         },{
-            name: 'Third treatment',
+            name: 'Third Treatment',
             abbr: 'third',
             units: 'days',
             source: 'table',

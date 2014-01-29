@@ -1,3 +1,22 @@
+//
+// workit library by Daniel Baird daniel@danielbaird.com
+// later tentatively renamed "figureit", try https://github.com/DanielBaird/figureit
+// customised version of workit 0.1 :)
+//
+// Copyright 2013 Daniel W Baird
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 
 // AMD compatibility copied from https://github.com/umdjs/umd/blob/master/amdWeb.js
 (function (root, factory) {
@@ -87,10 +106,11 @@
     // default options ----------------------------------------------
     defaultOpts = {
         debug:    (document.URL.indexOf('debug') >= 0),  // true or false
-        logTo:    'console',        // 'none', 'console', or an element id
-        logLevel: 'info',           // 'debug', 'info', 'warn'
-        form:     'workitform',     // string id, or reference to HTML element
-        output:   'workitresult',   // string id, or reference to HTML element
+        logTo:          'console',           // 'none', 'console', or an element id
+        logLevel:       'info',              // 'debug', 'info', 'warn'
+        formNode:       'workitform',        // } \
+        resultNode:     'workitresult',      // } string id, or reference to HTML element
+        conclusionNode: 'workitconclusion',  // } /
         showCalcDetail: 'true'
     }
 
@@ -112,13 +132,19 @@
             }
 
             // work out the DOM elements
-            this.form = this.options.form;
-            if (typeof this.form === 'string') {
-                this.form = document.getElementById(this.form);
+            this.formNode = this.options.formNode;
+            if (typeof this.formNode === 'string') {
+                this.formNode = document.getElementById(this.formNode);
             }
-            this.output = this.options.output;
-            if (typeof this.output === 'string') {
-                this.output = document.getElementById(this.output);
+
+            this.resultNode = this.options.resultNode;
+            if (typeof this.resultNode === 'string') {
+                this.resultNode = document.getElementById(this.resultNode);
+            }
+
+            this.conclusionNode = this.options.conclusionNode;
+            if (typeof this.conclusionNode === 'string') {
+                this.conclusionNode = document.getElementById(this.conclusionNode);
             }
 
             // store user data
@@ -165,7 +191,7 @@
                     // TODO: add max and min?
 
                     html.innerHTML += '<span class="var-note" id="var-note-' + theVar.abbr + '"></span>';
-                    this.form.appendChild(html);
+                    this.formNode.appendChild(html);
 
                     attach(elemId('var-' + theVar.abbr), 'change', function(){ that.calculate(); });
                     attach(elemId('var-' + theVar.abbr), 'keyup',  function(){ that.calculate(); });
@@ -178,7 +204,8 @@
 
             this.log('Calculating results..', 'debug');
             this.results = {};
-            this.output.innerHTML = '';
+            this.resultNode.innerHTML = '';
+            this.conclusionNode.innerHTML = '';
 
             if (this.getAskVars()) {
                 if (this.tableVars.length > 0) {
@@ -191,8 +218,8 @@
                 this.log('Results below:', 'debug');
                 this.log(this.results, 'debug');
 
-                this.showResults();
                 this.showConclusions();
+                this.showResults();
             }
 
         },
@@ -406,7 +433,7 @@
                         resultDiv += info;
                     }
                     resultDiv += '</div>';
-                    this.output.innerHTML += resultDiv;
+                    this.resultNode.innerHTML += resultDiv;
                 }
             }, this);
         },
@@ -432,11 +459,11 @@
 
                 if (eval(condition)) {
                     this.log(' ..conclusion is true', 'debug');
-                    this.output.innerHTML += '<div class="conclusion">' + content + '</div>';
+                    this.conclusionNode.innerHTML += '<div class="conclusion">' + content + '</div>';
                 } else {
                     this.log(' ..conclusion is false', 'debug');
                     if (this.options.debug) {
-                        this.output.innerHTML += '<div class="conclusion" style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:' + conc.condition + '</span> ' + content + '</div>';
+                        this.conclusionNode.innerHTML += '<div class="conclusion" style="opacity: 0.33"><span style="background: #ccc; padding: 0.2em 0.5em; position: relative; top: -0.1em; font-size: 66%; font-weight: bold">not showing:' + conc.condition + '</span> ' + content + '</div>';
                     }
                 }
             }, this);

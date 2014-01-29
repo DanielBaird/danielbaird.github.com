@@ -230,7 +230,7 @@ html, body {
     float: left;
     font-weight: bold;
     padding-right: 1em;
-    content: 'recommendation';
+    content: 'Recommendation';
 }
 .recommendation {
     margin: 0.8em;

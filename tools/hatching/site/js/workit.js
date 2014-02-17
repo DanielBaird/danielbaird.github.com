@@ -33,9 +33,18 @@
     // private funcs & vars =========================================
 
     // shim in a forEach implementation for sassafrassin' IE
-    if (!Array.prototype.forEach) { Array.prototype.forEach = function (fn, scope) {
+    if (!Array.prototype.forEach) { Array.prototype.forEach = function(fn, scope) {
         'use strict'; var i, len; for (i = 0, len = this.length; i < len; ++i) { if (i in this) { fn.call(scope, this[i], i, this); } }
-    }};
+    }}
+
+    // shim in a limited indexOf implementation, also for IE
+    if (!Array.prototype.indexOf) { Array.prototype.indexOf = function(needle) {
+        // doesn't support starting index
+        for (var i = 0, j = this.length; i < j; i++) {
+            if (this[i] === needle) { return i; }
+        }
+        return -1;
+    }}
 
     // convenience functions coz I'm a lazy typist
 

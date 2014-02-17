@@ -77,11 +77,11 @@
                     return
                 }
                 if (severity === 'warn') {
-                    window.console.warn('[workit warn ]', message);
+                    window.console.warn('[workit warn ] ', message);
                 } else {
                     // pad severity to min 5 chars long (or longer if necessary)
                     var padded = (severity + "     ").substr(0, Math.max(severity.length, 5));
-                    window.console.log('[workit ' + padded + ']', message);
+                    window.console.log('[workit ' + padded + '] ', message);
                 }
             });
         }

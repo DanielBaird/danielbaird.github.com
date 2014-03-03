@@ -441,6 +441,6 @@ var data = {
 }
 // --------------------------------------------------------------
 workit.init(data, {
-    logTo: 'console',
+    logTo: 'none',
     logLevel: 'debug'
 });

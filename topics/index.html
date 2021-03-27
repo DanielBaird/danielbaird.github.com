@@ -3,7 +3,8 @@ layout: default
 flavour: topics
 ---
 <h1>Topics</h1>
-{% for topic in site.tags | sort_by:topic order:ascending %}
+{% assign site_tags = site.tags | nested_sort:"topic" %}
+{% for topic in site_tags %}
     <section class="topic">
         {% assign fullname = topic[0] %}
         {% include split_name %}

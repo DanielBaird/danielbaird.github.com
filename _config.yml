@@ -18,10 +18,11 @@ google_analytics:
     tracking_id: 'UA-99244-1'
 
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
+# # Build settings
+# theme: minima
+
+# plugins:
+#   - jekyll-feed
 
 exclude:
   - .sass-cache/

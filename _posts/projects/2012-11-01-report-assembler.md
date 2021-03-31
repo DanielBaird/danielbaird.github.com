@@ -9,7 +9,7 @@ sourceurl: https://github.com/DanielBaird/Report-Assembler
 ---
 This is little JavaScript library that takes JSON data and a carefully written source document, and merges them into a result document.  It's aimed at making prose descriptions of scientific data.  I started this so I could get CliMAS Reports finished as quickly as possible.
 
-Report Assembler replaces @$$variable@ in your document with a value, and will work out @[[ logical == conditions ]]@ to determine which parts of the document should be included.  For example, with this JSON:
+Report Assembler replaces `$$variable` in your document with a value, and will work out `[[ logical == conditions ]]` to determine which parts of the document should be included.  For example, with this JSON:
 
 {% highlight javascript %}
 {
@@ -20,7 +20,7 @@ Report Assembler replaces @$$variable@ in your document with a value, and will w
 
 You can write a report template like this:
 
-{% highlight javascript %}
+{% highlight text %}
 Your local zombie variety moves at $$ZombieSpeedMpS
 metres per second.  If you get bitten, you will turn into a zombie
 after $$IncubationDays [[IncubationDays != 1]]days.
@@ -29,9 +29,8 @@ after $$IncubationDays [[IncubationDays != 1]]days.
 
 ..and Report Assembler can give you a nice report on zombies:
 
-bq. Your local zombie variety moves at 4.5 mph.  If you get bitten, you will turn into a zombie after 2 days.
+> Your local zombie variety moves at 4.5 mph.  If you get bitten, you will turn into a zombie after 2 days.
 
-The library isn't particularly powerful, but it served its purpose of letting the scientist working with me on "CliMAS Reports":{% post_url projects/2012-12-18-climas %} write a kind of super-document with many complicated conditional parts, without them having to be a programmer themselves.
+The library isn't particularly powerful, but it served its purpose of letting the scientist working with me on [CliMAS Reports]({% post_url projects/2012-12-18-climas %}) write a kind of super-document with many complicated conditional parts, without them having to be a programmer themselves.
 
-Find out more from the "source code":{{ page.sourceurl }}, in particular "the readme":https://github.com/DanielBaird/Report-Assembler/blob/master/README.md includes a little documentation.
-`
+Find out more from the [source code]({{ page.sourceurl }}), in particular [the readme](https://github.com/DanielBaird/Report-Assembler/blob/master/README.md) includes a little documentation.

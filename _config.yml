@@ -24,6 +24,8 @@ google_analytics:
 # plugins:
 #   - jekyll-feed
 
+markdown: kramdown
+
 exclude:
   - .sass-cache/
   - .jekyll-cache/

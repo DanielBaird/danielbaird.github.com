@@ -3,15 +3,15 @@ dots = {};
 
 in_header = false;
 window.tick = false;
-tick_length = 100;
+tick_length = 25;
 
 handleDots = function() {
     dotthere = false;
     wk_dots = [];
     w3_dots = [];
     moz_dots = [];
-    step = 3;
-    close = 15;
+    step = 1;
+    close = 66;
     // offset = $header.offset();
     offset = { left: 0, top: 0 }
     $.each(dots, function(ref, d) {

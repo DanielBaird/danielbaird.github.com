@@ -1,0 +1,78 @@
+
+html {
+    font-family: Montserrat, lato, sans-serif;
+    font-size: 14px;
+    font-size: calc(10px + 0.5vw);
+    line-height: 1.5;
+    background: white;
+    padding: 0 1rem;
+    margin: 0;
+}
+
+fieldset {
+    margin: 0 0 1rem 0;
+    border: solid 1px #bdf;
+    border-width: 1px 0 0 1rem;
+}
+legend {
+    padding: 0 0.5em;
+}
+label {
+    display: block;
+    padding: 0.25em 0;
+}
+input, select, button {
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0.2em 0.5em;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+}
+input[type=number] {
+    text-align: center;
+    max-width: 4em;
+}
+
+table.calendar {
+    border-collapse: collapse;
+}
+table.calendar td, table.calendar th {
+    text-align: center;
+    border: 1px solid #aaa;
+    padding: 0.5rem 0;
+    min-width: 3.5rem;
+}
+table.calendar td.weekend, table.calendar th.weekend {
+    min-width: 1.66rem;
+}
+.calendar .dayName, .calendar .monthDate {
+    display: block;
+    line-height: 1.0;
+    padding-top: 0.1em;
+    font-size: 0.8rem;
+}
+.calendar .weekend .dayName { font-size: 0.5rem; }
+.calendar .monthDate {
+    font-weight: 700;
+    opacity: 0.5;
+    font-size: 1.66rem;
+    opacity: 0.25;
+}
+.calendar .weekend .monthDate { font-size: 0.9rem; }
+
+table.calendar td.differentAbove {
+    border-top-width: 4px;
+}
+table.calendar td.differentLeft {
+    border-left-width: 4px;
+}
+table.calendar td.weekend {
+    font-size: 60%;
+    background: #eee;
+}
+
+@media print {
+    fieldset {
+        display: none;
+    }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sprint Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Sprint Calendar</h1>
+    </header>
+
+    <div id="main">
+
+        <form id="config">
+            <fieldset>
+                <legend>Sprints</legend>
+                <label>
+                    Sprint length is
+                    <input type="number" id="sprintLength" name="sprintLength" value="14" /> days
+                </label>
+                <label>
+                    Start on
+                    <input type="date" id="sprintStart" name="sprintStart" value="2024-04-25" />
+                </label>
+                <label>
+                    Call it
+                    <input type="text" id="sprintName" name="sprintName" value="24.1.1" />
+                </label>
+                <label>
+                    Calendar should be
+                    <input type="number" id="calendarLength" name="calendarLength" value="7" />
+                    sprints long
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Display</legend>
+                <label>
+                    Month names look like
+                    <select id="monthNameFormat">
+                        <option value="1">J F M</option>
+                        <option value="3">Jan Feb Mar</option>
+                        <option selected value="33">January February March</option>
+                    </select>
+                </label>
+                <label>
+                    Day names look like
+                    <select>
+                        <option value="D">M T W</option>
+                        <option value="Ddd">Mon Tue Wed</option>
+                        <option value="Dddd">Monday Tuesday Wednesday</option>
+                    </select>
+                </label>
+                <label>
+                    Daily box content looks like
+                    <select>
+                        <option value="D">M T W</option>
+                        <option value="Ddd">Mon Tue Wed</option>
+                        <option value="Dddd">Monday Tuesday Wednesday</option>
+                    </select>
+                </label>
+            </fieldset>
+<!--
+            <fieldset>
+                <label>
+                    <button id="makeCalendar">Make a sprint calendar</button>
+                </label>
+            </fieldset>
+ -->
+        </form>
+
+        <p class="summary"></p>
+        <table class="calendar">
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+    <footer>
+    </footer>
+    <script src="behaviour.js"></script>
+</body>
+
+</html>

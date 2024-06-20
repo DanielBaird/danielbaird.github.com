@@ -2,7 +2,7 @@
 html {
     font-family: Montserrat, lato, sans-serif;
     font-size: 14px;
-    font-size: calc(10px + 0.5vw);
+    font-size: calc(8px + 0.4vw);
     line-height: 1.5;
     background: white;
     padding: 0 1rem;
@@ -32,6 +32,10 @@ input[type=number] {
     text-align: center;
     max-width: 4em;
 }
+input[type=checkbox] {
+    margin-bottom: 0;
+    vertical-align: text-bottom;
+}
 
 table.calendar {
     border-collapse: collapse;
@@ -45,29 +49,37 @@ table.calendar td, table.calendar th {
 table.calendar td.weekend, table.calendar th.weekend {
     min-width: 1.66rem;
 }
+table.calendar td.space, table.calendar th.space {
+    padding-bottom: 2rem;
+}
+table.calendar td.month, table.calendar th.month {
+    font-weight: bold;
+    opacity: 0.66;
+}
+
 .calendar .dayName, .calendar .monthDate {
     display: block;
-    line-height: 1.0;
-    padding-top: 0.1em;
+    line-height: 1;
+    padding-top: 0.1rem;
     font-size: 0.8rem;
 }
 .calendar .weekend .dayName { font-size: 0.5rem; }
 .calendar .monthDate {
     font-weight: 700;
-    opacity: 0.5;
-    font-size: 1.66rem;
-    opacity: 0.25;
+    font-size: 1.5rem;
+    opacity: 0.33;
 }
 .calendar .weekend .monthDate { font-size: 0.9rem; }
 
 table.calendar td.differentAbove {
-    border-top-width: 4px;
+    border-top-width: 3px;
 }
 table.calendar td.differentLeft {
-    border-left-width: 4px;
+    border-left-width: 3px;
 }
 table.calendar td.weekend {
     font-size: 60%;
+    opacity: 0.66;
     background: #eee;
 }
 

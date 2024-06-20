@@ -32,8 +32,8 @@
                     <input type="date" id="sprintStart" name="sprintStart" value="2024-04-25" />
                 </label>
                 <label>
-                    Call it
-                    <input type="text" id="sprintName" name="sprintName" value="24.1.1" />
+                    First sprint is called
+                    <input type="text" id="sprintName" name="sprintName" value="24.2.1" />
                 </label>
                 <label>
                     Calendar should be
@@ -47,34 +47,34 @@
                     Month names look like
                     <select id="monthNameFormat">
                         <option value="1">J F M</option>
-                        <option value="3">Jan Feb Mar</option>
-                        <option selected value="33">January February March</option>
+                        <option selected value="3">Jan Feb Mar</option>
+                        <option value="33">January February March</option>
                     </select>
                 </label>
                 <label>
                     Day names look like
-                    <select>
-                        <option value="D">M T W</option>
-                        <option value="Ddd">Mon Tue Wed</option>
-                        <option value="Dddd">Monday Tuesday Wednesday</option>
+                    <select id="dayNameFormat">
+                        <option value="1">M T W</option>
+                        <option selected value="3">Mon Tue Wed</option>
+                        <option value="33">Monday Tuesday Wednesday</option>
                     </select>
                 </label>
                 <label>
-                    Daily box content looks like
-                    <select>
-                        <option value="D">M T W</option>
-                        <option value="Ddd">Mon Tue Wed</option>
-                        <option value="Dddd">Monday Tuesday Wednesday</option>
-                    </select>
+                    <input id="bigDates" name="bigDates" type="checkbox" checked />
+                    Draw dates big
+                </label>
+                <label>
+                    <input id="addSpace" name="addSpace" type="checkbox" />
+                    Add space to each box
                 </label>
             </fieldset>
-<!--
+            <!--
             <fieldset>
                 <label>
                     <button id="makeCalendar">Make a sprint calendar</button>
                 </label>
             </fieldset>
- -->
+            -->
         </form>
 
         <p class="summary"></p>

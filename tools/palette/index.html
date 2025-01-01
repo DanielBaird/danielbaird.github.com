@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://palette-ring-maker.surge.sh/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Palettes</title>
+    <style>
+/*------------------------------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/ */
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+b,u,i,center,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary,
+time,mark,audio,video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    font:inherit;
+    vertical-align:baseline;
+}
+body { line-height:1; }
+ol,ul { list-style:none; }
+blockquote,q { quotes:none; }
+blockquote:before,blockquote:after,
+q:before,q:after {
+    content:’’;
+    content:none;
+}
+ins { text-decoration:none; }
+del { text-decoration:line-through; }
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+/* ---------------------------------------------------------- */
+:root {
+    --ringSize: 80vmin;
+    --ringWidth: 25vmin;
+    --dotWidth: 4.5vmin;
+    --dotBorder: 0.18;
+    --lineWidth: 0.5vmin;
+    font-family: sans-serif;
+    line-height: 1.5;
+}
+:root:after {
+    content: "made with ♥️ by Daniel Baird \00a0 \00a0 daniel@danielbaird.com \00a0 \00a0 v2024.1";
+    font-size: 80%;
+    text-align: center;
+    opacity: 0.33;
+    position: fixed;
+    bottom: 1em;
+    left: 0; right: 0;
+}
+:focus {
+    outline: #39c;
+}
+.wrapper {
+    width: fit-content;
+    padding: 1em 1em 3em;
+    margin: 0 auto;
+}
+.color-ring {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: var(--ringWidth);
+    width: var(--ringSize);
+    height: var(--ringSize);
+    border-radius: 50%;
+    background: conic-gradient(
+        hsl(360, 100%, 50%),
+        hsl(355, 100%, 50%),
+        hsl(350, 100%, 50%),
+        hsl(345, 100%, 50%),
+        hsl(340, 100%, 50%),
+        hsl(335, 100%, 50%),
+        hsl(330, 100%, 50%),
+        hsl(325, 100%, 50%),
+        hsl(320, 100%, 50%),
+        hsl(315, 100%, 50%),
+        hsl(310, 100%, 50%),
+        hsl(305, 100%, 50%),
+        hsl(300, 100%, 50%),
+        hsl(295, 100%, 50%),
+        hsl(290, 100%, 50%),
+        hsl(285, 100%, 50%),
+        hsl(280, 100%, 50%),
+        hsl(275, 100%, 50%),
+        hsl(270, 100%, 50%),
+        hsl(265, 100%, 50%),
+        hsl(260, 100%, 50%),
+        hsl(255, 100%, 50%),
+        hsl(250, 100%, 50%),
+        hsl(245, 100%, 50%),
+        hsl(240, 100%, 50%),
+        hsl(235, 100%, 50%),
+        hsl(230, 100%, 50%),
+        hsl(225, 100%, 50%),
+        hsl(220, 100%, 50%),
+        hsl(215, 100%, 50%),
+        hsl(210, 100%, 50%),
+        hsl(205, 100%, 50%),
+        hsl(200, 100%, 50%),
+        hsl(195, 100%, 50%),
+        hsl(190, 100%, 50%),
+        hsl(185, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(175, 100%, 50%),
+        hsl(170, 100%, 50%),
+        hsl(165, 100%, 50%),
+        hsl(160, 100%, 50%),
+        hsl(155, 100%, 50%),
+        hsl(150, 100%, 50%),
+        hsl(145, 100%, 50%),
+        hsl(140, 100%, 50%),
+        hsl(135, 100%, 50%),
+        hsl(130, 100%, 50%),
+        hsl(125, 100%, 50%),
+        hsl(120, 100%, 50%),
+        hsl(115, 100%, 50%),
+        hsl(110, 100%, 50%),
+        hsl(105, 100%, 50%),
+        hsl(100, 100%, 50%),
+        hsl(95, 100%, 50%),
+        hsl(90, 100%, 50%),
+        hsl(85, 100%, 50%),
+        hsl(80, 100%, 50%),
+        hsl(75, 100%, 50%),
+        hsl(70, 100%, 50%),
+        hsl(65, 100%, 50%),
+        hsl(60, 100%, 50%),
+        hsl(55, 100%, 50%),
+        hsl(50, 100%, 50%),
+        hsl(45, 100%, 50%),
+        hsl(40, 100%, 50%),
+        hsl(35, 100%, 50%),
+        hsl(30, 100%, 50%),
+        hsl(25, 100%, 50%),
+        hsl(20, 100%, 50%),
+        hsl(15, 100%, 50%),
+        hsl(10, 100%, 50%),
+        hsl(5, 100%, 50%),
+        hsl(0, 100%, 50%)
+    );
+}
+.color-ring:before {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+    left: var(--ringWidth); right: var(--ringWidth); top: var(--ringWidth); bottom: var(--ringWidth);
+    background: white;
+}
+.color-ring .dot {
+    position: absolute;
+    box-sizing: border-box;
+    margin-left: calc(-0.5 * var(--dotWidth));
+    margin-top: calc(-0.5 * var(--dotWidth));
+    width: var(--dotWidth);
+    height: var(--dotWidth);
+    border-radius: 50%;
+    border: calc(var(--dotBorder) * var(--dotWidth)) solid white;
+    background-color: #999;
+}
+.color-ring .line {
+    position: absolute;
+    margin-left: calc(-0.5 * var(--lineWidth));
+    width: var(--lineWidth);
+    /* height: var(--lineWidth); */
+    /* border-radius: 50%; */
+    /* border: calc(0.33 * var(--dotWidth)) solid white; */
+    background-color: #fff;
+    opacity: 0.3;
+    transform-origin: top center;
+}
+.controls {
+    vertical-align: top;
+    display: inline-flex;
+    flex-direction: column;
+}
+.controls label {
+    padding: 0.5em 0;
+    word-wrap: none;
+}
+.controls input[type="number"] {
+    font-size: inherit;
+    font-family: inherit;
+    width: 4em;
+    text-align: center;
+}
+input[type=number]::-webkit-inner-spin-button {
+    /* always show the up/down spin buttons */
+    opacity: 1
+}
+.results {
+    margin: 1em 0;
+    font-size: 90%;
+    font-family: monospace;
+    letter-spacing: -0.05em;
+}
+.results td {
+    padding: 0.1em 0.33em;
+}
+.results .box {
+    height: 2em;
+    width: 2em;
+    display: inline-block;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body class="vsc-initialized">
+    <div class="wrapper">
+        <div class="color-ring"><div class="dot" style="background-color: rgb(255, 0, 0); left: 40vmin; top: 13vmin;"></div><div class="dot" style="background-color: rgb(255, 0, 204); left: 60.8824vmin; top: 21.1974vmin;"></div><div class="dot" style="background-color: rgb(102, 0, 255); left: 69.04vmin; top: 43.0522vmin;"></div><div class="dot" style="background-color: rgb(0, 102, 255); left: 57.8099vmin; top: 64.5132vmin;"></div><div class="dot" style="background-color: rgb(0, 255, 204); left: 33.4716vmin; top: 70.7138vmin;"></div><div class="dot" style="background-color: rgb(0, 255, 0); left: 11.8542vmin; top: 56.25vmin;"></div><div class="dot" style="background-color: rgb(204, 255, 0); left: 8.0445vmin; top: 29.617vmin;"></div><div class="dot" style="background-color: rgb(255, 102, 0); left: 25.8862vmin; top: 8.29997vmin;"></div><div class="dot" style="background-color: rgb(255, 0, 102); left: 54.5612vmin; top: 7.29507vmin;"></div><div class="dot" style="background-color: rgb(204, 0, 255); left: 75.094vmin; top: 28.5973vmin;"></div></div>
+
+        <div class="controls">
+            <label>
+                <input name="degStart" oninput="generate()" type="number" value="0">
+                where to start
+            </label><label>
+                <input name="degJump" oninput="generate()" type="number" value="48">
+                degrees per step
+            </label><label>
+                <input name="degCount" oninput="generate()" type="number" value="5">
+                how many colours?
+            </label><label for="defaultLume">
+                light
+                <input type="radio" name="lume" value="0.80">
+                <input type="radio" name="lume" value="0.65">
+                <input type="radio" name="lume" value="0.50" checked="" id="defaultLume">
+                <input type="radio" name="lume" value="0.40">
+                <input type="radio" name="lume" value="0.30">
+                dark
+            </label><label for="defaultSat">
+                bright
+                <input type="radio" name="sat" value="1.00" checked="" id="defaultSat">
+                <input type="radio" name="sat" value="0.85">
+                <input type="radio" name="sat" value="0.70">
+                <input type="radio" name="sat" value="0.55">
+                <input type="radio" name="sat" value="0.40">
+                muted
+            </label>
+
+            <table class="results"><tr><td><div class="hsl box" style="background-color: rgb(255, 0, 0);"></div></td><td>hsl(360,100%,50%)</td><td>rgb(255,0,0)</td><td>#ff0000</td></tr><tr><td><div class="hsl box" style="background-color: rgb(255, 0, 204);"></div></td><td>hsl(312,100%,50%)</td><td>rgb(255,0,204)</td><td>#ff00cc</td></tr><tr><td><div class="hsl box" style="background-color: rgb(102, 0, 255);"></div></td><td>hsl(264,100%,50%)</td><td>rgb(102,0,255)</td><td>#6600ff</td></tr><tr><td><div class="hsl box" style="background-color: rgb(0, 102, 255);"></div></td><td>hsl(216,100%,50%)</td><td>rgb(0,102,255)</td><td>#0066ff</td></tr><tr><td><div class="hsl box" style="background-color: rgb(0, 255, 204);"></div></td><td>hsl(168,100%,50%)</td><td>rgb(0,255,204)</td><td>#00ffcc</td></tr><tr><td><div class="hsl box" style="background-color: rgb(0, 255, 0);"></div></td><td>hsl(120,100%,50%)</td><td>rgb(0,255,0)</td><td>#00ff00</td></tr><tr><td><div class="hsl box" style="background-color: rgb(204, 255, 0);"></div></td><td>hsl(72,100%,50%)</td><td>rgb(204,255,0)</td><td>#ccff00</td></tr><tr><td><div class="hsl box" style="background-color: rgb(255, 102, 0);"></div></td><td>hsl(24,100%,50%)</td><td>rgb(255,102,0)</td><td>#ff6600</td></tr><tr><td><div class="hsl box" style="background-color: rgb(255, 0, 102);"></div></td><td>hsl(336,100%,50%)</td><td>rgb(255,0,102)</td><td>#ff0066</td></tr><tr><td><div class="hsl box" style="background-color: rgb(204, 0, 255);"></div></td><td>hsl(288,100%,50%)</td><td>rgb(204,0,255)</td><td>#cc00ff</td></tr></table>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------------
+        const ring = document.querySelector('.color-ring')
+        const results = document.querySelector('.results')
+        let lume = 0.5
+        let sat = 1.0
+        let previousDot = null
+        // --------------------------------------------------------------------
+        document.querySelectorAll('input').forEach(function(i) {
+            i.oninput = generate
+        })
+        document.querySelectorAll('[name=lume]').forEach(function(r) {
+            r.onclick = setLume
+        })
+        document.querySelectorAll('[name=sat]').forEach(function(s) {
+            s.onclick = setSat
+        })
+        // --------------------------------------------------------------------
+        function generate() {
+
+            previousDot = null
+            ring.innerHTML = ''
+            results.innerHTML = ''
+
+            const degStart = +(document.querySelector('input[name=degStart]').value)
+            const degJump = +(document.querySelector('input[name=degJump]').value)
+            const degCount = +(document.querySelector('input[name=degCount]').value)
+
+            const loops = Math.ceil((degJump * (degCount -1)) / 360)
+
+            for (let d = 0; d < degCount; d++) {
+                angle = degStart + (d * degJump) % 360
+                addResult(angle)
+                if (loops > 1) {
+                    drawDot(angle, d, degCount)
+                } else {
+                    drawDot(angle)
+                }
+            }
+        }
+        // --------------------------------------------------------------------
+        function addResult(angle) {
+            const res = document.createElement('tr')
+
+            const hsl = hslToCss(360 - angle, sat, lume)
+
+            const boxCell = document.createElement('td')
+            const box = document.createElement('div')
+            box.className = 'hsl box'
+            box.style.backgroundColor = hsl
+            boxCell.appendChild(box)
+            res.appendChild(boxCell)
+
+            const hslCell = document.createElement('td')
+            hslCell.appendChild(document.createTextNode(hsl))
+            res.appendChild(hslCell)
+
+            const rgb = 'rgb(' + hslToRgb(angle, sat, lume).join(',') + ')'
+            const rgbCell = document.createElement('td')
+            rgbCell.appendChild(document.createTextNode(rgb))
+            res.appendChild(rgbCell)
+
+            const hex = '#' + hslToHex(angle, sat, lume)
+            const hexCell = document.createElement('td')
+            hexCell.appendChild(document.createTextNode(hex))
+            res.appendChild(hexCell)
+
+            results.appendChild(res)
+        }
+        // --------------------------------------------------------------------
+        function setLume(event) {
+            lume = +event.target.value
+        }
+        // --------------------------------------------------------------------
+        function setSat(event) {
+            sat = +event.target.value
+        }
+        // --------------------------------------------------------------------
+        function drawLine(dot1, dot2) {
+            const dotDiamCss = getComputedStyle(ring).getPropertyValue('--dotWidth')
+            const [, dotDiamStr] = /(\d+\.?\d*)(\D+)/.exec(dotDiamCss)
+            const dotDiam = +dotDiamStr
+            let xDiff = Math.abs(dot2.left-dot1.left)
+            let yDiff = Math.abs(dot2.top-dot1.top)
+            let angle = Math.atan( yDiff / xDiff )
+            let len = Math.sqrt( xDiff * xDiff + yDiff * yDiff ) - dotDiam/2
+            if (dot2.top < dot1.top) { angle *= -1 }
+            angle += 0.5 * Math.PI
+            if (dot2.left < dot1.left) { angle *= -1 }
+            const line = document.createElement('div')
+            line.className = 'line'
+            line.style.left = '' + dot2.left + dot2.units
+            line.style.top = '' + dot2.top + dot2.units
+            line.style.height = '' + len + dot2.units
+            line.style.transform = 'rotate(' + angle + 'rad )'
+            ring.appendChild(line)
+        }
+        // --------------------------------------------------------------------
+        function drawDot(angle, index, total) {
+            const dot = document.createElement('div')
+            dot.className = 'dot'
+            // work out the ring dimensions
+            const ringDiam = getComputedStyle(ring).getPropertyValue('--ringSize')
+            const ringWidth = getComputedStyle(ring).getPropertyValue('--ringWidth')
+            const dotDiam = getComputedStyle(ring).getPropertyValue('--dotWidth')
+            // hopefully they're in the same units
+            const [, rDiamStr, units] = /(\d+\.?\d*)(\D+)/.exec(ringDiam)
+            const [, rWidthStr] = /(\d+\.?\d*)(\D+)/.exec(ringWidth)
+            const [, dotDiamStr] = /(\d+\.?\d*)(\D+)/.exec(dotDiam)
+            const rDiam = +rDiamStr
+            const rWidth = +rWidthStr
+            const dotW = +dotDiamStr
+            let radius = (rDiam - rWidth) / 2
+            if (total) {
+                // slowly increase radius so dots spiral out
+                radius = (rDiam/2) - rWidth + dotW/2
+                radius += index * (rWidth - dotW) / total
+            }
+            const angleRad = degToRad(angle)
+            let left = radius * Math.sin(angleRad)
+            left += rDiam/2
+            let top = radius * Math.cos(angleRad)
+            top = rDiam/2 - top
+            dot.style.backgroundColor = hslToCss(360 - angle, sat, lume)
+            dot.style.left = '' + left + units
+            dot.style.top = '' + top + units
+            if (previousDot) {
+                drawLine(previousDot, {left, top, units})
+            }
+            ring.appendChild(dot)
+            previousDot = {left, top, units}
+        }
+
+/*
+            const angleRad = degToRad(angle)
+            const dotRadius = dotW/2
+            let left = ringRadius * Math.sin(angleRad)
+            let drawLeft = left + ringRadius
+            let top = ringRadius * Math.cos(angleRad)
+            let drawTop = ringRadius - top
+            dot.style.backgroundColor = hslToCss(360 - angle, sat, lume)
+            dot.style.left = '' + drawLeft + units
+            dot.style.top = '' + drawTop + units
+
+*/
+
+
+
+        // --------------------------------------------------------------------
+        function degToRad(angle) { return angle * Math.PI / 180.0 }
+        // --------------------------------------------------------------------
+        function hslToRgb(h, s, l) {
+            // assume hue is in degrees
+            h = h / 360.0
+            let r, g, b
+            if (s === 0) { // then it's grey
+                r = g = b = l
+            } else { // ..it's a proper colour
+                const hue2rgb = function(p, q, t) {
+                    if (t < 0) t += 1
+                    if (t > 1) t -= 1
+                    if (t < 1/6) return p + (q - p) * 6 * t
+                    if (t < 1/2) return q
+                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6
+                    return p
+                }
+                var q = l < 0.5 ? (l * (1 + s)) : (l + s - l * s)
+                var p = 2 * l - q
+                r = hue2rgb(p, q, h + 1/3)
+                b = hue2rgb(p, q, h)
+                g = hue2rgb(p, q, h - 1/3)
+            }
+            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        }
+        // --------------------------------------------------------------------
+        function hslToHex(h, s, l) {
+            return hslToRgb(h, s, l).map(function (c) {
+                let hex = c.toString(16)
+                if (hex.length < 2) {
+                    return '0' + hex
+                }
+                return hex
+            }).join('')
+        }
+        // --------------------------------------------------------------------
+        function hslToCss(h, s, l) {
+            return 'hsl(' +
+                h + ',' +
+                Math.round((s * 100)) + '%,' +
+                Math.round((l * 100)) + '%)'
+        }
+        // --------------------------------------------------------------------
+        generate()
+    </script>
+
+
+</body></html>
